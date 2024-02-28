@@ -11,9 +11,18 @@ using Object = UnityEngine.Object;
 using static LethalTubeRemoval.TubeRemoval;
 
 //NOTES
-//Environment/HangarShip/Bunkbeds
-//Environment/HangarShip/FileCabinet
-//Environment/HangarShip/ScavengerModelSuitParts/Circle.002
+//Environment/HangarShip/ClipboardManual
+//Environment/HangarShip/DoorGenerator
+//Environment/HangarShip/ScavengerModelSuitParts/Circle.004 boots under clothes
+//Environment/HangarShip/ScavengerModelSuitParts/Circle.001 desk mask
+//Environment/HangarShip/ShipModels2b/AirFilterThing
+//Environment/HangarShip/StickyNoteItem
+
+//BATTERIES
+//Environment/HangarShip/SmallDetails/BatterySingle
+//Environment/HangarShip/SmallDetails/BatterySingle (1)
+//Environment/HangarShip/SmallDetails/BatterySingle (2)
+//Environment/HangarShip/SmallDetails/BatteryPack
 
 namespace LethalTubeRemoval.Patches
 {
@@ -21,15 +30,29 @@ namespace LethalTubeRemoval.Patches
     internal class TubeRemovalPatch
     {
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(StartOfRound), "Start")]
+        [HarmonyPatch(typeof(StartOfRound), "Start")]           //runs the patch each time the round is started
         static void TubeRemove()
         {
-            GameObject tube = GameObject.Find("Environment/HangarShip/BezierCurve");
+            GameObject tube = GameObject.Find("Environment/HangarShip/BezierCurve");        //sets each ship item path as a GameObject
             GameObject beds = GameObject.Find("Environment/HangarShip/Bunkbeds");
             GameObject cabinet = GameObject.Find("Environment/HangarShip/FileCabinet");
             GameObject tank = GameObject.Find("Environment/HangarShip/ScavengerModelSuitParts/Circle.002");
 
-            if (Config.deleteTube.Value)
+
+            GameObject clipboard = GameObject.Find("Environment/HangarShip/ClipboardManual");
+            GameObject doorGenerator = GameObject.Find("Environment/HangarShip/DoorGenerator");
+            GameObject boots = GameObject.Find("Environment/HangarShip/ScavengerModelSuitParts/Circle.004");
+            GameObject mask = GameObject.Find("Environment/HangarShip/ScavengerModelSuitParts/Circle.001");
+            GameObject airFilter = GameObject.Find("Environment/HangarShip/ShipModels2b/AirFilterThing");
+            GameObject stickyNote = GameObject.Find("Environment/HangarShip/StickyNoteItem");
+
+            GameObject battery = GameObject.Find("Environment/HangarShip/SmallDetails/BatterySingle");
+            GameObject battery1 = GameObject.Find("Environment/HangarShip/SmallDetails/BatterySingle (1)");
+            GameObject battery2 = GameObject.Find("Environment/HangarShip/SmallDetails/BatterySingle (2)");
+            GameObject batteryPack = GameObject.Find("Environment/HangarShip/SmallDetails/BatteryPack");
+
+
+            if (Config.deleteTube.Value)            //checks config file for boolean value and if true deletes the item
             {
                 GameObject.Destroy(tube);
             }
@@ -47,6 +70,44 @@ namespace LethalTubeRemoval.Patches
             if (Config.deleteOxygenTank.Value)
             {
                 GameObject.Destroy(tank);
+            }
+
+            if (Config.deleteClipboard.Value)
+            {
+                GameObject.Destroy(clipboard);
+            }
+
+            if (Config.deleteDoorGenerator.Value)
+            {
+                GameObject.Destroy(doorGenerator);
+            }
+
+            if (Config.deleteBoots.Value)
+            {
+                GameObject.Destroy(boots);
+            }
+
+            if (Config.deleteMask.Value)
+            {
+                GameObject.Destroy(mask);
+            }
+
+            if (Config.deleteAirFilter.Value)
+            {
+                GameObject.Destroy(airFilter);
+            }
+
+            if (Config.deleteStickyNote.Value)
+            {
+                GameObject.Destroy(stickyNote);
+            }
+
+            if (Config.deleteBatteries.Value)
+            {
+                GameObject.Destroy(battery);
+                GameObject.Destroy(battery1);
+                GameObject.Destroy(battery2);
+                GameObject.Destroy(batteryPack);
             }
         }
     }
