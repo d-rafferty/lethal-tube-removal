@@ -10,20 +10,6 @@ using System.Runtime.CompilerServices;
 using Object = UnityEngine.Object;
 using static LethalTubeRemoval.TubeRemoval;
 
-//NOTES
-//Environment/HangarShip/ClipboardManual
-//Environment/HangarShip/DoorGenerator
-//Environment/HangarShip/ScavengerModelSuitParts/Circle.004 boots under clothes
-//Environment/HangarShip/ScavengerModelSuitParts/Circle.001 desk mask
-//Environment/HangarShip/ShipModels2b/AirFilterThing
-//Environment/HangarShip/StickyNoteItem
-
-//BATTERIES
-//Environment/HangarShip/SmallDetails/BatterySingle
-//Environment/HangarShip/SmallDetails/BatterySingle (1)
-//Environment/HangarShip/SmallDetails/BatterySingle (2)
-//Environment/HangarShip/SmallDetails/BatteryPack
-
 namespace LethalTubeRemoval.Patches
 {
     [HarmonyPatch(typeof(GameObject))]
