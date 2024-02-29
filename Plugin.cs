@@ -21,7 +21,7 @@ namespace LethalTubeRemoval
     {
         private const string modGUID = "Hamster.LethalTubeRemoval";
         private const string modName = "Lethal Tube Removal";
-        private const string modVersion = "1.1.1";
+        private const string modVersion = "1.1.2";
 
         public static new Config MyConfig { get; internal set; }
 
@@ -44,6 +44,7 @@ namespace LethalTubeRemoval
             public static ConfigEntry<bool> deleteAirFilter;
             public static ConfigEntry<bool> deleteStickyNote;
             public static ConfigEntry<bool> deleteBatteries;
+            public static ConfigEntry<bool> deleteVent;
 
             public Config(ConfigFile cfg)
             {
@@ -145,6 +146,15 @@ namespace LethalTubeRemoval
                 );
                 var batteryToggle = new BoolCheckBoxConfigItem(deleteBatteries, requiresRestart: false);
                 LethalConfigManager.AddConfigItem(batteryToggle);
+
+                deleteVent = cfg.Bind(
+                    "General",
+                    "Vent",
+                    false,
+                    "Deletes the vent below the charging station"
+                );
+                var ventToggle = new BoolCheckBoxConfigItem(deleteVent, requiresRestart: false);
+                LethalConfigManager.AddConfigItem(ventToggle);
             }
         }
 

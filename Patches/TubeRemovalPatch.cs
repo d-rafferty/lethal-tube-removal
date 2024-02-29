@@ -31,6 +31,7 @@ namespace LethalTubeRemoval.Patches
             GameObject mask = GameObject.Find("Environment/HangarShip/ScavengerModelSuitParts/Circle.001");
             GameObject airFilter = GameObject.Find("Environment/HangarShip/ShipModels2b/AirFilterThing");
             GameObject stickyNote = GameObject.Find("Environment/HangarShip/StickyNoteItem");
+            GameObject vent = GameObject.Find("Environment/HangarShip/VentEntrance/Hinge");
 
             GameObject battery = GameObject.Find("Environment/HangarShip/SmallDetails/BatterySingle");
             GameObject battery1 = GameObject.Find("Environment/HangarShip/SmallDetails/BatterySingle (1)");
@@ -94,6 +95,11 @@ namespace LethalTubeRemoval.Patches
                 GameObject.Destroy(battery1);
                 GameObject.Destroy(battery2);
                 GameObject.Destroy(batteryPack);
+            }
+
+            if (Config.deleteVent.Value)
+            {
+                GameObject.Destroy(vent);
             }
         }
     }
