@@ -38,6 +38,17 @@ namespace LethalTubeRemoval.Patches
             GameObject battery2 = GameObject.Find("Environment/HangarShip/SmallDetails/BatterySingle (2)");
             GameObject batteryPack = GameObject.Find("Environment/HangarShip/SmallDetails/BatteryPack");
 
+            GameObject monitorCords = GameObject.Find("Environment/HangarShip/WallCords");
+            GameObject doorSpeaker = GameObject.Find("Environment/HangarShip/ShipModels2b/Cube.005 (1)");
+            GameObject mainSpeaker = GameObject.Find("Environment/HangarShip/ShipModels2b/Cube.005 (2)");
+            GameObject posters = GameObject.Find("Environment/HangarShip/Plane.001");
+            GameObject clothingRack = GameObject.Find("Environment/HangarShip/NurbsPath.004");
+            GameObject clothingHook= GameObject.Find("Environment/HangarShip/NurbsPath.002"); 
+            GameObject defaultSuit = GameObject.Find("ChangableSuit(Clone)");
+            GameObject doorTubes = GameObject.Find("Environment/HangarShip/NurbsPath");
+            GameObject keyboardCord = GameObject.Find("Environment/HangarShip/Terminal/BezierCurve.001");
+
+
 
             if (Config.deleteTube.Value)            //checks config file for boolean value and if true deletes the item
             {
@@ -100,6 +111,43 @@ namespace LethalTubeRemoval.Patches
             if (Config.deleteVent.Value)
             {
                 GameObject.Destroy(vent);
+            }
+
+            if (Config.deleteMonitorCords.Value)
+            {
+                GameObject.Destroy(monitorCords);
+            }
+
+            if (Config.deleteDoorSpeaker.Value)
+            {
+                GameObject.Destroy(doorSpeaker);
+            }
+
+            if (Config.deleteMainSpeaker.Value)
+            {
+                GameObject.Destroy(mainSpeaker);
+            }
+
+            if (Config.deletePosters.Value)
+            {
+                GameObject.Destroy(posters);
+            }
+
+            if (Config.deleteClothingRack.Value)
+            {
+                GameObject.Destroy(clothingRack);
+                GameObject.Destroy(clothingHook);
+                GameObject.Destroy(defaultSuit);
+            }
+
+            if (Config.deleteDoorTubes.Value)
+            {
+                GameObject.Destroy(doorTubes);
+            }
+
+            if (Config.deleteKeyboardCord.Value)
+            {
+                GameObject.Destroy(keyboardCord);
             }
         }
     }

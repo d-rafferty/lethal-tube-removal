@@ -21,7 +21,7 @@ namespace LethalTubeRemoval
     {
         private const string modGUID = "Hamster.LethalTubeRemoval";
         private const string modName = "Lethal Tube Removal";
-        private const string modVersion = "1.1.2";
+        private const string modVersion = "1.2.0";
 
         public static new Config MyConfig { get; internal set; }
 
@@ -45,6 +45,15 @@ namespace LethalTubeRemoval
             public static ConfigEntry<bool> deleteStickyNote;
             public static ConfigEntry<bool> deleteBatteries;
             public static ConfigEntry<bool> deleteVent;
+            public static ConfigEntry<bool> deleteMonitorCords;
+            public static ConfigEntry<bool> deleteDoorSpeaker;
+            public static ConfigEntry<bool> deleteMainSpeaker; 
+            public static ConfigEntry<bool> deletePosters; 
+            public static ConfigEntry<bool> deleteClothingRack;
+            public static ConfigEntry<bool> deleteDoorTubes;
+            public static ConfigEntry<bool> deleteKeyboardCord;
+            public static ConfigEntry<bool> terminalReposition;
+            
 
             public Config(ConfigFile cfg)
             {
@@ -155,6 +164,79 @@ namespace LethalTubeRemoval
                 );
                 var ventToggle = new BoolCheckBoxConfigItem(deleteVent, requiresRestart: false);
                 LethalConfigManager.AddConfigItem(ventToggle);
+
+                deleteMonitorCords = cfg.Bind(                                  
+                   "General",                                           
+                   "Monitor Cords",
+                   false,                                               
+                   "Deletes the cords behind the monitors"                      
+               );
+                var monitorCordsToggle = new BoolCheckBoxConfigItem(deleteMonitorCords, requiresRestart: false);    
+                LethalConfigManager.AddConfigItem(monitorCordsToggle);
+
+                deleteDoorSpeaker = cfg.Bind(                                  
+                   "General",                                        
+                   "Door Speaker",
+                   false,                                            
+                   "Deletes the speaker near the ship door"                   
+               );
+                var doorSpeakerToggle = new BoolCheckBoxConfigItem(deleteDoorSpeaker, requiresRestart: false); 
+                LethalConfigManager.AddConfigItem(doorSpeakerToggle);
+
+                deleteMainSpeaker = cfg.Bind(                                 
+                   "General",                                           
+                   "Main Speaker",
+                   false,                                                
+                   "Deletes the main speaker that normally plays audio. WARNING: No ship-speaker audio will play if this is selected!"                      
+               );
+                var mainSpeakerToggle = new BoolCheckBoxConfigItem(deleteMainSpeaker, requiresRestart: false);    
+                LethalConfigManager.AddConfigItem(mainSpeakerToggle);
+
+                deletePosters = cfg.Bind(
+                   "General",
+                   "Posters",
+                   false,
+                   "Deletes the posters inside the ship"
+               );
+                var postersToggle = new BoolCheckBoxConfigItem(deletePosters, requiresRestart: false);
+                LethalConfigManager.AddConfigItem(postersToggle);
+
+                deleteClothingRack = cfg.Bind(
+                   "General",
+                   "Clothing Rack",
+                   false,
+                   "Deletes the clothing rack. WARNING: Purchasable suits will not be able to be equipped if this is selected!"
+               );
+                var clothingRackToggle = new BoolCheckBoxConfigItem(deleteClothingRack, requiresRestart: false);
+                LethalConfigManager.AddConfigItem(clothingRackToggle);
+
+                deleteDoorTubes = cfg.Bind(
+                   "General",
+                   "Door Tubes",
+                   false,
+                   "Deletes the tubes by the ship door."
+               );
+                var doorTubesToggle = new BoolCheckBoxConfigItem(deleteDoorTubes, requiresRestart: false);
+                LethalConfigManager.AddConfigItem(doorTubesToggle);
+
+                deleteKeyboardCord = cfg.Bind(
+                   "General",
+                   "Keyboard Cord",
+                   true,
+                   "Deletes the cord coming out of the keyboard on the terminal"
+               );
+                var keyboardCordToggle = new BoolCheckBoxConfigItem(deleteKeyboardCord, requiresRestart: false);
+                LethalConfigManager.AddConfigItem(keyboardCordToggle);
+
+
+                terminalReposition = cfg.Bind(
+                   "General",
+                   "Terminal Reposition",
+                   false,
+                   "Sets the terminal to the left of the monitors by default."
+               );
+                var terminalRepositionToggle = new BoolCheckBoxConfigItem(terminalReposition, requiresRestart: false);
+                LethalConfigManager.AddConfigItem(terminalRepositionToggle);
             }
         }
 
@@ -172,6 +254,7 @@ namespace LethalTubeRemoval
 
             harmony.PatchAll(typeof(TubeRemoval));
             harmony.PatchAll(typeof(TubeRemovalPatch));
+            harmony.PatchAll(typeof(TerminalReposition));
         }
     }
 
