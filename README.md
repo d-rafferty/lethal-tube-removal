@@ -4,3 +4,7 @@ Lethal Company mod that allows for removal of certain items from the ship and al
 
 # Contribution
 Feel free to contribute anything or submit any requests and I will look into adding it!
+
+## Link To ThunderStore Page
+
+https://thunderstore.io/c/lethal-company/p/Hamster/LethalPipeRemoval/
