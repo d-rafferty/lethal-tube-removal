@@ -125,7 +125,7 @@ namespace LethalTubeRemoval.Patches
 
             if (Config.deleteMainSpeaker.Value)
             {
-                GameObject.Destroy(mainSpeaker);
+                //GameObject.Destroy(mainSpeaker);
             }
 
             if (Config.deletePosters.Value)

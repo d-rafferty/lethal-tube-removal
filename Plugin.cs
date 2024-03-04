@@ -21,7 +21,7 @@ namespace LethalTubeRemoval
     {
         private const string modGUID = "Hamster.LethalTubeRemoval";
         private const string modName = "Lethal Tube Removal";
-        private const string modVersion = "1.2.0";
+        private const string modVersion = "1.2.2";
 
         public static new Config MyConfig { get; internal set; }
 
@@ -188,15 +188,16 @@ namespace LethalTubeRemoval
                    "Main Speaker",
                    false,                                                
                    "Deletes the main speaker that normally plays audio. WARNING: No ship-speaker audio will play if this is selected!"                      
-               );
-                var mainSpeakerToggle = new BoolCheckBoxConfigItem(deleteMainSpeaker, requiresRestart: false);    
+               );   
+                var mainSpeakerToggle = new BoolCheckBoxConfigItem(deleteMainSpeaker, requiresRestart: false);                
                 LethalConfigManager.AddConfigItem(mainSpeakerToggle);
 
-                deletePosters = cfg.Bind(
+                deletePosters = cfg.Bind(       // Bug currently disables manual door closing 
                    "General",
                    "Posters",
                    false,
-                   "Deletes the posters inside the ship"
+                   "CURRENTLY DISABLED DUE TO BUG"
+                   //"Deletes the posters inside the ship"
                );
                 var postersToggle = new BoolCheckBoxConfigItem(deletePosters, requiresRestart: false);
                 LethalConfigManager.AddConfigItem(postersToggle);
