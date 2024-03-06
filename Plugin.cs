@@ -192,12 +192,11 @@ namespace LethalTubeRemoval
                 var mainSpeakerToggle = new BoolCheckBoxConfigItem(deleteMainSpeaker, requiresRestart: false);                
                 LethalConfigManager.AddConfigItem(mainSpeakerToggle);
 
-                deletePosters = cfg.Bind(       // Bug currently disables manual door closing 
+                deletePosters = cfg.Bind(
                    "General",
                    "Posters",
                    false,
-                   "CURRENTLY DISABLED DUE TO BUG"
-                   //"Deletes the posters inside the ship"
+                   "Deletes the posters inside the ship"
                );
                 var postersToggle = new BoolCheckBoxConfigItem(deletePosters, requiresRestart: false);
                 LethalConfigManager.AddConfigItem(postersToggle);

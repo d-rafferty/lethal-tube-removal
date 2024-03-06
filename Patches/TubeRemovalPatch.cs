@@ -24,7 +24,6 @@ namespace LethalTubeRemoval.Patches
             GameObject cabinet = GameObject.Find("Environment/HangarShip/FileCabinet");
             GameObject tank = GameObject.Find("Environment/HangarShip/ScavengerModelSuitParts/Circle.002");
 
-
             GameObject clipboard = GameObject.Find("Environment/HangarShip/ClipboardManual");
             GameObject doorGenerator = GameObject.Find("Environment/HangarShip/DoorGenerator");
             GameObject boots = GameObject.Find("Environment/HangarShip/ScavengerModelSuitParts/Circle.004");
@@ -40,13 +39,16 @@ namespace LethalTubeRemoval.Patches
 
             GameObject monitorCords = GameObject.Find("Environment/HangarShip/WallCords");
             GameObject doorSpeaker = GameObject.Find("Environment/HangarShip/ShipModels2b/Cube.005 (1)");
-            GameObject mainSpeaker = GameObject.Find("Environment/HangarShip/ShipModels2b/Cube.005 (2)");
             GameObject posters = GameObject.Find("Environment/HangarShip/Plane.001");
             GameObject clothingRack = GameObject.Find("Environment/HangarShip/NurbsPath.004");
             GameObject clothingHook= GameObject.Find("Environment/HangarShip/NurbsPath.002"); 
             GameObject defaultSuit = GameObject.Find("ChangableSuit(Clone)");
             GameObject doorTubes = GameObject.Find("Environment/HangarShip/NurbsPath");
             GameObject keyboardCord = GameObject.Find("Environment/HangarShip/Terminal/BezierCurve.001");
+
+            GameObject mainSpeaker = GameObject.Find("Environment/HangarShip/ShipModels2b/Cube.005 (2)");
+            GameObject speakerAudio = GameObject.Find("Environment/HangarShip/ShipModels2b/Cube.005 (2)/SpeakerAudio");
+
 
 
 
@@ -123,9 +125,13 @@ namespace LethalTubeRemoval.Patches
                 GameObject.Destroy(doorSpeaker);
             }
 
-            if (Config.deleteMainSpeaker.Value)
-            {
-                //GameObject.Destroy(mainSpeaker);
+            if (Config.deleteMainSpeaker.Value) 
+            {   
+                //ship speaker being instantiated is somehow tied to the ship door manual controls
+                //to work around this I hid the speaker inside the ship wall and disabled the audio
+                UnityEngine.Vector3 localSpeakerPos = new Vector3(11.4571f, 1.9706f, -16.9578f);        //hides the speaker in the front of the ship in the wall behind the monitors
+                mainSpeaker.transform.position = localSpeakerPos;
+                GameObject.Destroy(speakerAudio);                                                       //disables the audio from the speaker
             }
 
             if (Config.deletePosters.Value)
