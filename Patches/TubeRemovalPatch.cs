@@ -9,6 +9,7 @@ using BepInEx;
 using System.Runtime.CompilerServices;
 using Object = UnityEngine.Object;
 using static LethalTubeRemoval.TubeRemoval;
+using static LethalTubeRemoval.Config;
 
 namespace LethalTubeRemoval.Patches
 {
@@ -17,7 +18,7 @@ namespace LethalTubeRemoval.Patches
     {
         [HarmonyPostfix]
         [HarmonyPatch(typeof(StartOfRound), "Start")]           //runs the patch each time the round is started
-        static void TubeRemove()
+        public static void TubeRemove()
         {
             GameObject tube = GameObject.Find("Environment/HangarShip/BezierCurve");        //sets each ship item path as a GameObject
             GameObject beds = GameObject.Find("Environment/HangarShip/Bunkbeds");
