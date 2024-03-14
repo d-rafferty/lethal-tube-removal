@@ -11,6 +11,12 @@ namespace LethalTubeRemoval
 {
     public class Config
     {
+        private const string inside = "Inside Ship:";
+
+        private const string outside = "Outside Ship:";
+
+        private const string misc = "Misc Modes:";
+
         //Inside Ship
         public static ConfigEntry<bool> deleteTube;                 //initializes the config entry for each ship item, uses LethalConfig
         public static ConfigEntry<bool> deleteBunkbeds;
@@ -40,6 +46,12 @@ namespace LethalTubeRemoval
         public static ConfigEntry<bool> deleteRailing;
         public static ConfigEntry<bool> deleteThrusterTube;
         public static ConfigEntry<bool> deleteThrusters;
+        public static ConfigEntry<bool> deleteSupportBeams;
+        public static ConfigEntry<bool> deleteWeirdBox;
+
+        //Misc
+        public static ConfigEntry<bool> parkourMode;
+        public static ConfigEntry<bool> lowLightMode;
 
 
 
@@ -48,7 +60,7 @@ namespace LethalTubeRemoval
             //Inside Ship
 
             deleteTube = cfg.Bind(                                  //sets initial LethalConfig values
-               "General",                                           //type of change
+               inside,                                           //type of change
                "Tube",                                              //Name in the UI
                true,                                                //default value
                "Deletes the tube on the floor"                      //Description for UI
@@ -57,7 +69,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(tubeToggle);
 
             deleteBunkbeds = cfg.Bind(
-                "General",
+                inside,
                 "BunkBeds",
                 false,
                 "Deletes the bunkbeds"
@@ -66,7 +78,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(bedToggle);
 
             deleteFileCabinets = cfg.Bind(
-                "General",
+               inside,
                 "File Cabinets",
                 false,
                 "Deletes the file cabinets"
@@ -75,7 +87,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(fileCabinetsToggle);
 
             deleteOxygenTank = cfg.Bind(
-                "General",
+                inside,
                 "Oxygen Tank",
                 false,
                 "Deletes the oxygen tank"
@@ -84,7 +96,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(oxygenTankToggle);
 
             deleteClipboard = cfg.Bind(
-                "General",
+                inside,
                 "Clipboard",
                 false,
                 "Deletes the clipboard"
@@ -93,7 +105,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(clipboardToggle);
 
             deleteDoorGenerator = cfg.Bind(
-                "General",
+                inside,
                 "Door Generator",
                 false,
                 "Deletes the door generator"
@@ -102,7 +114,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(doorGeneratorToggle);
 
             deleteBoots = cfg.Bind(
-                "General",
+                inside,
                 "Boots",
                 false,
                 "Deletes the boots under the clothing rack"
@@ -111,7 +123,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(bootsToggle);
 
             deleteMask = cfg.Bind(
-                "General",
+                inside,
                 "Mask",
                 false,
                 "Deletes the mask on the control desk"
@@ -120,7 +132,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(maskToggle);
 
             deleteAirFilter = cfg.Bind(
-                "General",
+                inside,
                 "Air Filter",
                 false,
                 "Deletes the air filter on the wall"
@@ -129,7 +141,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(airFilterToggle);
 
             deleteStickyNote = cfg.Bind(
-                "General",
+                inside,
                 "Sticky Note",
                 false,
                 "Deletes the sticky note"
@@ -138,7 +150,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(stickyNoteToggle);
 
             deleteBatteries = cfg.Bind(
-                "General",
+                inside,
                 "Batteries",
                 false,
                 "Deletes the batteries on control desk"
@@ -147,7 +159,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(batteryToggle);
 
             deleteVent = cfg.Bind(
-                "General",
+                inside,
                 "Vent",
                 false,
                 "Deletes the vent below the charging station"
@@ -156,7 +168,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(ventToggle);
 
             deleteMonitorCords = cfg.Bind(
-               "General",
+               inside,
                "Monitor Cords",
                false,
                "Deletes the cords behind the monitors"
@@ -165,7 +177,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(monitorCordsToggle);
 
             deleteDoorSpeaker = cfg.Bind(
-               "General",
+               inside,
                "Door Speaker",
                false,
                "Deletes the speaker near the ship door"
@@ -174,7 +186,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(doorSpeakerToggle);
 
             deleteMainSpeaker = cfg.Bind(
-               "General",
+               inside,
                "Main Speaker",
                false,
                "Deletes the main speaker that normally plays audio. WARNING: No ship-speaker audio will play if this is selected!"
@@ -183,7 +195,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(mainSpeakerToggle);
 
             deletePosters = cfg.Bind(
-               "General",
+               inside,
                "Posters",
                false,
                "Deletes the posters inside the ship"
@@ -192,7 +204,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(postersToggle);
 
             deleteClothingRack = cfg.Bind(
-               "General",
+               inside,
                "Clothing Rack",
                false,
                "Deletes the clothing rack. WARNING: Purchasable suits will not be able to be equipped if this is selected!"
@@ -201,7 +213,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(clothingRackToggle);
 
             deleteDoorTubes = cfg.Bind(
-               "General",
+               inside,
                "Door Tubes",
                false,
                "Deletes the tubes by the ship door."
@@ -210,7 +222,7 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(doorTubesToggle);
 
             deleteKeyboardCord = cfg.Bind(
-               "General",
+               inside,
                "Keyboard Cord",
                true,
                "Deletes the cord coming out of the keyboard on the terminal"
@@ -220,7 +232,7 @@ namespace LethalTubeRemoval
 
 
             terminalReposition = cfg.Bind(
-               "General",
+               inside,
                "Terminal Reposition",
                false,
                "Sets the terminal to the left of the monitors by default."
@@ -232,8 +244,8 @@ namespace LethalTubeRemoval
 
             // OUTSIDE SHIP
             deleteFloodLight = cfg.Bind(
-               "General",
-               "Outside: Floodlight",
+               outside,
+               "Floodlight",
                false,
                "Removes the floodlight outside the ship"
            );
@@ -241,8 +253,8 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(deleteFloodlightToggle);
 
             deleteMachinery = cfg.Bind(
-               "General",
-               "Outside: Machinery Boxes",
+               outside,
+               "Machinery Boxes",
                false,
                "Removes the machinery boxes on both sides of the ship"
            );
@@ -250,8 +262,8 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(machineryToggle);
 
             deleteOutsideTubing = cfg.Bind(
-               "General",
-               "Outside: Tubing",
+               outside,
+               "Tubing",
                false,
                "Removes the tubing outside the ship"
            );
@@ -259,8 +271,8 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(outsideTubingToggle);
 
             deleteRailing = cfg.Bind(
-               "General",
-               "Outside: Railing",
+               outside,
+               "Railing",
                false,
                "Removes the railing outside the ship"
            );
@@ -268,8 +280,8 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(railingToggle);
 
             deleteThrusterTube = cfg.Bind(
-               "General",
-               "Outside: Back Right Thruster Tube",
+              outside,
+               "Back Right Thruster Tube",
                false,
                "Removes the thruster tube in the back right. NOTE: Also deletes back right thruster"
            );
@@ -277,13 +289,53 @@ namespace LethalTubeRemoval
             LethalConfigManager.AddConfigItem(thrusterTubeToggle);
 
             deleteThrusters = cfg.Bind(
-               "General",
-               "Outside: All Thrusters",
+               outside,
+               "All Thrusters",
                false,
                "Removes all thrusters."
            );
             var thrustersToggle = new BoolCheckBoxConfigItem(deleteThrusters, requiresRestart: false);
             LethalConfigManager.AddConfigItem(thrustersToggle);
+
+            deleteSupportBeams = cfg.Bind(
+               outside,
+               "Support Beams Under Ship",
+               false,
+               "Removes support beams."
+           );
+            var supportBeamsToggle = new BoolCheckBoxConfigItem(deleteSupportBeams, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(thrustersToggle);
+
+            deleteWeirdBox = cfg.Bind(
+               outside,
+               "Large Exhaust",
+               false,
+               "Removes large exhaust box near front of ship"
+           );
+            var weirdBoxToggle = new BoolCheckBoxConfigItem(deleteWeirdBox, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(thrustersToggle);
+
+
+
+
+            //MISC MODES
+            parkourMode = cfg.Bind(
+              misc,
+              "Parkour Mode",
+              false,
+              "Only for the bravest Company Employees. Removes catwalk and ladders from the outside of the ship."
+          );
+            var parkourToggle = new BoolCheckBoxConfigItem(parkourMode, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(parkourToggle);
+
+            lowLightMode = cfg.Bind(
+             misc,
+             "Low Light Mode",
+             false,
+             "Removes some lights inside the ship"
+         );
+            var lightToggle = new BoolCheckBoxConfigItem(lowLightMode, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(lightToggle);
         }
     }
 }

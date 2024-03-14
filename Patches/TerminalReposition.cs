@@ -15,6 +15,8 @@ namespace LethalTubeRemoval.Patches
     [HarmonyPatch(typeof(GameObject))]
     internal class TerminalReposition
     {
+        static Terminal terminal = null;
+
         [HarmonyPrefix]
         [HarmonyPatch(typeof(StartOfRound), "Start")]
 
@@ -29,6 +31,28 @@ namespace LethalTubeRemoval.Patches
                 AutoParentToShip Term = terminal.GetComponent<AutoParentToShip>();                  //gets the AutoParentToShip component for the terminal where positioning is set
                 Term.positionOffset = localTerminalPos;
                 Term.rotationOffset = terminalRotation;                                             //sets the offsets to our defined coordinates
+            }
+        }
+
+        [HarmonyPatch(typeof(Terminal), "Start")]
+        [HarmonyPostfix]
+        static void TerminalLightStart(Terminal __instance)
+        {
+            terminal = __instance;
+            if(Config.lowLightMode.Value)
+            {
+                terminal.terminalLight.enabled = true;
+            }
+        }
+
+        [HarmonyPatch(typeof(Terminal), "SetTerminalInUseClientRpc")]
+        [HarmonyPostfix]
+        static void TerminalLight(Terminal __instance)
+        {
+            terminal = __instance;
+            if (Config.lowLightMode.Value)
+            {
+                terminal.terminalLight.enabled = true;
             }
         }
     }

@@ -51,6 +51,13 @@ namespace LethalTubeRemoval.Patches
             GameObject speakerAudio = GameObject.Find("Environment/HangarShip/ShipModels2b/Cube.005 (2)/SpeakerAudio");
 
 
+            //Lights
+            GameObject areaLight1 = GameObject.Find("Environment/HangarShip/ShipElectricLights/Area Light (3)");
+            GameObject areaLight2 = GameObject.Find("Environment/HangarShip/ShipElectricLights/Area Light (4)");
+            GameObject areaLight3 = GameObject.Find("Environment/HangarShip/ShipElectricLights/Area Light (5)");
+            GameObject hangingLamp1 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (2)");
+            GameObject hangingLamp3 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (4)");
+
 
 
             if (Config.deleteTube.Value)            //checks config file for boolean value and if true deletes the item
@@ -155,6 +162,16 @@ namespace LethalTubeRemoval.Patches
             if (Config.deleteKeyboardCord.Value)
             {
                 GameObject.Destroy(keyboardCord);
+            }
+
+            if (Config.lowLightMode.Value)
+            {
+                GameObject.Destroy(areaLight1);
+                GameObject.Destroy(areaLight2);
+                GameObject.Destroy(areaLight3);
+                GameObject.Destroy(hangingLamp1);
+                GameObject.Destroy(hangingLamp3);
+
             }
         }
     }

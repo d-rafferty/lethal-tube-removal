@@ -39,6 +39,22 @@ namespace LethalTubeRemoval.Patches
             GameObject frontRightThruster = GameObject.Find("Environment/HangarShip/ThrusterFrontRight");
             GameObject frontLeftThruster = GameObject.Find("Environment/HangarShip/ThrusterFrontLeft");
 
+            GameObject supportBeams1 = GameObject.Find("Environment/HangarShip/ShipSupportBeams");
+            GameObject supportBeams2 = GameObject.Find("Environment/HangarShip/ShipSupportBeams.001");
+
+            GameObject weirdBox = GameObject.Find("Environment/HangarShip/Cube.004");
+
+
+            //Catwalk stuff
+            GameObject catWalk = GameObject.Find("Environment/HangarShip/CatwalkShip");
+            GameObject catWalkRailLining1 = GameObject.Find("Environment/HangarShip/CatwalkRailLining");
+            GameObject catWalkRailLining2 = GameObject.Find("Environment/HangarShip/CatwalkRailLiningB");
+            GameObject catWalkSupports = GameObject.Find("Environment/HangarShip/CatwalkUnderneathSupports");
+
+            GameObject bigLadder = GameObject.Find("Environment/HangarShip/OutsideShipRoom/Ladder");
+            GameObject shortLadder1 = GameObject.Find("Environment/HangarShip/LadderShort");
+            GameObject shortLadder2 = GameObject.Find("Environment/HangarShip/LadderShort (1)");
+            GameObject catWalkHitbox = GameObject.Find("Environment/HangarShip/ClimbOntoCatwalkHelper");
 
 
 
@@ -77,9 +93,33 @@ namespace LethalTubeRemoval.Patches
                 GameObject.Destroy(backLeftThruster);
                 GameObject.Destroy(frontLeftThruster);
 
-            } else if (Config.deleteThrusterTube.Value)             //if all thrusters have been chosen to be deleted, this will not run as it is redundant
+            }
+            else if (Config.deleteThrusterTube.Value)             //if all thrusters have been chosen to be deleted, this will not run as it is redundant
             {
                 GameObject.Destroy(backRightThruster);
+            }
+
+            if (Config.deleteSupportBeams.Value)
+            {
+                GameObject.Destroy(supportBeams1);
+                GameObject.Destroy(supportBeams2);
+            }
+
+            if (Config.deleteWeirdBox.Value)
+            {
+                GameObject.Destroy(weirdBox);
+            }
+
+            if (Config.parkourMode.Value)
+            {
+                GameObject.Destroy(catWalk);
+                GameObject.Destroy(catWalkRailLining1);
+                GameObject.Destroy(catWalkRailLining2);
+                GameObject.Destroy(catWalkSupports);
+                GameObject.Destroy(catWalkHitbox);
+                bigLadder.SetActive(false);             //ladders prevent door from closing as well, found setting the item as inactive instead of destroying it preserves door function
+                shortLadder1.SetActive(false);
+                shortLadder2.SetActive(false);
             }
         }
     }
