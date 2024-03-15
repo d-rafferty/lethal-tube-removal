@@ -53,6 +53,7 @@ namespace LethalTubeRemoval
         public static ConfigEntry<bool> deleteThrusters;
         public static ConfigEntry<bool> deleteSupportBeams;
         public static ConfigEntry<bool> deleteWeirdBox;
+        public static ConfigEntry<bool> deleteLeftMachinery;
 
         //Misc
         public static ConfigEntry<bool> parkourMode;
@@ -319,6 +320,15 @@ namespace LethalTubeRemoval
            );
             var weirdBoxToggle = new BoolCheckBoxConfigItem(deleteWeirdBox, requiresRestart: false);
             LethalConfigManager.AddConfigItem(thrustersToggle);
+
+            deleteLeftMachinery = cfg.Bind(
+               outside,
+               "Left Machinery",
+               false,
+               "Removes machinery and bottom tubing from left of ship"
+           );
+            var leftMachineryToggle = new BoolCheckBoxConfigItem(deleteLeftMachinery, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(leftMachineryToggle);
 
 
 
