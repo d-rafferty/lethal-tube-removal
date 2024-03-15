@@ -9,6 +9,7 @@ using BepInEx;
 using System.Runtime.CompilerServices;
 using Object = UnityEngine.Object;
 using static LethalTubeRemoval.TubeRemoval;
+using JetBrains.Annotations;
 
 namespace LethalTubeRemoval.Patches
 {
@@ -16,6 +17,7 @@ namespace LethalTubeRemoval.Patches
     internal class TerminalReposition
     {
         static Terminal terminal = null;
+        static ShipTeleporter teleporter = null;
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(StartOfRound), "Start")]
@@ -45,7 +47,7 @@ namespace LethalTubeRemoval.Patches
             }
         }
 
-        [HarmonyPatch(typeof(Terminal), "SetTerminalInUseClientRpc")]
+    [HarmonyPatch(typeof(Terminal), "SetTerminalInUseClientRpc")]
         [HarmonyPostfix]
         static void TerminalLight(Terminal __instance)
         {

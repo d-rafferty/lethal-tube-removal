@@ -15,7 +15,12 @@ namespace LethalTubeRemoval
 
         private const string outside = "Outside Ship:";
 
+        private const string storeItems = "Store Items:";
+
         private const string misc = "Misc Modes:";
+
+        //Store Items
+        public static ConfigEntry<bool> deleteTeleporterCord;
 
         //Inside Ship
         public static ConfigEntry<bool> deleteTube;                 //initializes the config entry for each ship item, uses LethalConfig
@@ -336,6 +341,18 @@ namespace LethalTubeRemoval
          );
             var lightToggle = new BoolCheckBoxConfigItem(lowLightMode, requiresRestart: false);
             LethalConfigManager.AddConfigItem(lightToggle);
+
+
+
+            //Store Items
+            deleteTeleporterCord = cfg.Bind(
+             storeItems,
+             "Teleporter Cord",
+             false,
+             "Removes the long cord from the teleporter"
+         );
+            var teleCordToggle = new BoolCheckBoxConfigItem(deleteTeleporterCord, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(teleCordToggle);
         }
     }
 }

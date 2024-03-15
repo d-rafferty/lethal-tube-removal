@@ -58,7 +58,8 @@ namespace LethalTubeRemoval.Patches
             GameObject hangingLamp1 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (2)");
             GameObject hangingLamp3 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (4)");
 
-
+            //Store Items
+            
 
             if (Config.deleteTube.Value)            //checks config file for boolean value and if true deletes the item
             {
@@ -173,6 +174,34 @@ namespace LethalTubeRemoval.Patches
                 GameObject.Destroy(hangingLamp3);
 
             }
+
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(ShipTeleporter), "Awake")]
+        public static void TeleporterStuff()
+        {
+            if (GameObject.Find("Teleporter(Clone)/ButtonContainer/LongCord"))
+            {
+                GameObject longCord = GameObject.Find("Teleporter(Clone)/ButtonContainer/LongCord");
+                longCord.SetActive(false);
+            }
+
+            //if terminal is on the left it moves the inverse teleporter button so you can use it
+            if (Config.terminalReposition.Value)
+            {
+                GameObject inverseTeleButton = GameObject.Find("InverseTeleporter(Clone)/ButtonContainer");
+                GameObject inverseTele = GameObject.Find("InverseTeleporter(Clone)");
+                //GameObject teleButton = GameObject.Find("Teleporter(Clone)/ButtonContainer");
+
+                UnityEngine.Vector3 localInverseTeleButtonPos = new Vector3(-2.5327f, 0f, 1.6f);      //fixes button so it is not clipping in terminal
+                UnityEngine.Vector3 inverseTeleButtonRotation = new Vector3(0f, 3, 0f);
+
+                inverseTeleButton.transform.localPosition = localInverseTeleButtonPos;
+                inverseTeleButton.transform.localRotation = new UnityEngine.Quaternion(0f, 0.0262f, 0f, 0.9997f);
+
+            }
+
         }
     }
 }

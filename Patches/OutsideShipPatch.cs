@@ -80,12 +80,7 @@ namespace LethalTubeRemoval.Patches
                 GameObject.Destroy(exhaustLeft);
             }
 
-            if (Config.deleteRailing.Value)
-            {
-                GameObject.Destroy(railPosts);
-                GameObject.Destroy(rails);
-            }
-
+            
             if (Config.deleteThrusters.Value)                       //deletes all thrusters
             {
                 GameObject.Destroy(backRightThruster);
@@ -117,9 +112,15 @@ namespace LethalTubeRemoval.Patches
                 GameObject.Destroy(catWalkRailLining2);
                 GameObject.Destroy(catWalkSupports);
                 GameObject.Destroy(catWalkHitbox);
+                GameObject.Destroy(railPosts);
+                GameObject.Destroy(rails);
                 bigLadder.SetActive(false);             //ladders prevent door from closing as well, found setting the item as inactive instead of destroying it preserves door function
                 shortLadder1.SetActive(false);
                 shortLadder2.SetActive(false);
+            }else if (Config.deleteRailing.Value)
+            {
+                GameObject.Destroy(railPosts);
+                GameObject.Destroy(rails);
             }
         }
     }
