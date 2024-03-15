@@ -72,6 +72,7 @@ namespace LethalTubeRemoval.Patches
             }else if (Config.deleteLeftMachinery.Value)
             {
                 GameObject.Destroy(leftMachinery);
+                GameObject.Destroy(extraPipingLeft);
             }
 
             if (Config.deleteOutsideTubing.Value)
