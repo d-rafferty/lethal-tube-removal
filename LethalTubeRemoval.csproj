@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -26,5 +26,11 @@
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Lethal Company\Lethal Company_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+	<Target Name="CopyDLLs" AfterTargets="Build" Condition="$(Configuration) == 'Debug' or $(Configuration) == 'Release' ">
+		<Message Text="Executing CopyDLLs task" Importance="High" />
+		<Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Lethal Company\BepInEx\plugins" />
+		<Message Text="Copied build files" Importance="High" />
+	</Target>
 
 </Project>
