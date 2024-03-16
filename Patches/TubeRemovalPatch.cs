@@ -203,7 +203,7 @@ namespace LethalTubeRemoval.Patches
             }
 
             
-            if (Config.moveTeleButtonsToDesk.Value || Config.terminalReposition.Value)
+            if (Config.moveTeleButtonsToDesk.Value)
             {
                 GameObject inverseTeleButton = GameObject.Find("InverseTeleporter(Clone)/ButtonContainer");
                 GameObject teleButton = GameObject.Find("Teleporter(Clone)/ButtonContainer");
@@ -231,7 +231,7 @@ namespace LethalTubeRemoval.Patches
                 //local -1.1695 0.4287 1.7645
                 //rot 0 2 0
             }
-            /*else if(Config.terminalReposition.Value)                          //Original button move
+            else if(Config.terminalReposition.Value)                          //Original button move
             {
 
                 //if terminal is on the left it moves the inverse teleporter button so you can use it
@@ -247,7 +247,7 @@ namespace LethalTubeRemoval.Patches
                 inverseTeleButton.transform.localPosition = linverseTeleButtonPos;
                 inverseTeleButton.transform.localRotation = new UnityEngine.Quaternion(0f, 0.0262f, 0f, 0.9997f);
 
-            }*/
+            }
 
         }
     }
