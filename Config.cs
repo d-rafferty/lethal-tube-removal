@@ -11,17 +11,27 @@ namespace LethalTubeRemoval
 {
     public class Config
     {
-        private const string chargingcoil = "Charging Coil Reposition:";
+        private const string terminalmove = "Terminal Reposition";
 
-        private const string inside = "Inside Ship:";
+        private const string chargingcoil = "Charging Coil Reposition";
 
-        private const string outside = "Outside Ship:";
+        private const string inside = "Inside Ship";
 
-        private const string storeItems = "Store Items:";
+        private const string outside = "Outside Ship";
 
-        private const string misc = "Misc Modes:";
+        private const string storeItems = "Store Items";
 
+        private const string misc = "Misc Modes";
 
+        //Custom Terminal Coords
+        public static ConfigEntry<bool> customTerminal;
+        public static ConfigEntry<float> xCordTerm;
+        public static ConfigEntry<float> yCordTerm;
+        public static ConfigEntry<float> zCordTerm;
+
+        public static ConfigEntry<float> xRotTerm;
+        public static ConfigEntry<float> yRotTerm;
+        public static ConfigEntry<float> zRotTerm;
 
         //Custom Coil Coords
         public static ConfigEntry<bool> moveCoil;
@@ -77,9 +87,82 @@ namespace LethalTubeRemoval
 
         public Config(ConfigFile cfg)
         {
+            //Custom Terminal Coords
+
+            terminalReposition = cfg.Bind(
+               terminalmove,
+               "Automatic Terminal Reposition",
+               false,
+               "Sets the terminal to the left of the monitors by default."
+           );
+            var terminalRepositionToggle = new BoolCheckBoxConfigItem(terminalReposition, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(terminalRepositionToggle);
+
+            customTerminal= cfg.Bind(
+             terminalmove,
+             "Custom Terminal Coordinates",
+             false,
+             "Allows the custom coordinates to be set. [CAUTION] Having this enabled disables the native ship furniture moving feature. You can enable/disable this in real-time in the pause menu."
+         ); var termCustomMoveToggle = new BoolCheckBoxConfigItem(customTerminal, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(termCustomMoveToggle);
+
+            xCordTerm = cfg.Bind(
+             terminalmove,
+             "X-Coordinate",
+             6.1759f,
+             "Sets X-coordinate of Terminal"
+         );
+            var termX = new FloatInputFieldConfigItem(xCordTerm, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(termX);
+
+            yCordTerm = cfg.Bind(
+             terminalmove,
+             "Y-Coordinate",
+             1.2561f,
+             "Sets Y-coordinate of Terminal"
+         );
+            var termY = new FloatInputFieldConfigItem(yCordTerm, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(termY);
+
+            zCordTerm = cfg.Bind(
+             terminalmove,
+             "Z-Coordinate",
+             -9.1415f,
+             "Sets Z-coordinate of Terminal"
+         );
+            var termZ = new FloatInputFieldConfigItem(zCordTerm, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(termZ);
+
+            xRotTerm = cfg.Bind(
+             terminalmove,
+             "X-Rotation",
+             270f,
+             "Sets X-Rotation of Terminal"
+         );
+            var termRotX = new FloatInputFieldConfigItem(xRotTerm, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(termRotX);
+
+            yRotTerm = cfg.Bind(
+             terminalmove,
+             "Y-Rotation",
+             90f,
+             "Sets Y-Rotation of Terminal"
+         );
+            var termRotY = new FloatInputFieldConfigItem(yRotTerm, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(termRotY);
+
+            zRotTerm = cfg.Bind(
+             terminalmove,
+             "Z-Rotation",
+             0f,
+             "Sets Z-Rotation of Terminal"
+         );
+            var termRotZ = new FloatInputFieldConfigItem(zRotTerm, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(termRotZ);
 
 
-            //Custom Coords
+
+            //Custom Coil Coords
 
             moveCoil = cfg.Bind(
              chargingcoil,
@@ -142,6 +225,9 @@ namespace LethalTubeRemoval
          );
             var rotZ = new FloatInputFieldConfigItem(zRotCoil, requiresRestart: false);
             LethalConfigManager.AddConfigItem(rotZ);
+
+
+
 
             //Inside Ship
 
@@ -315,17 +401,6 @@ namespace LethalTubeRemoval
            );
             var keyboardCordToggle = new BoolCheckBoxConfigItem(deleteKeyboardCord, requiresRestart: false);
             LethalConfigManager.AddConfigItem(keyboardCordToggle);
-
-
-            terminalReposition = cfg.Bind(
-               inside,
-               "Terminal Reposition",
-               false,
-               "Sets the terminal to the left of the monitors by default."
-           );
-            var terminalRepositionToggle = new BoolCheckBoxConfigItem(terminalReposition, requiresRestart: false);
-            LethalConfigManager.AddConfigItem(terminalRepositionToggle);
-
 
 
             // OUTSIDE SHIP
