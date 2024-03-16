@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using Object = UnityEngine.Object;
 using static LethalTubeRemoval.TubeRemoval;
 using JetBrains.Annotations;
+using static LethalTubeRemoval.Config;
 
 namespace LethalTubeRemoval.Patches
 {
@@ -24,15 +25,34 @@ namespace LethalTubeRemoval.Patches
 
         static void TerminalMove()
         {
-            GameObject terminal = GameObject.Find("Environment/HangarShip/Terminal");
+            
             if (Config.terminalReposition.Value)
             {
+                GameObject terminal = GameObject.Find("Environment/HangarShip/Terminal");
+                AutoParentToShip Term = terminal.GetComponent<AutoParentToShip>();                  //gets the AutoParentToShip component for the terminal where positioning is set
+
                 UnityEngine.Vector3 localTerminalPos = new Vector3(9.1888f, 0.971f, -4.4357f);      //sets coords for the terminal on startup
                 UnityEngine.Vector3 terminalRotation = new Vector3(270f, 359.8239f, 0f);            //sets the rotation of the terminal
-
-                AutoParentToShip Term = terminal.GetComponent<AutoParentToShip>();                  //gets the AutoParentToShip component for the terminal where positioning is set
+                
                 Term.positionOffset = localTerminalPos;
                 Term.rotationOffset = terminalRotation;                                             //sets the offsets to our defined coordinates
+            }
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(StartOfRound), "Update")]
+        static void TerminalMoveCustom()
+        {
+            if (Config.customTerminal.Value)
+            {
+                GameObject terminal = GameObject.Find("Environment/HangarShip/Terminal");
+                AutoParentToShip Term = terminal.GetComponent<AutoParentToShip>();
+
+                UnityEngine.Vector3 localTerminalPos = new Vector3(xCordTerm.Value, yCordTerm.Value, zCordTerm.Value);
+                UnityEngine.Vector3 terminalRotation = new Vector3(xRotTerm.Value, yRotTerm.Value, zRotTerm.Value);
+
+                Term.positionOffset = localTerminalPos;
+                Term.rotationOffset = terminalRotation;
             }
         }
 
@@ -47,7 +67,7 @@ namespace LethalTubeRemoval.Patches
             }
         }
 
-    [HarmonyPatch(typeof(Terminal), "SetTerminalInUseClientRpc")]
+        [HarmonyPatch(typeof(Terminal), "SetTerminalInUseClientRpc")]
         [HarmonyPostfix]
         static void TerminalLight(Terminal __instance)
         {
@@ -56,6 +76,15 @@ namespace LethalTubeRemoval.Patches
             {
                 terminal.terminalLight.enabled = true;
             }
+        }
+
+
+        //Custom Terminal Coords
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(StartOfRound), "Update")]
+        public static void CustomTerminalMove()
+        {
+            
         }
     }
 }
