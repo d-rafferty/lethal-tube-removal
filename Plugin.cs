@@ -21,7 +21,7 @@ namespace LethalTubeRemoval
     {
         private const string modGUID = "Hamster.LethalTubeRemoval";
         private const string modName = "Lethal Tube Removal";
-        private const string modVersion = "1.4.2";
+        private const string modVersion = "1.4.4";
 
         public static new Config MyConfig { get; internal set; }
 
