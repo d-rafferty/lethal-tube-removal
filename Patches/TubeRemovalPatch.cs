@@ -202,17 +202,49 @@ namespace LethalTubeRemoval.Patches
                 longCord.SetActive(false);
             }
 
-            //if terminal is on the left it moves the inverse teleporter button so you can use it
-            if (Config.terminalReposition.Value)
+            
+            if (Config.moveTeleButtonsToDesk.Value)
             {
                 GameObject inverseTeleButton = GameObject.Find("InverseTeleporter(Clone)/ButtonContainer");
-                GameObject inverseTele = GameObject.Find("InverseTeleporter(Clone)");
-                //GameObject teleButton = GameObject.Find("Teleporter(Clone)/ButtonContainer");
+                GameObject teleButton = GameObject.Find("Teleporter(Clone)/ButtonContainer");
 
-                UnityEngine.Vector3 localInverseTeleButtonPos = new Vector3(-2.5327f, 0f, 1.6f);      //fixes button so it is not clipping in terminal
-                UnityEngine.Vector3 inverseTeleButtonRotation = new Vector3(0f, 3, 0f);
+                UnityEngine.Vector3 linverseTeleButtonPos = new Vector3(-1.1695f, 0.4287f, 1.7645f);
+                UnityEngine.Vector3 inverseTeleButtonRotation = new Vector3(0f, 2f, 0f);
 
-                inverseTeleButton.transform.localPosition = localInverseTeleButtonPos;
+                //UnityEngine.Vector3 teleButtonPosLocal = new Vector3(-1.3844f, 2.1098f, 2.143f);
+                //UnityEngine.Vector3 teleButtonRotation = new Vector3(8f, 13f, 0f);
+                UnityEngine.Vector3 teleButtonGlobal = new Vector3(1.7651f, 1.8303f, -11.5574f);
+
+                inverseTeleButton.transform.localPosition = linverseTeleButtonPos;
+                inverseTeleButton.transform.eulerAngles = inverseTeleButtonRotation;
+                
+                teleButton.transform.localRotation = new UnityEngine.Quaternion(0.0693f, 0.1129f, -0.0079f, 0.9912f);       //to get this quaternion, use UnityExplorer, find the buttoncontainer rotation vector you need
+                teleButton.transform.position = teleButtonGlobal;                                                           //then inspect the transform component, and find the rotation quaternion and write it there
+
+                //normal tele
+                //rot 8 13 0
+                //local -1.3844 2.1098 2.143s
+                //global 1.7651 1.8303 -11.5574
+
+                //inverse
+                //global 1.61 0.789 -12.978
+                //local -1.1695 0.4287 1.7645
+                //rot 0 2 0
+            }
+            else if(Config.terminalReposition.Value)                          //Original button move
+            {
+
+                //if terminal is on the left it moves the inverse teleporter button so you can use it
+                GameObject inverseTeleButton = GameObject.Find("InverseTeleporter(Clone)/ButtonContainer");
+                GameObject teleButton = GameObject.Find("Teleporter(Clone)/ButtonContainer");
+
+                UnityEngine.Vector3 linverseTeleButtonPos = new Vector3(-2.5327f, 0f, 1.6f);      //fixes button so it is not clipping in terminal
+                UnityEngine.Vector3 inverseTeleButtonRotation = new Vector3(0f, 3f, 0f);
+
+                UnityEngine.Vector3 teleButtonPos = new Vector3(-2.5327f, 0f, 1.6f);      //fixes button so it is not clipping in terminal 
+                UnityEngine.Vector3 teleButtonRotation = new Vector3(0f, 3f, 0f); 
+
+                inverseTeleButton.transform.localPosition = linverseTeleButtonPos;
                 inverseTeleButton.transform.localRotation = new UnityEngine.Quaternion(0f, 0.0262f, 0f, 0.9997f);
 
             }
@@ -220,3 +252,4 @@ namespace LethalTubeRemoval.Patches
         }
     }
 }
+

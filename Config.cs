@@ -45,6 +45,7 @@ namespace LethalTubeRemoval
 
         //Store Items
         public static ConfigEntry<bool> deleteTeleporterCord;
+        public static ConfigEntry<bool> moveTeleButtonsToDesk;
 
         //Inside Ship
         public static ConfigEntry<bool> deleteTube;                 //initializes the config entry for each ship item, uses LethalConfig
@@ -518,6 +519,15 @@ namespace LethalTubeRemoval
          );
             var teleCordToggle = new BoolCheckBoxConfigItem(deleteTeleporterCord, requiresRestart: false);
             LethalConfigManager.AddConfigItem(teleCordToggle);
+
+            moveTeleButtonsToDesk = cfg.Bind(
+             storeItems,
+             "Teleporter Buttons",
+             false,
+             "Moves the teleporter buttons to the desk"
+         );
+            var teleButtonsToggle = new BoolCheckBoxConfigItem(moveTeleButtonsToDesk, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(teleButtonsToggle);
         }
     }
 }
