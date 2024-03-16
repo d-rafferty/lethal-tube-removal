@@ -172,10 +172,25 @@ namespace LethalTubeRemoval.Patches
                 GameObject.Destroy(areaLight3);
                 GameObject.Destroy(hangingLamp1);
                 GameObject.Destroy(hangingLamp3);
-
             }
-
         }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(StartOfRound), "Update")]
+        public static void CustomCoords()
+        { 
+            //for custom charging coil coordinates
+            if (Config.moveCoil.Value)
+            {
+                GameObject chargingCoil = GameObject.Find("Environment/HangarShip/ShipModels2b/ChargeStation");
+                UnityEngine.Vector3 chargeLocalPos = new Vector3(xCordCoil.Value, yCordCoil.Value, zCordCoil.Value);
+                UnityEngine.Vector3 chargeLocalRotation = new Vector3(xRotCoil.Value, yRotCoil.Value, zRotCoil.Value);
+
+                chargingCoil.transform.localPosition = chargeLocalPos;
+                chargingCoil.transform.eulerAngles = chargeLocalRotation;
+            }
+        }
+
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(ShipTeleporter), "Awake")]

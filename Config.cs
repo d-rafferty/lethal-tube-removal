@@ -11,6 +11,8 @@ namespace LethalTubeRemoval
 {
     public class Config
     {
+        private const string chargingcoil = "Charging Coil Reposition:";
+
         private const string inside = "Inside Ship:";
 
         private const string outside = "Outside Ship:";
@@ -18,6 +20,18 @@ namespace LethalTubeRemoval
         private const string storeItems = "Store Items:";
 
         private const string misc = "Misc Modes:";
+
+
+
+        //Custom Coil Coords
+        public static ConfigEntry<bool> moveCoil;
+        public static ConfigEntry<float> xCordCoil;
+        public static ConfigEntry<float> yCordCoil;
+        public static ConfigEntry<float> zCordCoil;
+
+        public static ConfigEntry<float> xRotCoil;
+        public static ConfigEntry<float> yRotCoil;
+        public static ConfigEntry<float> zRotCoil;
 
         //Store Items
         public static ConfigEntry<bool> deleteTeleporterCord;
@@ -63,14 +77,80 @@ namespace LethalTubeRemoval
 
         public Config(ConfigFile cfg)
         {
+
+
+            //Custom Coords
+
+            moveCoil = cfg.Bind(
+             chargingcoil,
+             "Move Coil",
+             false,
+             "Allows the custom coordinates to be set"
+         ); var coilMoveToggle = new BoolCheckBoxConfigItem(moveCoil, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(coilMoveToggle);
+
+            xCordCoil = cfg.Bind(
+             chargingcoil,
+             "X-Coordinate",
+             -0.343f,
+             "Sets X-coordinate of Charging Coil"
+         );
+            var coilX = new FloatInputFieldConfigItem(xCordCoil, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(coilX);
+
+            yCordCoil = cfg.Bind(
+             chargingcoil,
+             "Y-Coordinate",
+             1.2561f,
+             "Sets Y-coordinate of Charging Coil"
+         );
+            var coilY = new FloatInputFieldConfigItem(yCordCoil, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(coilY);
+
+            zCordCoil = cfg.Bind(
+             chargingcoil,
+             "Z-Coordinate",
+             -4.802f,
+             "Sets Z-coordinate of Charging Coil"
+         );
+            var coilZ = new FloatInputFieldConfigItem(zCordCoil, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(coilZ);
+
+            xRotCoil = cfg.Bind(
+             chargingcoil,
+             "X-Rotation",
+             270f,
+             "Sets X-Rotation of Charging Coil"
+         );
+            var rotX = new FloatInputFieldConfigItem(xRotCoil, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(rotX);
+
+            yRotCoil = cfg.Bind(
+             chargingcoil,
+             "Y-Rotation",
+             0.0009f,
+             "Sets Y-Rotation of Charging Coil"
+         );
+            var rotY = new FloatInputFieldConfigItem(yRotCoil, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(rotY);
+
+            zRotCoil = cfg.Bind(
+             chargingcoil,
+             "Z-Rotation",
+             0f,
+             "Sets Z-Rotation of Charging Coil"
+         );
+            var rotZ = new FloatInputFieldConfigItem(zRotCoil, requiresRestart: false);
+            LethalConfigManager.AddConfigItem(rotZ);
+
             //Inside Ship
 
             deleteTube = cfg.Bind(                                  //sets initial LethalConfig values
-               inside,                                           //type of change
-               "Tube",                                              //Name in the UI
-               true,                                                //default value
-               "Deletes the tube on the floor"                      //Description for UI
-           );
+                   inside,                                           //type of change
+                   "Tube",                                              //Name in the UI
+                   true,                                                //default value
+                   "Deletes the tube on the floor"                      //Description for UI
+               );
             var tubeToggle = new BoolCheckBoxConfigItem(deleteTube, requiresRestart: false);    //sets as checkbox for bool, sets restart flag as false as these changes do not require a restart of the game
             LethalConfigManager.AddConfigItem(tubeToggle);
 
