@@ -1,4 +1,4 @@
-﻿# lethal-tube-removal
+﻿# Lethal Pipe Removal
 
 Lethal Company mod that allows for removal of certain items from the ship and allows for custom automatic placement of the terminal. Fully configurable with LethalConfig. 
 
