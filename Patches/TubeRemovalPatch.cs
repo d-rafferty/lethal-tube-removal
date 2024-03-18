@@ -231,6 +231,23 @@ namespace LethalTubeRemoval.Patches
                 //local -1.1695 0.4287 1.7645
                 //rot 0 2 0
             }
+            else if (Config.moveTeleButtonsToDeskAlt.Value)
+            {
+                GameObject inverseTeleButton = GameObject.Find("InverseTeleporter(Clone)/ButtonContainer");
+                GameObject teleButton = GameObject.Find("Teleporter(Clone)/ButtonContainer");
+
+                UnityEngine.Vector3 inverseTeleButtonPosGlobal = new Vector3(1.21f, 0.74f, -14.12f);  
+                UnityEngine.Vector3 inverseTeleButtonPosLocal = new Vector3(0.2214f, 0.3496f, 0.3927f);
+                UnityEngine.Vector3 teleButtonGlobal = new Vector3(1.8872f, -1.4394f, -11.642f);
+
+                inverseTeleButton.transform.localRotation = new UnityEngine.Quaternion(0f, 0.0175f, 0f, 0.9998f);
+                inverseTeleButton.transform.position = inverseTeleButtonPosGlobal;
+                inverseTeleButton.transform.localPosition = inverseTeleButtonPosLocal;
+
+                teleButton.transform.localRotation = new UnityEngine.Quaternion(0.1211f, -0.1197f, -0.0436f, -0.9844f);       //to get this quaternion, use UnityExplorer, find the buttoncontainer rotation vector you need
+                teleButton.transform.position = teleButtonGlobal;
+
+            }
             else if(Config.terminalReposition.Value)                          //Original button move
             {
 
