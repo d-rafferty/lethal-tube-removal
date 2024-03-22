@@ -42,7 +42,7 @@ namespace LethalTubeRemoval.Patches
             GameObject doorSpeaker = GameObject.Find("Environment/HangarShip/ShipModels2b/Cube.005 (1)");
             GameObject posters = GameObject.Find("Environment/HangarShip/Plane.001");
             GameObject clothingRack = GameObject.Find("Environment/HangarShip/NurbsPath.004");
-            GameObject clothingHook= GameObject.Find("Environment/HangarShip/NurbsPath.002"); 
+            GameObject clothingHook = GameObject.Find("Environment/HangarShip/NurbsPath.002");
             GameObject defaultSuit = GameObject.Find("ChangableSuit(Clone)");
             GameObject doorTubes = GameObject.Find("Environment/HangarShip/NurbsPath");
             GameObject keyboardCord = GameObject.Find("Environment/HangarShip/Terminal/BezierCurve.001");
@@ -59,7 +59,7 @@ namespace LethalTubeRemoval.Patches
             GameObject hangingLamp3 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (4)");
 
             //Store Items
-            
+
 
             if (Config.deleteTube.Value)            //checks config file for boolean value and if true deletes the item
             {
@@ -134,8 +134,8 @@ namespace LethalTubeRemoval.Patches
                 GameObject.Destroy(doorSpeaker);
             }
 
-            if (Config.deleteMainSpeaker.Value) 
-            {   
+            if (Config.deleteMainSpeaker.Value)
+            {
                 //ship speaker being instantiated is somehow tied to the ship door manual controls
                 //to work around this I hid the speaker inside the ship wall and disabled the audio
                 UnityEngine.Vector3 localSpeakerPos = new Vector3(11.4571f, 1.9706f, -16.9578f);        //hides the speaker in the front of the ship in the wall behind the monitors
@@ -178,7 +178,7 @@ namespace LethalTubeRemoval.Patches
         [HarmonyPostfix]
         [HarmonyPatch(typeof(StartOfRound), "Update")]
         public static void CustomCoords()
-        { 
+        {
             //for custom charging coil coordinates
             if (Config.moveCoil.Value)
             {
@@ -191,81 +191,66 @@ namespace LethalTubeRemoval.Patches
             }
         }
 
-
         [HarmonyPostfix]
         [HarmonyPatch(typeof(ShipTeleporter), "Awake")]
-        public static void TeleporterStuff()
+        static void TeleporterCord()
         {
             if (GameObject.Find("Teleporter(Clone)/ButtonContainer/LongCord"))
             {
                 GameObject longCord = GameObject.Find("Teleporter(Clone)/ButtonContainer/LongCord");
                 longCord.SetActive(false);
             }
+        }
 
-            
-            if (Config.moveTeleButtonsToDesk.Value)
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(ShipTeleporter), "Awake")]
+        public static void TeleporterButtons()
+        {
+            if (Config.moveTeleButtonsToDesk.Value && GameObject.Find("Teleporter(Clone)/ButtonContainer"))
             {
-                GameObject inverseTeleButton = GameObject.Find("InverseTeleporter(Clone)/ButtonContainer");
-                GameObject teleButton = GameObject.Find("Teleporter(Clone)/ButtonContainer");
+                [HarmonyPostfix]
+                [HarmonyPatch(typeof(ShipTeleporter), "Update")]
+                static void TeleporterStuff()
+                {
+                    if (Config.moveTeleButtonsToDesk.Value)
+                    {
+                        GameObject teleButton = GameObject.Find("Teleporter(Clone)/ButtonContainer");
+                        UnityEngine.Vector3 teleButtonGlobal = new Vector3(1.8872f, -1.4394f, -11.642f);
+                        UnityEngine.Vector3 teleButtonPosLocal = new Vector3(-1.1767f, -3.1688f, 2.2629f);
 
-                UnityEngine.Vector3 linverseTeleButtonPos = new Vector3(-1.1695f, 0.4287f, 1.7645f);
-                UnityEngine.Vector3 inverseTeleButtonRotation = new Vector3(0f, 2f, 0f);
-
-                //UnityEngine.Vector3 teleButtonPosLocal = new Vector3(-1.3844f, 2.1098f, 2.143f);
-                //UnityEngine.Vector3 teleButtonRotation = new Vector3(8f, 13f, 0f);
-                UnityEngine.Vector3 teleButtonGlobal = new Vector3(1.7651f, 1.8303f, -11.5574f);
-
-                inverseTeleButton.transform.localPosition = linverseTeleButtonPos;
-                inverseTeleButton.transform.eulerAngles = inverseTeleButtonRotation;
-                
-                teleButton.transform.localRotation = new UnityEngine.Quaternion(0.0693f, 0.1129f, -0.0079f, 0.9912f);       //to get this quaternion, use UnityExplorer, find the buttoncontainer rotation vector you need
-                teleButton.transform.position = teleButtonGlobal;                                                           //then inspect the transform component, and find the rotation quaternion and write it there
-
-                //normal tele
-                //rot 8 13 0
-                //local -1.3844 2.1098 2.143s
-                //global 1.7651 1.8303 -11.5574
-
-                //inverse
-                //global 1.61 0.789 -12.978
-                //local -1.1695 0.4287 1.7645
-                //rot 0 2 0
+                          
+                        teleButton.transform.localRotation = new UnityEngine.Quaternion(0.1211f, -0.1197f, -0.0436f, -0.9844f);       //to get this quaternion, use UnityExplorer, find the buttoncontainer rotation vector you need
+                        teleButton.transform.position = teleButtonGlobal;
+                        teleButton.transform.localPosition = teleButtonPosLocal;
+                    }
+                }
             }
-            else if (Config.moveTeleButtonsToDeskAlt.Value)
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(ShipTeleporter), "Awake")]
+        public static void InverseTeleporterButtons()
+        {
+            if (Config.moveTeleButtonsToDesk.Value && GameObject.Find("InverseTeleporter(Clone)/ButtonContainer"))
             {
-                GameObject inverseTeleButton = GameObject.Find("InverseTeleporter(Clone)/ButtonContainer");
-                GameObject teleButton = GameObject.Find("Teleporter(Clone)/ButtonContainer");
+                [HarmonyPostfix]
+                [HarmonyPatch(typeof(ShipTeleporter), "Update")]
+                static void InverseTeleporterStuff()
+                {
+                    if (Config.moveTeleButtonsToDesk.Value)
+                    {
+                        GameObject inverseTeleButton = GameObject.Find("InverseTeleporter(Clone)/ButtonContainer");
 
-                UnityEngine.Vector3 inverseTeleButtonPosGlobal = new Vector3(1.21f, 0.74f, -14.12f);  
-                UnityEngine.Vector3 inverseTeleButtonPosLocal = new Vector3(0.2214f, 0.3496f, 0.3927f);
-                UnityEngine.Vector3 teleButtonGlobal = new Vector3(1.8872f, -1.4394f, -11.642f);
+                        UnityEngine.Vector3 inverseTeleButtonPosGlobal = new Vector3(1.21f, 0.74f, -14.12f);
+                        UnityEngine.Vector3 inverseTeleButtonPosLocal = new Vector3(0.2214f, 0.3496f, 0.3927f);
+                        UnityEngine.Vector3 teleButtonGlobal = new Vector3(1.8872f, -1.4394f, -11.642f);
 
-                inverseTeleButton.transform.localRotation = new UnityEngine.Quaternion(0f, 0.0175f, 0f, 0.9998f);
-                inverseTeleButton.transform.position = inverseTeleButtonPosGlobal;
-                inverseTeleButton.transform.localPosition = inverseTeleButtonPosLocal;
-
-                teleButton.transform.localRotation = new UnityEngine.Quaternion(0.1211f, -0.1197f, -0.0436f, -0.9844f);       //to get this quaternion, use UnityExplorer, find the buttoncontainer rotation vector you need
-                teleButton.transform.position = teleButtonGlobal;
-
+                        inverseTeleButton.transform.localRotation = new UnityEngine.Quaternion(0f, 0.0175f, 0f, 0.9998f);
+                        inverseTeleButton.transform.position = inverseTeleButtonPosGlobal;
+                        inverseTeleButton.transform.localPosition = inverseTeleButtonPosLocal;
+                    }
+                }
             }
-            else if(Config.terminalReposition.Value)                          //Original button move
-            {
-
-                //if terminal is on the left it moves the inverse teleporter button so you can use it
-                GameObject inverseTeleButton = GameObject.Find("InverseTeleporter(Clone)/ButtonContainer");
-                GameObject teleButton = GameObject.Find("Teleporter(Clone)/ButtonContainer");
-
-                UnityEngine.Vector3 linverseTeleButtonPos = new Vector3(-2.5327f, 0f, 1.6f);      //fixes button so it is not clipping in terminal
-                UnityEngine.Vector3 inverseTeleButtonRotation = new Vector3(0f, 3f, 0f);
-
-                UnityEngine.Vector3 teleButtonPos = new Vector3(-2.5327f, 0f, 1.6f);      //fixes button so it is not clipping in terminal 
-                UnityEngine.Vector3 teleButtonRotation = new Vector3(0f, 3f, 0f); 
-
-                inverseTeleButton.transform.localPosition = linverseTeleButtonPos;
-                inverseTeleButton.transform.localRotation = new UnityEngine.Quaternion(0f, 0.0262f, 0f, 0.9997f);
-
-            }
-
         }
     }
 }
