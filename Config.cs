@@ -521,18 +521,9 @@ namespace LethalTubeRemoval
             var teleCordToggle = new BoolCheckBoxConfigItem(deleteTeleporterCord, requiresRestart: false);
             LethalConfigManager.AddConfigItem(teleCordToggle);
 
-            moveTeleButtonsToDesk = cfg.Bind(
-             storeItems,
-             "Teleporter Buttons v1",
-             false,
-             "Moves the teleporter buttons to the desk"
-         );
-            var teleButtonsToggle = new BoolCheckBoxConfigItem(moveTeleButtonsToDesk, requiresRestart: false);
-            LethalConfigManager.AddConfigItem(teleButtonsToggle);
-
             moveTeleButtonsToDeskAlt = cfg.Bind(
              storeItems,
-             "Teleporter Buttons v2",
+             "Teleporter Buttons",
              false,
              "Moves the teleporter buttons to the desk near the ship lever"
          );
