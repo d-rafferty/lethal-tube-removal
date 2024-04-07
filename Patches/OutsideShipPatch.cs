@@ -111,6 +111,12 @@ namespace LethalTubeRemoval.Patches
 
             if (Config.parkourMode.Value)
             {
+                if(!Config.deleteSupportBeams.Value) 
+                {
+                    GameObject.Destroy(supportBeams1);
+                    GameObject.Destroy(supportBeams2);
+                }
+
                 GameObject.Destroy(catWalk);
                 GameObject.Destroy(catWalkRailLining1);
                 GameObject.Destroy(catWalkRailLining2);
