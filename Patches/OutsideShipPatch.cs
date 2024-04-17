@@ -1,137 +1,128 @@
 ﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using BepInEx;
-using System.Runtime.CompilerServices;
 using Object = UnityEngine.Object;
-using static LethalTubeRemoval.TubeRemoval;
 
-namespace LethalTubeRemoval.Patches
+namespace LethalTubeRemoval.Patches;
+
+internal class OutsideShipPatch
 {
-    internal class OutsideShipPatch
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(StartOfRound), "Start")] //runs the patch each time the round is started
+    private static void OutsideShip()
     {
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(StartOfRound), "Start")]           //runs the patch each time the round is started
-        static void OutsideShip()
+        var floodLight =
+            GameObject.Find(
+                "Environment/HangarShip/ShipModels2b/ShipLightsPost"); //sets each ship item path as a GameObject
+        var leftMachinery = GameObject.Find("Environment/HangarShip/SideMachineryLeft");
+        var rightMachinery = GameObject.Find("Environment/HangarShip/SideMachineryRight");
+        var rightTubing1 = GameObject.Find("Environment/HangarShip/Cube.005");
+        var rightTubing2 = GameObject.Find("Environment/HangarShip/Cube.006");
+        var backTubing1 = GameObject.Find("Environment/HangarShip/Cube.007");
+        var backTubing2 = GameObject.Find("Environment/HangarShip/Cube.008");
+        var exhaustLeft = GameObject.Find("Environment/HangarShip/NurbsPath.001");
+        var weirdBoxRight = GameObject.Find("Environment/HangarShip/MeterBoxDevice.001");
+        var extraPipingLeft = GameObject.Find("Environment/HangarShip/Pipework2.002");
+
+
+        var railPosts = GameObject.Find("Environment/HangarShip/ShipRailPosts");
+        var rails = GameObject.Find("Environment/HangarShip/ShipRails");
+
+        var backRightThruster = GameObject.Find("Environment/HangarShip/ThrusterBackRight");
+        var backLeftThruster = GameObject.Find("Environment/HangarShip/ThrusterBackLeft");
+
+        var frontRightThruster = GameObject.Find("Environment/HangarShip/ThrusterFrontRight");
+        var frontLeftThruster = GameObject.Find("Environment/HangarShip/ThrusterFrontLeft");
+
+        var supportBeams1 = GameObject.Find("Environment/HangarShip/ShipSupportBeams");
+        var supportBeams2 = GameObject.Find("Environment/HangarShip/ShipSupportBeams.001");
+
+        var weirdBox = GameObject.Find("Environment/HangarShip/Cube.004");
+
+
+        //Catwalk stuff
+        var catWalk = GameObject.Find("Environment/HangarShip/CatwalkShip");
+        var catWalkRailLining1 = GameObject.Find("Environment/HangarShip/CatwalkRailLining");
+        var catWalkRailLining2 = GameObject.Find("Environment/HangarShip/CatwalkRailLiningB");
+        var catWalkSupports = GameObject.Find("Environment/HangarShip/CatwalkUnderneathSupports");
+
+        var bigLadder = GameObject.Find("Environment/HangarShip/OutsideShipRoom/Ladder");
+        var shortLadder1 = GameObject.Find("Environment/HangarShip/LadderShort");
+        var shortLadder2 = GameObject.Find("Environment/HangarShip/LadderShort (1)");
+        var catWalkHitbox = GameObject.Find("Environment/HangarShip/ClimbOntoCatwalkHelper");
+
+
+        if (Config.deleteFloodLight.Value) //checks config file for boolean value and if true deletes the item
+            Object.Destroy(floodLight);
+
+        if (Config.deleteMachinery.Value)
         {
-            GameObject floodLight = GameObject.Find("Environment/HangarShip/ShipModels2b/ShipLightsPost");        //sets each ship item path as a GameObject
-            GameObject leftMachinery = GameObject.Find("Environment/HangarShip/SideMachineryLeft");
-            GameObject rightMachinery = GameObject.Find("Environment/HangarShip/SideMachineryRight");
-            GameObject rightTubing1 = GameObject.Find("Environment/HangarShip/Cube.005");
-            GameObject rightTubing2 = GameObject.Find("Environment/HangarShip/Cube.006");
-            GameObject backTubing1 = GameObject.Find("Environment/HangarShip/Cube.007");
-            GameObject backTubing2 = GameObject.Find("Environment/HangarShip/Cube.008");
-            GameObject exhaustLeft = GameObject.Find("Environment/HangarShip/NurbsPath.001");
-            GameObject weirdBoxRight = GameObject.Find("Environment/HangarShip/MeterBoxDevice.001");
-            GameObject extraPipingLeft = GameObject.Find("Environment/HangarShip/Pipework2.002");
+            Object.Destroy(leftMachinery);
+            Object.Destroy(rightMachinery);
+            Object.Destroy(weirdBoxRight);
+            Object.Destroy(extraPipingLeft);
+        }
+        else if (Config.deleteLeftMachinery.Value)
+        {
+            Object.Destroy(leftMachinery);
+            Object.Destroy(extraPipingLeft);
+        }
+
+        if (Config.deleteOutsideTubing.Value)
+        {
+            Object.Destroy(rightTubing1);
+            Object.Destroy(rightTubing2);
+            Object.Destroy(backTubing1);
+            Object.Destroy(backTubing2);
+            Object.Destroy(exhaustLeft);
+        }
 
 
-            GameObject railPosts = GameObject.Find("Environment/HangarShip/ShipRailPosts");
-            GameObject rails = GameObject.Find("Environment/HangarShip/ShipRails");
+        if (Config.deleteThrusters.Value) //deletes all thrusters
+        {
+            Object.Destroy(backRightThruster);
+            Object.Destroy(frontRightThruster);
+            Object.Destroy(backLeftThruster);
+            Object.Destroy(frontLeftThruster);
+        }
+        else if
+            (Config.deleteThrusterTube
+             .Value) //if all thrusters have been chosen to be deleted, this will not run as it is redundant
+        {
+            Object.Destroy(backRightThruster);
+        }
 
-            GameObject backRightThruster = GameObject.Find("Environment/HangarShip/ThrusterBackRight");
-            GameObject backLeftThruster = GameObject.Find("Environment/HangarShip/ThrusterBackLeft");
+        if (Config.deleteSupportBeams.Value)
+        {
+            Object.Destroy(supportBeams1);
+            Object.Destroy(supportBeams2);
+        }
 
-            GameObject frontRightThruster = GameObject.Find("Environment/HangarShip/ThrusterFrontRight");
-            GameObject frontLeftThruster = GameObject.Find("Environment/HangarShip/ThrusterFrontLeft");
+        if (Config.deleteWeirdBox.Value) Object.Destroy(weirdBox);
 
-            GameObject supportBeams1 = GameObject.Find("Environment/HangarShip/ShipSupportBeams");
-            GameObject supportBeams2 = GameObject.Find("Environment/HangarShip/ShipSupportBeams.001");
-
-            GameObject weirdBox = GameObject.Find("Environment/HangarShip/Cube.004");
-
-
-            //Catwalk stuff
-            GameObject catWalk = GameObject.Find("Environment/HangarShip/CatwalkShip");
-            GameObject catWalkRailLining1 = GameObject.Find("Environment/HangarShip/CatwalkRailLining");
-            GameObject catWalkRailLining2 = GameObject.Find("Environment/HangarShip/CatwalkRailLiningB");
-            GameObject catWalkSupports = GameObject.Find("Environment/HangarShip/CatwalkUnderneathSupports");
-
-            GameObject bigLadder = GameObject.Find("Environment/HangarShip/OutsideShipRoom/Ladder");
-            GameObject shortLadder1 = GameObject.Find("Environment/HangarShip/LadderShort");
-            GameObject shortLadder2 = GameObject.Find("Environment/HangarShip/LadderShort (1)");
-            GameObject catWalkHitbox = GameObject.Find("Environment/HangarShip/ClimbOntoCatwalkHelper");
-
-
-
-            if (Config.deleteFloodLight.Value)            //checks config file for boolean value and if true deletes the item
+        if (Config.parkourMode.Value)
+        {
+            if (!Config.deleteSupportBeams.Value)
             {
-                GameObject.Destroy(floodLight);
+                Object.Destroy(supportBeams1);
+                Object.Destroy(supportBeams2);
             }
 
-            if (Config.deleteMachinery.Value)
-            {
-                GameObject.Destroy(leftMachinery);
-                GameObject.Destroy(rightMachinery);
-                GameObject.Destroy(weirdBoxRight);
-                GameObject.Destroy(extraPipingLeft);
-            }else if (Config.deleteLeftMachinery.Value)
-            {
-                GameObject.Destroy(leftMachinery);
-                GameObject.Destroy(extraPipingLeft);
-            }
-
-            if (Config.deleteOutsideTubing.Value)
-            {
-                GameObject.Destroy(rightTubing1);
-                GameObject.Destroy(rightTubing2);
-                GameObject.Destroy(backTubing1);
-                GameObject.Destroy(backTubing2);
-                GameObject.Destroy(exhaustLeft);
-            }
-
-            
-            if (Config.deleteThrusters.Value)                       //deletes all thrusters
-            {
-                GameObject.Destroy(backRightThruster);
-                GameObject.Destroy(frontRightThruster);
-                GameObject.Destroy(backLeftThruster);
-                GameObject.Destroy(frontLeftThruster);
-
-            }
-            else if (Config.deleteThrusterTube.Value)             //if all thrusters have been chosen to be deleted, this will not run as it is redundant
-            {
-                GameObject.Destroy(backRightThruster);
-            }
-
-            if (Config.deleteSupportBeams.Value)
-            {
-                GameObject.Destroy(supportBeams1);
-                GameObject.Destroy(supportBeams2);
-            }
-
-            if (Config.deleteWeirdBox.Value)
-            {
-                GameObject.Destroy(weirdBox);
-            }
-
-            if (Config.parkourMode.Value)
-            {
-                if(!Config.deleteSupportBeams.Value) 
-                {
-                    GameObject.Destroy(supportBeams1);
-                    GameObject.Destroy(supportBeams2);
-                }
-
-                GameObject.Destroy(catWalk);
-                GameObject.Destroy(catWalkRailLining1);
-                GameObject.Destroy(catWalkRailLining2);
-                GameObject.Destroy(catWalkSupports);
-                GameObject.Destroy(catWalkHitbox);
-                GameObject.Destroy(railPosts);
-                GameObject.Destroy(rails);
-                bigLadder.SetActive(false);             //ladders prevent door from closing as well, found setting the item as inactive instead of destroying it preserves door function
-                shortLadder1.SetActive(false);
-                shortLadder2.SetActive(false);
-            }else if (Config.deleteRailing.Value)
-            {
-                GameObject.Destroy(railPosts);
-                GameObject.Destroy(rails);
-            }
+            Object.Destroy(catWalk);
+            Object.Destroy(catWalkRailLining1);
+            Object.Destroy(catWalkRailLining2);
+            Object.Destroy(catWalkSupports);
+            Object.Destroy(catWalkHitbox);
+            Object.Destroy(railPosts);
+            Object.Destroy(rails);
+            bigLadder.SetActive(
+                false); //ladders prevent door from closing as well, found setting the item as inactive instead of destroying it preserves door function
+            shortLadder1.SetActive(false);
+            shortLadder2.SetActive(false);
+        }
+        else if (Config.deleteRailing.Value)
+        {
+            Object.Destroy(railPosts);
+            Object.Destroy(rails);
         }
     }
 }
