@@ -124,7 +124,7 @@ internal class TubeRemovalPatch
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(StartOfRound), "Update")]
-    public static void CustomCoords()
+    public static void CoilCustomCoords()
     {
         //for custom charging coil coordinates
         if (moveCoil.Value)
@@ -136,6 +136,29 @@ internal class TubeRemovalPatch
             chargingCoil.transform.localPosition = chargeLocalPos;
             chargingCoil.transform.eulerAngles = chargeLocalRotation;
         }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(StartOfRound), "Start")]
+    public static void ClipboardCustomCoords()
+    {
+        //for custom charging coil coordinates
+        if (moveClipboard.Value)
+        {
+            var clipboard = GameObject.Find("Environment/HangarShip/ClipboardManual");
+            var clipPos = new Vector3(xCordClip.Value, yCordClip.Value, zCordClip.Value);
+            var clipLocalRotation = new Vector3(xRotClip.Value, yRotClip.Value, zRotClip.Value);
+
+            //gets this component and sets inactive because you cannot change position with it active
+            var clippyitem = clipboard.GetComponent<ClipboardItem>();   
+            clippyitem.enabled = false;
+            clipboard.transform.position = clipPos;
+
+            //re-enables to set rotation and for game functions
+            clippyitem.enabled = true;                                  
+            clipboard.transform.eulerAngles = clipLocalRotation;
+        }
+        
     }
 
     [HarmonyPostfix]

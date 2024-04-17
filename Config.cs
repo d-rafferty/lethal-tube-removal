@@ -10,6 +10,8 @@ public class Config
 
     private const string chargingcoil = "Charging Coil Reposition";
 
+    private const string cliprepos = "Clipboard Reposition";
+
     private const string inside = "Inside Ship";
 
     private const string outside = "Outside Ship";
@@ -37,6 +39,17 @@ public class Config
     public static ConfigEntry<float> xRotCoil;
     public static ConfigEntry<float> yRotCoil;
     public static ConfigEntry<float> zRotCoil;
+
+    //Custom Clipboard Coords
+    public static ConfigEntry<bool> moveClipboard;
+    public static ConfigEntry<float> xCordClip;
+    public static ConfigEntry<float> yCordClip;
+    public static ConfigEntry<float> zCordClip;
+
+    public static ConfigEntry<float> xRotClip;
+    public static ConfigEntry<float> yRotClip;
+    public static ConfigEntry<float> zRotClip;
+
 
     //Store Items
     public static ConfigEntry<bool> deleteTeleporterCord;
@@ -221,6 +234,71 @@ public class Config
         );
         var rotZ = new FloatInputFieldConfigItem(zRotCoil, false);
         LethalConfigManager.AddConfigItem(rotZ);
+
+
+        //MOVE CLIPBOARD
+        moveClipboard = cfg.Bind(
+            cliprepos,
+            "Move Clipboard",
+            false,
+            "Allows the custom coordinates to be set"
+        );
+        var clipboardMoveToggle = new BoolCheckBoxConfigItem(moveClipboard, false);
+        LethalConfigManager.AddConfigItem(clipboardMoveToggle);
+
+        xCordClip = cfg.Bind(
+            cliprepos,
+            "X-Coordinate",
+            9.6715f,
+            "Sets X-coordinate of Clipboard"
+        );
+        var clipX = new FloatInputFieldConfigItem(xCordClip, false);
+        LethalConfigManager.AddConfigItem(clipX);
+
+        yCordClip = cfg.Bind(
+            cliprepos,
+            "Y-Coordinate",
+            1.4404f,
+            "Sets Y-coordinate of Clipboard"
+        );
+        var clipY = new FloatInputFieldConfigItem(yCordClip, false);
+        LethalConfigManager.AddConfigItem(clipY);
+
+        zCordClip = cfg.Bind(
+            cliprepos,
+            "Z-Coordinate",
+            -13.505f,
+            "Sets Z-coordinate of Clipboard"
+        );
+        var clipZ = new FloatInputFieldConfigItem(zCordClip, false);
+        LethalConfigManager.AddConfigItem(clipZ);
+
+        xRotClip = cfg.Bind(
+            cliprepos,
+            "X-Rotation",
+            359.9378f,
+            "Sets X-Rotation of Clipboard"
+        );
+        var clipRotX = new FloatInputFieldConfigItem(xRotClip, false);
+        LethalConfigManager.AddConfigItem(clipRotX);
+
+        yRotClip = cfg.Bind(
+            cliprepos,
+            "Y-Rotation",
+           159.3217f,
+            "Sets Y-Rotation of Clipboard"
+        );
+        var clipRotY = new FloatInputFieldConfigItem(yRotClip, false);
+        LethalConfigManager.AddConfigItem(clipRotY);
+
+        zRotClip = cfg.Bind(
+            cliprepos,
+            "Z-Rotation",
+            180.0557f,
+            "Sets Z-Rotation of Clipboard"
+        );
+        var clipRotZ = new FloatInputFieldConfigItem(zRotClip, false);
+        LethalConfigManager.AddConfigItem(clipRotZ);
 
 
         //Inside Ship
