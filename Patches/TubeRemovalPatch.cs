@@ -155,7 +155,7 @@ internal class TubeRemovalPatch
             clipboard.transform.position = clipPos;
 
             //re-enables to set rotation and for game functions
-            clippyitem.enabled = true;                                  
+            clippyitem.enabled = true;
             clipboard.transform.eulerAngles = clipLocalRotation;
         }
         
