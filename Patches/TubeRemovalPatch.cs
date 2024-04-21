@@ -16,6 +16,7 @@ internal class TubeRemovalPatch
         var beds = GameObject.Find("Environment/HangarShip/Bunkbeds");
         var cabinet = GameObject.Find("Environment/HangarShip/FileCabinet");
         var tank = GameObject.Find("Environment/HangarShip/ScavengerModelSuitParts/Circle.002");
+        var shelf = GameObject.Find("Environment/HangarShip/StorageCloset");
 
         var clipboard = GameObject.Find("Environment/HangarShip/ClipboardManual");
         var doorGenerator = GameObject.Find("Environment/HangarShip/DoorGenerator");
@@ -61,6 +62,8 @@ internal class TubeRemovalPatch
         if (deleteFileCabinets.Value) Object.Destroy(cabinet);
 
         if (deleteOxygenTank.Value) Object.Destroy(tank);
+
+        if (deleteShelf.Value) Object.Destroy(shelf);
 
         if (deleteClipboard.Value) Object.Destroy(clipboard);
 
@@ -158,7 +161,6 @@ internal class TubeRemovalPatch
             clippyitem.enabled = true;
             clipboard.transform.eulerAngles = clipLocalRotation;
         }
-        
     }
 
     [HarmonyPostfix]

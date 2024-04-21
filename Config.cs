@@ -76,6 +76,7 @@ public class Config
     public static ConfigEntry<bool> deleteDoorTubes;
     public static ConfigEntry<bool> deleteKeyboardCord;
     public static ConfigEntry<bool> terminalReposition;
+    public static ConfigEntry<bool> deleteShelf;
 
     //Outside Ship
     public static ConfigEntry<bool> deleteFloodLight;
@@ -475,6 +476,15 @@ public class Config
         );
         var keyboardCordToggle = new BoolCheckBoxConfigItem(deleteKeyboardCord, false);
         LethalConfigManager.AddConfigItem(keyboardCordToggle);
+
+        deleteShelf = cfg.Bind(
+            inside,
+            "Storage Shelf",
+            false,
+            "Deletes the storage shelf"
+        );
+        var shelfToggle = new BoolCheckBoxConfigItem(deleteShelf, false);
+        LethalConfigManager.AddConfigItem(shelfToggle);
 
 
         // OUTSIDE SHIP
