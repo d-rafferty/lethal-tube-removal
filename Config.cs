@@ -112,7 +112,8 @@ public class Config
             terminalmove,
             "Custom Terminal Coordinates",
             false,
-            "Allows the custom coordinates to be set. [CAUTION] Having this enabled disables the native ship furniture moving feature. You can enable/disable this in real-time in the pause menu."
+            "Allows the custom coordinates to be set. [CAUTION] Having this enabled disables the native ship furniture moving feature. " +
+            "You can enable/disable this in real-time in the pause menu. I would reccomend changing these from the config file itself."
         );
         var termCustomMoveToggle = new BoolCheckBoxConfigItem(customTerminal, false);
         LethalConfigManager.AddConfigItem(termCustomMoveToggle);
@@ -170,137 +171,6 @@ public class Config
         );
         var termRotZ = new FloatInputFieldConfigItem(zRotTerm, false);
         LethalConfigManager.AddConfigItem(termRotZ);
-
-
-        //Custom Coil Coords
-
-        moveCoil = cfg.Bind(
-            chargingcoil,
-            "Move Coil",
-            false,
-            "Allows the custom coordinates to be set"
-        );
-        var coilMoveToggle = new BoolCheckBoxConfigItem(moveCoil, false);
-        LethalConfigManager.AddConfigItem(coilMoveToggle);
-
-        xCordCoil = cfg.Bind(
-            chargingcoil,
-            "X-Coordinate",
-            -0.343f,
-            "Sets X-coordinate of Charging Coil"
-        );
-        var coilX = new FloatInputFieldConfigItem(xCordCoil, false);
-        LethalConfigManager.AddConfigItem(coilX);
-
-        yCordCoil = cfg.Bind(
-            chargingcoil,
-            "Y-Coordinate",
-            1.2561f,
-            "Sets Y-coordinate of Charging Coil"
-        );
-        var coilY = new FloatInputFieldConfigItem(yCordCoil, false);
-        LethalConfigManager.AddConfigItem(coilY);
-
-        zCordCoil = cfg.Bind(
-            chargingcoil,
-            "Z-Coordinate",
-            -4.802f,
-            "Sets Z-coordinate of Charging Coil"
-        );
-        var coilZ = new FloatInputFieldConfigItem(zCordCoil, false);
-        LethalConfigManager.AddConfigItem(coilZ);
-
-        xRotCoil = cfg.Bind(
-            chargingcoil,
-            "X-Rotation",
-            270f,
-            "Sets X-Rotation of Charging Coil"
-        );
-        var rotX = new FloatInputFieldConfigItem(xRotCoil, false);
-        LethalConfigManager.AddConfigItem(rotX);
-
-        yRotCoil = cfg.Bind(
-            chargingcoil,
-            "Y-Rotation",
-            0.0009f,
-            "Sets Y-Rotation of Charging Coil"
-        );
-        var rotY = new FloatInputFieldConfigItem(yRotCoil, false);
-        LethalConfigManager.AddConfigItem(rotY);
-
-        zRotCoil = cfg.Bind(
-            chargingcoil,
-            "Z-Rotation",
-            0f,
-            "Sets Z-Rotation of Charging Coil"
-        );
-        var rotZ = new FloatInputFieldConfigItem(zRotCoil, false);
-        LethalConfigManager.AddConfigItem(rotZ);
-
-
-        //MOVE CLIPBOARD
-        moveClipboard = cfg.Bind(
-            cliprepos,
-            "Move Clipboard",
-            false,
-            "Allows the custom coordinates to be set"
-        );
-        var clipboardMoveToggle = new BoolCheckBoxConfigItem(moveClipboard, false);
-        LethalConfigManager.AddConfigItem(clipboardMoveToggle);
-
-        xCordClip = cfg.Bind(
-            cliprepos,
-            "X-Coordinate",
-            9.6715f,
-            "Sets X-coordinate of Clipboard"
-        );
-        var clipX = new FloatInputFieldConfigItem(xCordClip, false);
-        LethalConfigManager.AddConfigItem(clipX);
-
-        yCordClip = cfg.Bind(
-            cliprepos,
-            "Y-Coordinate",
-            1.4404f,
-            "Sets Y-coordinate of Clipboard"
-        );
-        var clipY = new FloatInputFieldConfigItem(yCordClip, false);
-        LethalConfigManager.AddConfigItem(clipY);
-
-        zCordClip = cfg.Bind(
-            cliprepos,
-            "Z-Coordinate",
-            -13.505f,
-            "Sets Z-coordinate of Clipboard"
-        );
-        var clipZ = new FloatInputFieldConfigItem(zCordClip, false);
-        LethalConfigManager.AddConfigItem(clipZ);
-
-        xRotClip = cfg.Bind(
-            cliprepos,
-            "X-Rotation",
-            359.9378f,
-            "Sets X-Rotation of Clipboard"
-        );
-        var clipRotX = new FloatInputFieldConfigItem(xRotClip, false);
-        LethalConfigManager.AddConfigItem(clipRotX);
-
-        yRotClip = cfg.Bind(
-            cliprepos,
-            "Y-Rotation",
-           159.3217f,
-            "Sets Y-Rotation of Clipboard"
-        );
-        var clipRotY = new FloatInputFieldConfigItem(yRotClip, false);
-        LethalConfigManager.AddConfigItem(clipRotY);
-
-        zRotClip = cfg.Bind(
-            cliprepos,
-            "Z-Rotation",
-            180.0557f,
-            "Sets Z-Rotation of Clipboard"
-        );
-        var clipRotZ = new FloatInputFieldConfigItem(zRotClip, false);
-        LethalConfigManager.AddConfigItem(clipRotZ);
 
 
         //Inside Ship
@@ -559,7 +429,7 @@ public class Config
             "Removes support beams."
         );
         var supportBeamsToggle = new BoolCheckBoxConfigItem(deleteSupportBeams, false);
-        LethalConfigManager.AddConfigItem(thrustersToggle);
+        LethalConfigManager.AddConfigItem(supportBeamsToggle);
 
         deleteWeirdBox = cfg.Bind(
             outside,
@@ -568,7 +438,7 @@ public class Config
             "Removes large exhaust box near front of ship"
         );
         var weirdBoxToggle = new BoolCheckBoxConfigItem(deleteWeirdBox, false);
-        LethalConfigManager.AddConfigItem(thrustersToggle);
+        LethalConfigManager.AddConfigItem(weirdBoxToggle);
 
         deleteLeftMachinery = cfg.Bind(
             outside,
@@ -618,5 +488,136 @@ public class Config
         );
         var teleButtonsToggle = new BoolCheckBoxConfigItem(moveTeleButtonsToDesk, false);
         LethalConfigManager.AddConfigItem(teleButtonsToggle);
+
+
+        //Custom Coil Coords
+
+        moveCoil = cfg.Bind(
+            chargingcoil,
+            "Move Coil",
+            false,
+            "Allows the custom coordinates to be set"
+        );
+        var coilMoveToggle = new BoolCheckBoxConfigItem(moveCoil, false);
+        LethalConfigManager.AddConfigItem(coilMoveToggle);
+
+        xCordCoil = cfg.Bind(
+            chargingcoil,
+            "X-Coordinate",
+            -0.343f,
+            "Sets X-coordinate of Charging Coil"
+        );
+        var coilX = new FloatInputFieldConfigItem(xCordCoil, false);
+        LethalConfigManager.AddConfigItem(coilX);
+
+        yCordCoil = cfg.Bind(
+            chargingcoil,
+            "Y-Coordinate",
+            1.2561f,
+            "Sets Y-coordinate of Charging Coil"
+        );
+        var coilY = new FloatInputFieldConfigItem(yCordCoil, false);
+        LethalConfigManager.AddConfigItem(coilY);
+
+        zCordCoil = cfg.Bind(
+            chargingcoil,
+            "Z-Coordinate",
+            -4.802f,
+            "Sets Z-coordinate of Charging Coil"
+        );
+        var coilZ = new FloatInputFieldConfigItem(zCordCoil, false);
+        LethalConfigManager.AddConfigItem(coilZ);
+
+        xRotCoil = cfg.Bind(
+            chargingcoil,
+            "X-Rotation",
+            270f,
+            "Sets X-Rotation of Charging Coil"
+        );
+        var rotX = new FloatInputFieldConfigItem(xRotCoil, false);
+        LethalConfigManager.AddConfigItem(rotX);
+
+        yRotCoil = cfg.Bind(
+            chargingcoil,
+            "Y-Rotation",
+            0.0009f,
+            "Sets Y-Rotation of Charging Coil"
+        );
+        var rotY = new FloatInputFieldConfigItem(yRotCoil, false);
+        LethalConfigManager.AddConfigItem(rotY);
+
+        zRotCoil = cfg.Bind(
+            chargingcoil,
+            "Z-Rotation",
+            0f,
+            "Sets Z-Rotation of Charging Coil"
+        );
+        var rotZ = new FloatInputFieldConfigItem(zRotCoil, false);
+        LethalConfigManager.AddConfigItem(rotZ);
+
+
+        //MOVE CLIPBOARD
+        moveClipboard = cfg.Bind(
+            cliprepos,
+            "Move Clipboard",
+            false,
+            "Allows the custom coordinates to be set"
+        );
+        var clipboardMoveToggle = new BoolCheckBoxConfigItem(moveClipboard, false);
+        LethalConfigManager.AddConfigItem(clipboardMoveToggle);
+
+        xCordClip = cfg.Bind(
+            cliprepos,
+            "X-Coordinate",
+            9.6715f,
+            "Sets X-coordinate of Clipboard"
+        );
+        var clipX = new FloatInputFieldConfigItem(xCordClip, false);
+        LethalConfigManager.AddConfigItem(clipX);
+
+        yCordClip = cfg.Bind(
+            cliprepos,
+            "Y-Coordinate",
+            1.4404f,
+            "Sets Y-coordinate of Clipboard"
+        );
+        var clipY = new FloatInputFieldConfigItem(yCordClip, false);
+        LethalConfigManager.AddConfigItem(clipY);
+
+        zCordClip = cfg.Bind(
+            cliprepos,
+            "Z-Coordinate",
+            -13.505f,
+            "Sets Z-coordinate of Clipboard"
+        );
+        var clipZ = new FloatInputFieldConfigItem(zCordClip, false);
+        LethalConfigManager.AddConfigItem(clipZ);
+
+        xRotClip = cfg.Bind(
+            cliprepos,
+            "X-Rotation",
+            359.9378f,
+            "Sets X-Rotation of Clipboard"
+        );
+        var clipRotX = new FloatInputFieldConfigItem(xRotClip, false);
+        LethalConfigManager.AddConfigItem(clipRotX);
+
+        yRotClip = cfg.Bind(
+            cliprepos,
+            "Y-Rotation",
+           159.3217f,
+            "Sets Y-Rotation of Clipboard"
+        );
+        var clipRotY = new FloatInputFieldConfigItem(yRotClip, false);
+        LethalConfigManager.AddConfigItem(clipRotY);
+
+        zRotClip = cfg.Bind(
+            cliprepos,
+            "Z-Rotation",
+            180.0557f,
+            "Sets Z-Rotation of Clipboard"
+        );
+        var clipRotZ = new FloatInputFieldConfigItem(zRotClip, false);
+        LethalConfigManager.AddConfigItem(clipRotZ);
     }
 }
