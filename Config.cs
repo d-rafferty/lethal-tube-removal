@@ -21,78 +21,78 @@ public class Config
     private const string misc = "Misc Modes";
 
     //Custom Terminal Coords
-    public static ConfigEntry<bool> customTerminal;
-    public static ConfigEntry<float> xCordTerm;
-    public static ConfigEntry<float> yCordTerm;
-    public static ConfigEntry<float> zCordTerm;
+    internal static ConfigEntry<bool> customTerminal;
+    internal static ConfigEntry<float> xCordTerm;
+    internal static ConfigEntry<float> yCordTerm;
+    internal static ConfigEntry<float> zCordTerm;
 
-    public static ConfigEntry<float> xRotTerm;
-    public static ConfigEntry<float> yRotTerm;
-    public static ConfigEntry<float> zRotTerm;
+    internal static ConfigEntry<float> xRotTerm;
+    internal static ConfigEntry<float> yRotTerm;
+    internal static ConfigEntry<float> zRotTerm;
 
     //Custom Coil Coords
-    public static ConfigEntry<bool> moveCoil;
-    public static ConfigEntry<float> xCordCoil;
-    public static ConfigEntry<float> yCordCoil;
-    public static ConfigEntry<float> zCordCoil;
+    internal static ConfigEntry<bool> moveCoil;
+    internal static ConfigEntry<float> xCordCoil;
+    internal static ConfigEntry<float> yCordCoil;
+    internal static ConfigEntry<float> zCordCoil;
 
-    public static ConfigEntry<float> xRotCoil;
-    public static ConfigEntry<float> yRotCoil;
-    public static ConfigEntry<float> zRotCoil;
+    internal static ConfigEntry<float> xRotCoil;
+    internal static ConfigEntry<float> yRotCoil;
+    internal static ConfigEntry<float> zRotCoil;
 
     //Custom Clipboard Coords
-    public static ConfigEntry<bool> moveClipboard;
-    public static ConfigEntry<float> xCordClip;
-    public static ConfigEntry<float> yCordClip;
-    public static ConfigEntry<float> zCordClip;
+    internal static ConfigEntry<bool> moveClipboard;
+    internal static ConfigEntry<float> xCordClip;
+    internal static ConfigEntry<float> yCordClip;
+    internal static ConfigEntry<float> zCordClip;
 
-    public static ConfigEntry<float> xRotClip;
-    public static ConfigEntry<float> yRotClip;
-    public static ConfigEntry<float> zRotClip;
+    internal static ConfigEntry<float> xRotClip;
+    internal static ConfigEntry<float> yRotClip;
+    internal static ConfigEntry<float> zRotClip;
 
 
     //Store Items
-    public static ConfigEntry<bool> deleteTeleporterCord;
-    public static ConfigEntry<bool> moveTeleButtonsToDesk;
+    internal static ConfigEntry<bool> deleteTeleporterCord;
+    internal static ConfigEntry<bool> moveTeleButtonsToDesk;
 
     //Inside Ship
-    public static ConfigEntry<bool> deleteTube; //initializes the config entry for each ship item, uses LethalConfig
-    public static ConfigEntry<bool> deleteBunkbeds;
-    public static ConfigEntry<bool> deleteFileCabinets;
-    public static ConfigEntry<bool> deleteOxygenTank;
-    public static ConfigEntry<bool> deleteClipboard;
-    public static ConfigEntry<bool> deleteDoorGenerator;
-    public static ConfigEntry<bool> deleteBoots;
-    public static ConfigEntry<bool> deleteMask;
-    public static ConfigEntry<bool> deleteAirFilter;
-    public static ConfigEntry<bool> deleteStickyNote;
-    public static ConfigEntry<bool> deleteBatteries;
-    public static ConfigEntry<bool> deleteVent;
-    public static ConfigEntry<bool> deleteMonitorCords;
-    public static ConfigEntry<bool> deleteDoorSpeaker;
-    public static ConfigEntry<bool> deleteMainSpeaker;
-    public static ConfigEntry<bool> deletePosters;
-    public static ConfigEntry<bool> deleteClothingRack;
-    public static ConfigEntry<bool> deleteDoorTubes;
-    public static ConfigEntry<bool> deleteKeyboardCord;
-    public static ConfigEntry<bool> terminalReposition;
-    public static ConfigEntry<bool> deleteShelf;
-    public static ConfigEntry<bool> deleteDoorMonitor;
+    internal static ConfigEntry<bool> deleteTube; //initializes the config entry for each ship item, uses LethalConfig
+    internal static ConfigEntry<bool> deleteBunkbeds;
+    internal static ConfigEntry<bool> deleteFileCabinets;
+    internal static ConfigEntry<bool> deleteOxygenTank;
+    internal static ConfigEntry<bool> deleteClipboard;
+    internal static ConfigEntry<bool> deleteDoorGenerator;
+    internal static ConfigEntry<bool> deleteBoots;
+    internal static ConfigEntry<bool> deleteMask;
+    internal static ConfigEntry<bool> deleteAirFilter;
+    internal static ConfigEntry<bool> deleteStickyNote;
+    internal static ConfigEntry<bool> deleteBatteries;
+    internal static ConfigEntry<bool> deleteVent;
+    internal static ConfigEntry<bool> deleteMonitorCords;
+    internal static ConfigEntry<bool> deleteDoorSpeaker;
+    internal static ConfigEntry<bool> deleteMainSpeaker;
+    internal static ConfigEntry<bool> deletePosters;
+    internal static ConfigEntry<bool> deleteClothingRack;
+    internal static ConfigEntry<bool> deleteDoorTubes;
+    internal static ConfigEntry<bool> deleteKeyboardCord;
+    internal static ConfigEntry<bool> terminalReposition;
+    internal static ConfigEntry<bool> deleteShelf;
+    internal static ConfigEntry<bool> deleteDoorMonitor;
 
     //Outside Ship
-    public static ConfigEntry<bool> deleteFloodLight;
-    public static ConfigEntry<bool> deleteOutsideTubing;
-    public static ConfigEntry<bool> deleteMachinery;
-    public static ConfigEntry<bool> deleteRailing;
-    public static ConfigEntry<bool> deleteThrusterTube;
-    public static ConfigEntry<bool> deleteThrusters;
-    public static ConfigEntry<bool> deleteSupportBeams;
-    public static ConfigEntry<bool> deleteWeirdBox;
-    public static ConfigEntry<bool> deleteLeftMachinery;
+    internal static ConfigEntry<bool> deleteFloodLight;
+    internal static ConfigEntry<bool> deleteOutsideTubing;
+    internal static ConfigEntry<bool> deleteMachinery;
+    internal static ConfigEntry<bool> deleteRailing;
+    internal static ConfigEntry<bool> deleteThrusterTube;
+    internal static ConfigEntry<bool> deleteThrusters;
+    internal static ConfigEntry<bool> deleteSupportBeams;
+    internal static ConfigEntry<bool> deleteWeirdBox;
+    internal static ConfigEntry<bool> deleteLeftMachinery;
 
     //Misc
-    public static ConfigEntry<bool> parkourMode;
-    public static ConfigEntry<bool> lowLightMode;
+    internal static ConfigEntry<bool> parkourMode;
+    internal static ConfigEntry<bool> lowLightMode;
 
 
     public Config(ConfigFile cfg)
