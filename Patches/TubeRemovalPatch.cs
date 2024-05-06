@@ -50,10 +50,8 @@ internal class TubeRemovalPatch
         var areaLight3 = GameObject.Find("Environment/HangarShip/ShipElectricLights/Area Light (5)");
         var hangingLamp1 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (2)");
         var hangingLamp3 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (4)");
-
+        
         //Store Items
-
-
         if (deleteTube.Value) //checks config file for boolean value and if true deletes the item
             Object.Destroy(tube);
 
@@ -184,7 +182,7 @@ internal class TubeRemovalPatch
             [HarmonyPatch(typeof(ShipTeleporter), "Update")]
             static void TeleporterStuff()
             {
-                if (moveTeleButtonsToDesk.Value)
+                if (moveTeleButtonsToDesk.Value && GameObject.Find("Teleporter(Clone)/ButtonContainer"))
                 {
                     var teleButton = GameObject.Find("Teleporter(Clone)/ButtonContainer");
                     var teleButtonGlobal = new Vector3(1.8872f, -1.4394f, -11.642f);
@@ -211,10 +209,9 @@ internal class TubeRemovalPatch
             [HarmonyPatch(typeof(ShipTeleporter), "Update")]
             static void InverseTeleporterStuff()
             {
-                if (moveTeleButtonsToDesk.Value)
+                if (moveTeleButtonsToDesk.Value && GameObject.Find("InverseTeleporter(Clone)/ButtonContainer"))
                 {
                     var inverseTeleButton = GameObject.Find("InverseTeleporter(Clone)/ButtonContainer");
-
                     var inverseTeleButtonPosGlobal = new Vector3(1.21f, 0.74f, -14.12f);
                     var inverseTeleButtonPosLocal = new Vector3(0.2214f, 0.3496f, 0.3927f);
                     var teleButtonGlobal = new Vector3(1.8872f, -1.4394f, -11.642f);
@@ -222,7 +219,7 @@ internal class TubeRemovalPatch
                     inverseTeleButton.transform.localRotation = new Quaternion(0f, 0.0175f, 0f, 0.9998f);
                     inverseTeleButton.transform.position = inverseTeleButtonPosGlobal;
                     inverseTeleButton.transform.localPosition = inverseTeleButtonPosLocal;
-                }
+                    }
             }
         }
     }
