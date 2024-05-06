@@ -42,6 +42,7 @@ internal class TubeRemovalPatch
 
         var mainSpeaker = GameObject.Find("Environment/HangarShip/ShipModels2b/Cube.005 (2)");
         var speakerAudio = GameObject.Find("Environment/HangarShip/ShipModels2b/Cube.005 (2)/SpeakerAudio");
+        var doorMonitor = GameObject.Find("Environment/HangarShip/ShipModels2b/MonitorWall/SingleScreen");
 
 
         //Lights
@@ -121,6 +122,8 @@ internal class TubeRemovalPatch
             Object.Destroy(hangingLamp1);
             Object.Destroy(hangingLamp3);
         }
+
+        if (deleteDoorMonitor.Value) doorMonitor.SetActive(false);
     }
 
     [HarmonyPostfix]
