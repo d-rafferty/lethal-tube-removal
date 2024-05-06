@@ -428,7 +428,7 @@ public class Config
             inside,
             "Door Speaker",
             false,
-            "Deletes the speaker near the ship door"
+            "Deletes the speaker near the ship door !!WARNING: If you are reading logs, this option will spam null audio warnings in v50."
         );
         var doorSpeakerToggle = new BoolCheckBoxConfigItem(deleteDoorSpeaker, false);
         LethalConfigManager.AddConfigItem(doorSpeakerToggle);

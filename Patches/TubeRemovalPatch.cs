@@ -51,7 +51,7 @@ internal class TubeRemovalPatch
         var areaLight3 = GameObject.Find("Environment/HangarShip/ShipElectricLights/Area Light (5)");
         var hangingLamp1 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (2)");
         var hangingLamp3 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (4)");
-        
+
         //Store Items
         if (deleteTube.Value) //checks config file for boolean value and if true deletes the item
             Object.Destroy(tube);
@@ -88,7 +88,15 @@ internal class TubeRemovalPatch
 
         if (deleteMonitorCords.Value) Object.Destroy(monitorCords);
 
-        if (deleteDoorSpeaker.Value) Object.Destroy(doorSpeaker);
+        if (deleteDoorSpeaker.Value)
+        {
+            //door speaker was causing unity warning spam in v50 so moving it instead of deleting only causes warning on ship takeoff/land
+            var localSpeakerPos =
+                new Vector3(11.4571f, 1.9706f,
+                    -16.9578f); //hides the speaker in the front of the ship in the wall behind the monitors
+            doorSpeaker.transform.position = localSpeakerPos;
+        }
+
 
         if (deleteMainSpeaker.Value)
         {
@@ -123,7 +131,7 @@ internal class TubeRemovalPatch
             Object.Destroy(hangingLamp3);
         }
 
-        if (deleteDoorMonitor.Value) doorMonitor.SetActive(false);
+        if (deleteDoorMonitor.Value) Object.Destroy(doorMonitor);
     }
 
     [HarmonyPostfix]
