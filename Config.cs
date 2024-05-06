@@ -77,6 +77,7 @@ public class Config
     public static ConfigEntry<bool> deleteKeyboardCord;
     public static ConfigEntry<bool> terminalReposition;
     public static ConfigEntry<bool> deleteShelf;
+    public static ConfigEntry<bool> deleteDoorMonitor;
 
     //Outside Ship
     public static ConfigEntry<bool> deleteFloodLight;
@@ -427,7 +428,7 @@ public class Config
             inside,
             "Door Speaker",
             false,
-            "Deletes the speaker near the ship door"
+            "Deletes the speaker near the ship door !!WARNING: If you are reading logs, this option will spam null audio warnings in v50."
         );
         var doorSpeakerToggle = new BoolCheckBoxConfigItem(deleteDoorSpeaker, false);
         LethalConfigManager.AddConfigItem(doorSpeakerToggle);
@@ -485,6 +486,15 @@ public class Config
         );
         var shelfToggle = new BoolCheckBoxConfigItem(deleteShelf, false);
         LethalConfigManager.AddConfigItem(shelfToggle);
+
+        deleteDoorMonitor = cfg.Bind(
+            inside,
+            "Door Monitor",
+            false,
+            "Deletes the monitor above the door buttons"
+        );
+        var doorMonitorToggle = new BoolCheckBoxConfigItem(deleteDoorMonitor, false);
+        LethalConfigManager.AddConfigItem(doorMonitorToggle);
 
 
         // OUTSIDE SHIP

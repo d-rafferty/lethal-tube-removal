@@ -61,12 +61,4 @@ internal class TerminalReposition
         terminal = __instance;
         if (lowLightMode.Value) terminal.terminalLight.enabled = true;
     }
-
-
-    //Custom Terminal Coords
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(StartOfRound), "Update")]
-    public static void CustomTerminalMove()
-    {
-    }
 }
