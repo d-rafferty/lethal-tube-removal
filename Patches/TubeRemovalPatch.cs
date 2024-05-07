@@ -151,6 +151,57 @@ internal class TubeRemovalPatch
     }
 
     [HarmonyPostfix]
+    [HarmonyPatch(typeof(StartOfRound), "Update")]
+    public static void VentCustomCoords()
+    {
+        //for custom charging coil coordinates
+        if (moveVent.Value && !deleteVent.Value)
+        {
+            var vent = GameObject.Find("Environment/HangarShip/VentEntrance/Hinge");
+            var ventLocalPos = new Vector3(xCordVent.Value, yCordVent.Value, zCordVent.Value);
+            var ventLocalRotation = new Vector3(xRotVent.Value, yRotVent.Value, zRotVent.Value);
+
+            vent.transform.localPosition = ventLocalPos;
+            vent.transform.eulerAngles = ventLocalRotation;
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(StartOfRound), "Update")]
+    public static void TankCustomCoords()
+    {
+        //for custom charging coil coordinates
+        if (moveTank.Value && !deleteOxygenTank.Value)
+        {
+            var tank = GameObject.Find("Environment/HangarShip/ScavengerModelSuitParts/Circle.002");
+            var tankLocalPos = new Vector3(xCordTank.Value, yCordTank.Value, zCordTank.Value);
+            var tankLocalRotation = new Vector3(xRotTank.Value, yRotTank.Value, zRotTank.Value);
+
+            tank.transform.localPosition = tankLocalPos;
+            tank.transform.eulerAngles = tankLocalRotation;
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(StartOfRound), "Update")]
+    public static void FilterCustomCoords()
+    {
+        //for custom charging coil coordinates
+        if (moveFilter.Value && !deleteAirFilter.Value)
+        {
+            var airFilter = GameObject.Find("Environment/HangarShip/ShipModels2b/AirFilterThing");
+            var filterLocalPos = new Vector3(xCordFilter.Value, yCordFilter.Value, zCordFilter.Value);
+            var filterLocalRotation = new Vector3(xRotFilter.Value, yRotFilter.Value, zRotFilter.Value);
+
+            airFilter.transform.localPosition = filterLocalPos;
+            airFilter.transform.eulerAngles = filterLocalRotation;
+        }
+    }
+
+
+
+
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(StartOfRound), "Start")]
     public static void ClipboardCustomCoords()
     {
