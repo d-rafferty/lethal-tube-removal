@@ -12,6 +12,12 @@ public class Config
 
     private const string cliprepos = "Clipboard Reposition";
 
+    private const string ventrepos = "Vent Reposition";
+
+    private const string tankrepos = "Oxygen Tank Reposition";
+
+    private const string filterrepos = "Air Filter Reposition";
+
     private const string inside = "Inside Ship";
 
     private const string outside = "Outside Ship";
@@ -49,6 +55,36 @@ public class Config
     internal static ConfigEntry<float> xRotClip;
     internal static ConfigEntry<float> yRotClip;
     internal static ConfigEntry<float> zRotClip;
+
+    //Custom Vent Coords
+    internal static ConfigEntry<bool> moveVent;
+    internal static ConfigEntry<float> xCordVent;
+    internal static ConfigEntry<float> yCordVent;
+    internal static ConfigEntry<float> zCordVent;
+
+    internal static ConfigEntry<float> xRotVent;
+    internal static ConfigEntry<float> yRotVent;
+    internal static ConfigEntry<float> zRotVent;
+
+    //Custom Air Filter Coords
+    internal static ConfigEntry<bool> moveFilter;
+    internal static ConfigEntry<float> xCordFilter;
+    internal static ConfigEntry<float> yCordFilter;
+    internal static ConfigEntry<float> zCordFilter;
+
+    internal static ConfigEntry<float> xRotFilter;
+    internal static ConfigEntry<float> yRotFilter;
+    internal static ConfigEntry<float> zRotFilter;
+
+    //Custom Oxygen Tank Coords
+    internal static ConfigEntry<bool> moveTank;
+    internal static ConfigEntry<float> xCordTank;
+    internal static ConfigEntry<float> yCordTank;
+    internal static ConfigEntry<float> zCordTank;
+
+    internal static ConfigEntry<float> xRotTank;
+    internal static ConfigEntry<float> yRotTank;
+    internal static ConfigEntry<float> zRotTank;
 
 
     //Store Items
@@ -619,5 +655,201 @@ public class Config
         );
         var clipRotZ = new FloatInputFieldConfigItem(zRotClip, false);
         LethalConfigManager.AddConfigItem(clipRotZ);
+    
+
+
+    //MOVE Vent
+    moveVent = cfg.Bind(
+        ventrepos,
+            "Move Air Vent",
+            false,
+            "Allows the custom coordinates to be set"
+        );
+        var ventMoveToggle = new BoolCheckBoxConfigItem(moveVent, false);
+    LethalConfigManager.AddConfigItem(ventMoveToggle);
+
+        xCordVent = cfg.Bind(
+            ventrepos,
+            "X-Coordinate",
+            2.7705f,
+            "Sets X-coordinate of Air Vent"
+        );
+        var ventX = new FloatInputFieldConfigItem(xCordVent, false);
+    LethalConfigManager.AddConfigItem(ventX);
+
+        yCordVent = cfg.Bind(
+            ventrepos,
+            "Y-Coordinate",
+            0.7569f,
+            "Sets Y-coordinate of Air Vent"
+        );
+        var ventY = new FloatInputFieldConfigItem(yCordVent, false);
+    LethalConfigManager.AddConfigItem(ventY);
+
+        zCordVent = cfg.Bind(
+            ventrepos,
+            "Z-Coordinate",
+            -16.6512f,
+            "Sets Z-coordinate of Air Vent"
+        );
+        var ventZ = new FloatInputFieldConfigItem(zCordVent, false);
+    LethalConfigManager.AddConfigItem(ventZ);
+
+        xRotVent = cfg.Bind(
+            ventrepos,
+            "X-Rotation",
+            0f,
+            "Sets X-Rotation of Air Vent"
+        );
+        var ventRotX = new FloatInputFieldConfigItem(xRotVent, false);
+    LethalConfigManager.AddConfigItem(ventRotX);
+
+        yRotVent = cfg.Bind(
+            ventrepos,
+            "Y-Rotation",
+           270f,
+            "Sets Y-Rotation of Air Vent"
+        );
+        var ventRotY = new FloatInputFieldConfigItem(yRotVent, false);
+    LethalConfigManager.AddConfigItem(ventRotY);
+
+        zRotVent = cfg.Bind(
+            ventrepos,
+            "Z-Rotation",
+            0f,
+            "Sets Z-Rotation of Air Vent"
+        );
+        var ventRotZ = new FloatInputFieldConfigItem(zRotVent, false);
+    LethalConfigManager.AddConfigItem(ventRotZ);
+
+
+    //MOVES AIR FILTER
+    moveFilter = cfg.Bind(
+            filterrepos,
+            "Move Air Filter",
+            false,
+            "Allows the custom coordinates to be set"
+        );
+        var filterMoveToggle = new BoolCheckBoxConfigItem(moveFilter, false);
+    LethalConfigManager.AddConfigItem(filterMoveToggle);
+
+        xCordFilter = cfg.Bind(
+            filterrepos,
+            "X-Coordinate",
+            9.2033f,
+            "Sets X-coordinate of Air Filter"
+        );
+        var FilterX = new FloatInputFieldConfigItem(xCordFilter, false);
+    LethalConfigManager.AddConfigItem(FilterX);
+
+        yCordFilter = cfg.Bind(
+            filterrepos,
+            "Y-Coordinate",
+            3.8491f,
+            "Sets Y-coordinate of Air Filter"
+        );
+        var FilterY = new FloatInputFieldConfigItem(yCordFilter, false);
+    LethalConfigManager.AddConfigItem(FilterY);
+
+        zCordFilter = cfg.Bind(
+            filterrepos,
+            "Z-Coordinate",
+            -16.806f,
+            "Sets Z-coordinate of Air Filter"
+        );
+        var FilterZ = new FloatInputFieldConfigItem(zCordFilter, false);
+    LethalConfigManager.AddConfigItem(FilterZ);
+
+        xRotFilter = cfg.Bind(
+            filterrepos,
+            "X-Rotation",
+            90f,
+            "Sets X-Rotation of Air Filter"
+        );
+        var FilterRotX = new FloatInputFieldConfigItem(xRotFilter, false);
+    LethalConfigManager.AddConfigItem(FilterRotX);
+
+        yRotFilter = cfg.Bind(
+            filterrepos,
+            "Y-Rotation",
+           180f,
+            "Sets Y-Rotation of Air Filter"
+        );
+        var FilterRotY = new FloatInputFieldConfigItem(yRotFilter, false);
+    LethalConfigManager.AddConfigItem(FilterRotY);
+
+        zRotFilter = cfg.Bind(
+            filterrepos,
+            "Z-Rotation",
+            0f,
+            "Sets Z-Rotation of Air Filter"
+        );
+        var FilterRotZ = new FloatInputFieldConfigItem(zRotFilter, false);
+    LethalConfigManager.AddConfigItem(FilterRotZ);
+
+
+        //MOVES OXYGEN TANK
+        moveTank = cfg.Bind(
+            tankrepos,
+                "Moves Oxygen Tank",
+                false,
+                "Allows the custom coordinates to be set"
+            );
+        var tankMoveToggle = new BoolCheckBoxConfigItem(moveTank, false);
+        LethalConfigManager.AddConfigItem(tankMoveToggle);
+
+        xCordTank = cfg.Bind(
+            tankrepos,
+            "X-Coordinate",
+            5.9905f,
+            "Sets X-coordinate of Oxygen Tank"
+        );
+        var TankX = new FloatInputFieldConfigItem(xCordTank, false);
+        LethalConfigManager.AddConfigItem(TankX);
+
+        yCordTank = cfg.Bind(
+            tankrepos,
+            "Y-Coordinate",
+            0.6609f,
+            "Sets Y-coordinate of Oxygen Tank"
+        );
+        var TankY = new FloatInputFieldConfigItem(yCordTank, false);
+        LethalConfigManager.AddConfigItem(TankY);
+
+        zCordTank = cfg.Bind(
+            tankrepos,
+            "Z-Coordinate",
+            -11.0739f,
+            "Sets Z-coordinate of Oxygen Tank"
+        );
+        var TankZ = new FloatInputFieldConfigItem(zCordTank, false);
+        LethalConfigManager.AddConfigItem(TankZ);
+
+        xRotTank = cfg.Bind(
+            tankrepos,
+            "X-Rotation",
+            302.0863f,
+            "Sets X-Rotation of Oxygen Tank"
+        );
+        var TankRotX = new FloatInputFieldConfigItem(xRotTank, false);
+        LethalConfigManager.AddConfigItem(TankRotX);
+
+        yRotTank = cfg.Bind(
+            tankrepos,
+            "Y-Rotation",
+           351.514f,
+            "Sets Y-Rotation of Oxygen Tank"
+        );
+        var TankRotY = new FloatInputFieldConfigItem(yRotTank, false);
+        LethalConfigManager.AddConfigItem(TankRotY);
+
+        zRotTank = cfg.Bind(
+            tankrepos,
+            "Z-Rotation",
+            187.202f,
+            "Sets Z-Rotation of Oxygen Tank"
+        );
+        var TankRotZ = new FloatInputFieldConfigItem(zRotTank, false);
+        LethalConfigManager.AddConfigItem(TankRotZ);
     }
 }
