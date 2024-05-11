@@ -106,7 +106,8 @@ internal class TubeRemovalPatch
                 new Vector3(11.4571f, 1.9706f,
                     -16.9578f); //hides the speaker in the front of the ship in the wall behind the monitors
             mainSpeaker.transform.position = localSpeakerPos;
-            Object.Destroy(speakerAudio); //disables the audio from the speaker
+            //Object.Destroy(speakerAudio); //disables the audio from the speaker
+            speakerAudio.SetActive(false);
         }
 
         if (deletePosters.Value) Object.Destroy(posters);
