@@ -227,7 +227,7 @@ internal class TubeRemovalPatch
     [HarmonyPatch(typeof(ShipTeleporter), "Awake")]
     private static void TeleporterCord()
     {
-        if (GameObject.Find("Teleporter(Clone)/ButtonContainer/LongCord"))
+        if (deleteTeleporterCord.Value && GameObject.Find("Teleporter(Clone)/ButtonContainer/LongCord"))
         {
             var longCord = GameObject.Find("Teleporter(Clone)/ButtonContainer/LongCord");
             longCord.SetActive(false);
