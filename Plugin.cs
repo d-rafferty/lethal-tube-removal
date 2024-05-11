@@ -11,7 +11,7 @@ public class TubeRemoval : BaseUnityPlugin
 {
     private const string modGUID = "Hamster.LethalTubeRemoval";
     private const string modName = "Lethal Tube Removal";
-    private const string modVersion = "1.6.5";
+    private const string modVersion = "1.6.8";
 
     private static TubeRemoval? Instance;
 
