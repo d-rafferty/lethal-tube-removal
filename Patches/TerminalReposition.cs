@@ -11,7 +11,7 @@ internal class TerminalReposition
     private static ShipTeleporter teleporter = null;
 
     [HarmonyPrefix]
-    [HarmonyPatch(typeof(StartOfRound), "Start")]
+    [HarmonyPatch(typeof(StartOfRound), "Update")]
     private static void TerminalMove()
     {
         if (terminalReposition.Value)
