@@ -26,6 +26,8 @@ public class Config
 
     private const string misc = "Misc Modes";
 
+    private const string mode = "Removal Mode: CAUTION";
+
     //Custom Terminal Coords
     internal static ConfigEntry<bool> customTerminal;
     internal static ConfigEntry<float> xCordTerm;
@@ -130,9 +132,22 @@ public class Config
     internal static ConfigEntry<bool> parkourMode;
     internal static ConfigEntry<bool> lowLightMode;
 
+    //Mode
+    internal static ConfigEntry<bool> removalMode;
+
 
     public Config(ConfigFile cfg)
     {
+        //Removal Mode
+        removalMode = cfg.Bind(
+            mode,
+            "Change Removal Type",
+            false,
+            "Checking this box will change the way items are removed. By default they are simply not rendered. By checking this box " +
+            "you will enable object deletion which will completely remove the object from the game. This will likely cause conflicts " +
+            "with any other mods you have installed. THIS IS NOT RECOMMENDED! ONLY USE THIS IF YOU KNOW FOR SURE WHAT YOU ARE DOING!"
+        );
+
         //Custom Terminal Coords
 
         terminalReposition = cfg.Bind(
