@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using static LethalTubeRemoval.Config;
+using Object = UnityEngine.Object;
 
 namespace LethalTubeRemoval.Patches;
 
@@ -24,7 +24,7 @@ internal class TubeRemovalPatch
         var mask = GameObject.Find("Environment/HangarShip/ScavengerModelSuitParts/Circle.001");
         var airFilter = GameObject.Find("Environment/HangarShip/ShipModels2b/AirFilterThing");
         var stickyNote = GameObject.Find("Environment/HangarShip/StickyNoteItem");
-        var vent = GameObject.Find("Environment/HangarShip/VentEntrance/Hinge");
+        var vent = GameObject.Find("Environment/HangarShip/VentEntrance/Hinge/VentCover");
 
         var battery = GameObject.Find("Environment/HangarShip/SmallDetails/BatterySingle");
         var battery1 = GameObject.Find("Environment/HangarShip/SmallDetails/BatterySingle (1)");
@@ -34,8 +34,8 @@ internal class TubeRemovalPatch
         var monitorCords = GameObject.Find("Environment/HangarShip/WallCords");
         var doorSpeaker = GameObject.Find("Environment/HangarShip/ShipModels2b/Cube.005 (1)");
         var posters = GameObject.Find("Environment/HangarShip/Plane.001");
-        var clothingRack = GameObject.Find("Environment/HangarShip/NurbsPath.004");
-        var clothingHook = GameObject.Find("Environment/HangarShip/NurbsPath.002");
+        var clothingHook = GameObject.Find("Environment/HangarShip/NurbsPath.004");
+        var clothingRack = GameObject.Find("Environment/HangarShip/NurbsPath.002");
         var defaultSuit = GameObject.Find("ChangableSuit(Clone)");
         var doorTubes = GameObject.Find("Environment/HangarShip/NurbsPath");
         var keyboardCord = GameObject.Find("Environment/HangarShip/Terminal/BezierCurve.001");
@@ -54,93 +54,282 @@ internal class TubeRemovalPatch
         var hangingLamp1 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (2)");
         var hangingLamp3 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (4)");
 
-        //Store Items
-        if (deleteTube.Value) //checks config file for boolean value and if true deletes the item
-            Object.Destroy(tube);
+        //Suit Renderer Paths
+        var suitParent = GameObject.Find("ChangableSuit(Clone)");
+        var suit = GameObject.Find("ChangableSuit(Clone)/SuitRenderer");
+        var suitHook = GameObject.Find("ChangableSuit(Clone)/SuitHook");
 
-        if (deleteBunkbeds.Value) Object.Destroy(beds);
 
-        if (deleteFileCabinets.Value) Object.Destroy(cabinet);
-
-        if (deleteOxygenTank.Value) Object.Destroy(tank);
-
-        if (deleteShelf.Value) Object.Destroy(shelf);
-
-        if (deleteClipboard.Value) Object.Destroy(clipboard);
-
-        if (deleteDoorGenerator.Value) Object.Destroy(doorGenerator);
-
-        if (deleteBoots.Value) Object.Destroy(boots);
-
-        if (deleteMask.Value) Object.Destroy(mask);
-
-        if (deleteAirFilter.Value) Object.Destroy(airFilter);
-
-        if (deleteStickyNote.Value) Object.Destroy(stickyNote);
-
-        if (deleteBatteries.Value)
+        if (removalMode.Value == true)
         {
-            Object.Destroy(battery);
-            Object.Destroy(battery1);
-            Object.Destroy(battery2);
-            Object.Destroy(batteryPack);
+            //checks config file for boolean value and if true deletes the item
+
+            if (deleteTube.Value) Object.Destroy(tube);
+
+            if (deleteBunkbeds.Value) Object.Destroy(beds);
+
+            if (deleteFileCabinets.Value) Object.Destroy(cabinet);
+
+            if (deleteOxygenTank.Value) Object.Destroy(tank);
+
+            if (deleteShelf.Value) Object.Destroy(shelf);
+
+            if (deleteClipboard.Value) Object.Destroy(clipboard);
+
+            if (deleteDoorGenerator.Value) Object.Destroy(doorGenerator);
+
+            if (deleteBoots.Value) Object.Destroy(boots);
+
+            if (deleteMask.Value) Object.Destroy(mask);
+
+            if (deleteAirFilter.Value) Object.Destroy(airFilter);
+
+            if (deleteStickyNote.Value) Object.Destroy(stickyNote);
+
+            if (deleteBatteries.Value)
+            {
+                Object.Destroy(battery);
+                Object.Destroy(battery1);
+                Object.Destroy(battery2);
+                Object.Destroy(batteryPack);
+            }
+
+            if (deleteVent.Value) Object.Destroy(vent);
+
+            if (deleteMonitorCords.Value) Object.Destroy(monitorCords);
+
+            if (deleteDoorSpeaker.Value)
+            {
+                //door speaker was causing unity warning spam in v50 so moving it instead of deleting only causes warning on ship takeoff/land
+                var localSpeakerPos =
+                    new Vector3(11.4571f, 1.9706f,
+                        -16.9578f); //hides the speaker in the front of the ship in the wall behind the monitors
+                doorSpeaker.transform.position = localSpeakerPos;
+            }
+
+
+            if (deleteMainSpeaker.Value)
+            {
+                //ship speaker being instantiated is somehow tied to the ship door manual controls
+                //to work around this I hid the speaker inside the ship wall and disabled the audio
+                var localSpeakerPos =
+                    new Vector3(11.4571f, 1.9706f,
+                        -16.9578f); //hides the speaker in the front of the ship in the wall behind the monitors
+                mainSpeaker.transform.position = localSpeakerPos;
+                //Object.Destroy(speakerAudio); //disables the audio from the speaker
+                speakerAudio.SetActive(false);
+            }
+
+            if (deletePosters.Value) Object.Destroy(posters);
+
+            if (deleteClothingRack.Value)
+            {
+                Object.Destroy(clothingRack);
+                Object.Destroy(clothingHook);
+                Object.Destroy(defaultSuit);
+            }
+
+            if (deleteDoorTubes.Value) Object.Destroy(doorTubes);
+
+            if (deleteKeyboardCord.Value) Object.Destroy(keyboardCord);
+
+            if (lowLightMode.Value)
+            {
+                Object.Destroy(areaLight1);
+                Object.Destroy(areaLight2);
+                Object.Destroy(areaLight3);
+                Object.Destroy(hangingLamp1);
+                Object.Destroy(hangingLamp3);
+            }
+
+            if (deleteDoorMonitor.Value)
+            {
+                Object.Destroy(doorMonitor);
+                Object.Destroy(doorCamera);
+                //Object.Destroy(shipCamera);
+            }
         }
-
-        if (deleteVent.Value) Object.Destroy(vent);
-
-        if (deleteMonitorCords.Value) Object.Destroy(monitorCords);
-
-        if (deleteDoorSpeaker.Value)
+        else
         {
-            //door speaker was causing unity warning spam in v50 so moving it instead of deleting only causes warning on ship takeoff/land
-            var localSpeakerPos =
-                new Vector3(11.4571f, 1.9706f,
-                    -16.9578f); //hides the speaker in the front of the ship in the wall behind the monitors
-            doorSpeaker.transform.position = localSpeakerPos;
-        }
+            //checks config file for boolean value and if true deletes the item
+
+            if (deleteTube.Value)
+            {
+                //List<Component> tubeCmp = new List<Component>();
+                //tubeCmp = tube.GetComponents();
+
+                var rend = tube.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteBunkbeds.Value)
+            {
+                var rend = beds.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteFileCabinets.Value)
+            {
+                var rend = cabinet.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteOxygenTank.Value)
+            {
+                var rend = tank.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteShelf.Value)
+            {
+                var rend = shelf.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteClipboard.Value)
+            {
+                Object.Destroy(clipboard);
+            }
+
+            if (deleteDoorGenerator.Value)
+            {
+                var rend = doorGenerator.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteBoots.Value)
+            {
+                var rend = boots.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteMask.Value)
+            {
+                var rend = mask.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteAirFilter.Value)
+            {
+                var rend = airFilter.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteStickyNote.Value)
+            {
+                var rend = stickyNote.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteBatteries.Value)
+            {
+                var rend = battery.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+
+                var rend1 = battery1.GetComponent<MeshRenderer>();
+                rend1.gameObject.SetActive(false);
+
+                var rend2 = battery2.GetComponent<MeshRenderer>();
+                rend2.gameObject.SetActive(false);
+
+                var rend3 = batteryPack.GetComponent<MeshRenderer>();
+                rend3.gameObject.SetActive(false);
+            }
+
+            if (deleteVent.Value)
+            {
+                var rend = vent.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteMonitorCords.Value)
+            {
+                var rend = monitorCords.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteDoorSpeaker.Value)
+            {
+                //door speaker was causing unity warning spam in v50 so moving it instead of deleting only causes warning on ship takeoff/land
+                var localSpeakerPos =
+                    new Vector3(11.4571f, 1.9706f,
+                        -16.9578f); //hides the speaker in the front of the ship in the wall behind the monitors
+                doorSpeaker.transform.position = localSpeakerPos;
+            }
 
 
-        if (deleteMainSpeaker.Value)
-        {
-            //ship speaker being instantiated is somehow tied to the ship door manual controls
-            //to work around this I hid the speaker inside the ship wall and disabled the audio
-            var localSpeakerPos =
-                new Vector3(11.4571f, 1.9706f,
-                    -16.9578f); //hides the speaker in the front of the ship in the wall behind the monitors
-            mainSpeaker.transform.position = localSpeakerPos;
-            //Object.Destroy(speakerAudio); //disables the audio from the speaker
-            speakerAudio.SetActive(false);
-        }
+            if (deleteMainSpeaker.Value)
+            {
+                //ship speaker being instantiated is somehow tied to the ship door manual controls
+                //to work around this I hid the speaker inside the ship wall and disabled the audio
+                var localSpeakerPos =
+                    new Vector3(11.4571f, 1.9706f,
+                        -16.9578f); //hides the speaker in the front of the ship in the wall behind the monitors
+                mainSpeaker.transform.position = localSpeakerPos;
+                //Object.Destroy(speakerAudio); //disables the audio from the speaker
+                speakerAudio.SetActive(false);
+            }
 
-        if (deletePosters.Value) Object.Destroy(posters);
+            if (deletePosters.Value)
+            {
+                var rend = posters.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
 
-        if (deleteClothingRack.Value)
-        {
-            Object.Destroy(clothingRack);
-            Object.Destroy(clothingHook);
-            Object.Destroy(defaultSuit);
-        }
+            if (deleteClothingRack.Value)
+            {
+                var interactButton = suitParent.GetComponent<InteractTrigger>();
+                interactButton.gameObject.SetActive(false);
 
-        if (deleteDoorTubes.Value) Object.Destroy(doorTubes);
+                var rendRack = clothingRack.GetComponent<MeshRenderer>();
+                rendRack.gameObject.SetActive(false);
 
-        if (deleteKeyboardCord.Value) Object.Destroy(keyboardCord);
+                var rendHook = suitHook.GetComponent<MeshRenderer>();
+                rendHook.gameObject.SetActive(false);
 
-        if (lowLightMode.Value)
-        {
-            Object.Destroy(areaLight1);
-            Object.Destroy(areaLight2);
-            Object.Destroy(areaLight3);
-            Object.Destroy(hangingLamp1);
-            Object.Destroy(hangingLamp3);
-        }
+                var rendSuit = suit.GetComponent<SkinnedMeshRenderer>();
+                rendSuit.gameObject.SetActive(false);
+            }
 
-        if (deleteDoorMonitor.Value)
-        {
-            Object.Destroy(doorMonitor);
-            Object.Destroy(doorCamera);
-            //Object.Destroy(shipCamera);
+            if (deleteDoorTubes.Value)
+            {
+                var rend = doorTubes.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (deleteKeyboardCord.Value)
+            {
+                var rend = keyboardCord.GetComponent<MeshRenderer>();
+                rend.gameObject.SetActive(false);
+            }
+
+            if (lowLightMode.Value)
+            {
+                var rendLight1 = areaLight1.GetComponent<MeshRenderer>();
+                rendLight1.gameObject.SetActive(false);
+
+                var rendLight2 = areaLight2.GetComponent<MeshRenderer>();
+                rendLight2.gameObject.SetActive(false);
+
+                var rendLight3 = areaLight3.GetComponent<MeshRenderer>();
+                rendLight3.gameObject.SetActive(false);
+
+                var rendLamp1 = hangingLamp1.GetComponent<MeshRenderer>();
+                rendLamp1.gameObject.SetActive(false);
+
+                var rendLamp2 = hangingLamp3.GetComponent<MeshRenderer>();
+                rendLamp2.gameObject.SetActive(false);
+            }
+
+            if (deleteDoorMonitor.Value)
+            {
+                var rendDoorMoni = doorMonitor.GetComponent<MeshRenderer>();
+                rendDoorMoni.gameObject.SetActive(false);
+            }
         }
     }
+
+
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(StartOfRound), "Update")]
@@ -207,8 +396,6 @@ internal class TubeRemovalPatch
     }
 
 
-
-
     [HarmonyPostfix]
     [HarmonyPatch(typeof(StartOfRound), "Start")]
     public static void ClipboardCustomCoords()
@@ -221,7 +408,7 @@ internal class TubeRemovalPatch
             var clipLocalRotation = new Vector3(xRotClip.Value, yRotClip.Value, zRotClip.Value);
 
             //gets this component and sets inactive because you cannot change position with it active
-            var clippyitem = clipboard.GetComponent<ClipboardItem>();   
+            var clippyitem = clipboard.GetComponent<ClipboardItem>();
             clippyitem.enabled = false;
             clipboard.transform.position = clipPos;
 
@@ -289,7 +476,7 @@ internal class TubeRemovalPatch
                     inverseTeleButton.transform.localRotation = new Quaternion(0f, 0.0175f, 0f, 0.9998f);
                     inverseTeleButton.transform.position = inverseTeleButtonPosGlobal;
                     inverseTeleButton.transform.localPosition = inverseTeleButtonPosLocal;
-                    }
+                }
             }
         }
     }
