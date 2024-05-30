@@ -59,6 +59,10 @@ internal class TubeRemovalPatch
         var suit = GameObject.Find("ChangableSuit(Clone)/SuitRenderer");
         var suitHook = GameObject.Find("ChangableSuit(Clone)/SuitHook");
 
+        if(deleteIndoorCam.Value == true) shipCamera.SetActive(false); 
+
+        if(deleteOutdoorCam.Value == true) doorCamera.SetActive(false);
+
 
         if (removalMode.Value == true)
         {

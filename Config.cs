@@ -117,6 +117,9 @@ public class Config
     internal static ConfigEntry<bool> deleteShelf;
     internal static ConfigEntry<bool> deleteDoorMonitor;
 
+    internal static ConfigEntry<bool> deleteIndoorCam;
+    internal static ConfigEntry<bool> deleteOutdoorCam;
+
     //Outside Ship
     internal static ConfigEntry<bool> deleteFloodLight;
     internal static ConfigEntry<bool> deleteOutsideTubing;
@@ -417,8 +420,32 @@ public class Config
         var doorMonitorToggle = new BoolCheckBoxConfigItem(deleteDoorMonitor, false);
         LethalConfigManager.AddConfigItem(doorMonitorToggle);
 
+        deleteIndoorCam = cfg.Bind(
+            inside,
+            "Inside Camera",
+            false,
+            "Deletes the camera inside. CAUTION: THIS MAY CAUSE CONFLICTS WITH OTHER MODS"
+        );
+        var indoorCamToggle =
+            new BoolCheckBoxConfigItem(deleteIndoorCam,
+                false);
+        LethalConfigManager.AddConfigItem(indoorCamToggle);
+
+
+
 
         // OUTSIDE SHIP
+        deleteOutdoorCam = cfg.Bind(
+            inside,
+            "Outside Camera",
+            false,
+            "Deletes the camera outside. CAUTION: THIS MAY CAUSE CONFLICTS WITH OTHER MODS"
+        );
+        var outdoorCamToggle =
+            new BoolCheckBoxConfigItem(deleteOutdoorCam,
+                false);
+        LethalConfigManager.AddConfigItem(outdoorCamToggle);
+
         deleteFloodLight = cfg.Bind(
             outside,
             "Floodlight",
