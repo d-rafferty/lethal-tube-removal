@@ -6,6 +6,10 @@ namespace LethalTubeRemoval;
 
 public class Config
 {
+    private const string doormonitorrepos = "Door Monitor Reposition";
+
+    private const string storagerepos = "Storage Cabinet Reposition";
+
     private const string terminalmove = "Terminal Reposition";
 
     private const string chargingcoil = "Charging Coil Reposition";
@@ -27,6 +31,26 @@ public class Config
     private const string misc = "Misc Modes";
 
     private const string mode = "Removal Mode: CAUTION";
+
+    //Custom Door Monitor Coords
+    internal static ConfigEntry<bool> moveMonitor;
+    internal static ConfigEntry<float> xCordMonitor;
+    internal static ConfigEntry<float> yCordMonitor;
+    internal static ConfigEntry<float> zCordMonitor;
+
+    internal static ConfigEntry<float> xRotMonitor;
+    internal static ConfigEntry<float> yRotMonitor;
+    internal static ConfigEntry<float> zRotMonitor;
+
+    //Custom Storage Shelf Coords
+    internal static ConfigEntry<bool> moveStorage;
+    internal static ConfigEntry<float> xCordStorage;
+    internal static ConfigEntry<float> yCordStorage;
+    internal static ConfigEntry<float> zCordStorage;
+
+    internal static ConfigEntry<float> xRotStorage;
+    internal static ConfigEntry<float> yRotStorage;
+    internal static ConfigEntry<float> zRotStorage;
 
     //Custom Terminal Coords
     internal static ConfigEntry<bool> customTerminal;
@@ -893,5 +917,69 @@ public class Config
         );
         var TankRotZ = new FloatInputFieldConfigItem(zRotTank, false);
         LethalConfigManager.AddConfigItem(TankRotZ);
+
+        //MOVES STORAGE CABINET
+        moveStorage = cfg.Bind(
+            storagerepos,
+                    "Moves Storage Cabinet",
+                    false,
+                    "Allows the custom coordinates to be set"
+                );
+        var storageMoveToggle = new BoolCheckBoxConfigItem(moveStorage, false);
+        LethalConfigManager.AddConfigItem(storageMoveToggle);
+
+        xCordStorage = cfg.Bind(
+            storagerepos,
+            "X-Coordinate",
+            -3.2815f,
+            "Sets X-coordinate of Storage Cabinet"
+        );
+        var StorageX = new FloatInputFieldConfigItem(xCordStorage, false);
+        LethalConfigManager.AddConfigItem(StorageX);
+
+        yCordStorage = cfg.Bind(
+            storagerepos,
+            "Y-Coordinate",
+            -0.044f,
+            "Sets Y-coordinate of Storage Cabinet"
+        );
+        var StorageY = new FloatInputFieldConfigItem(yCordStorage, false);
+        LethalConfigManager.AddConfigItem(StorageY);
+
+        zCordStorage = cfg.Bind(
+            storagerepos,
+            "Z-Coordinate",
+            -4.579f,
+            "Sets Z-coordinate of Storage Cabinet"
+        );
+        var StorageZ = new FloatInputFieldConfigItem(zCordStorage, false);
+        LethalConfigManager.AddConfigItem(StorageZ);
+
+        xRotStorage = cfg.Bind(
+            storagerepos,
+            "X-Rotation",
+            270.0198f,
+            "Sets X-Rotation of Storage Cabinet"
+        );
+        var StorageRotX = new FloatInputFieldConfigItem(xRotStorage, false);
+        LethalConfigManager.AddConfigItem(StorageRotX);
+
+        yRotStorage = cfg.Bind(
+            storagerepos,
+            "Y-Rotation",
+            0f,
+            "Sets Y-Rotation of Storage Cabinet"
+        );
+        var StorageRotY = new FloatInputFieldConfigItem(yRotStorage, false);
+        LethalConfigManager.AddConfigItem(StorageRotY);
+
+        zRotStorage = cfg.Bind(
+            storagerepos,
+            "Z-Rotation",
+            0f,
+            "Sets Z-Rotation of Storage Cabinet"
+        );
+        var StorageRotZ = new FloatInputFieldConfigItem(zRotStorage, false);
+        LethalConfigManager.AddConfigItem(StorageRotZ);
     }
 }

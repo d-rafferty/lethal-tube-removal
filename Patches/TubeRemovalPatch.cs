@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System;
 using UnityEngine;
 using static LethalTubeRemoval.Config;
 using Object = UnityEngine.Object;
@@ -482,6 +483,24 @@ internal class TubeRemovalPatch
                     inverseTeleButton.transform.localPosition = inverseTeleButtonPosLocal;
                 }
             }
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(StartOfRound), "Update")]
+    static void StoreageCabinetMove()
+    {
+        if (moveStorage.Value && GameObject.Find("Environment/HangarShip/StorageCloset"))
+        {
+
+            var shelf = GameObject.Find("Environment/HangarShip/StorageCloset");
+            var Shelf = shelf.GetComponent<AutoParentToShip>();
+            var shelfLocalPos = new Vector3(xCordStorage.Value, yCordStorage.Value, zCordStorage.Value);
+            var shelfLocalRotation = new Vector3(xRotStorage.Value, yRotStorage.Value, zRotStorage.Value);
+
+            Shelf.positionOffset = shelfLocalPos;
+            Shelf.rotationOffset = shelfLocalRotation;
+
         }
     }
 }
