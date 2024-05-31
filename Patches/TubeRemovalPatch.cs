@@ -64,8 +64,10 @@ internal class TubeRemovalPatch
 
         if(deleteOutdoorCam.Value == true) doorCamera.SetActive(false);
 
+        if(muteAudio.Value == true) speakerAudio.SetActive(false);
 
-        if (removalMode.Value == true)
+
+        if (removalMode.Value == RemovalMode.Deletion)
         {
             //checks config file for boolean value and if true deletes the item
 
@@ -121,8 +123,6 @@ internal class TubeRemovalPatch
                     new Vector3(11.4571f, 1.9706f,
                         -16.9578f); //hides the speaker in the front of the ship in the wall behind the monitors
                 mainSpeaker.transform.position = localSpeakerPos;
-                //Object.Destroy(speakerAudio); //disables the audio from the speaker
-                speakerAudio.SetActive(false);
             }
 
             if (deletePosters.Value) Object.Destroy(posters);
@@ -150,45 +150,37 @@ internal class TubeRemovalPatch
             if (deleteDoorMonitor.Value)
             {
                 Object.Destroy(doorMonitor);
-                Object.Destroy(doorCamera);
+                //Object.Destroy(doorCamera);
                 //Object.Destroy(shipCamera);
             }
         }
-        else
+        else if(removalMode.Value == RemovalMode.Inactive)
         {
             //checks config file for boolean value and if true deletes the item
 
             if (deleteTube.Value)
             {
-                //List<Component> tubeCmp = new List<Component>();
-                //tubeCmp = tube.GetComponents();
-
-                var rend = tube.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                tube.gameObject.SetActive(false);
             }
 
             if (deleteBunkbeds.Value)
             {
-                var rend = beds.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                beds.gameObject.SetActive(false);
             }
 
             if (deleteFileCabinets.Value)
             {
-                var rend = cabinet.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                cabinet.gameObject.SetActive(false);
             }
 
             if (deleteOxygenTank.Value)
             {
-                var rend = tank.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                tank.gameObject.SetActive(false);
             }
 
             if (deleteShelf.Value)
             {
-                var rend = shelf.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                shelf.gameObject.SetActive(false);   
             }
 
             if (deleteClipboard.Value)
@@ -198,59 +190,48 @@ internal class TubeRemovalPatch
 
             if (deleteDoorGenerator.Value)
             {
-                var rend = doorGenerator.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                doorGenerator.gameObject.SetActive(false);
             }
 
             if (deleteBoots.Value)
             {
-                var rend = boots.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                boots.gameObject.SetActive(false);
             }
 
             if (deleteMask.Value)
             {
-                var rend = mask.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                mask.gameObject.SetActive(false);
             }
 
             if (deleteAirFilter.Value)
             {
-                var rend = airFilter.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                airFilter.gameObject.SetActive(false);
             }
 
             if (deleteStickyNote.Value)
             {
-                var rend = stickyNote.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                stickyNote.gameObject.SetActive(false);
             }
 
             if (deleteBatteries.Value)
             {
-                var rend = battery.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                battery.gameObject.SetActive(false);
 
-                var rend1 = battery1.GetComponent<MeshRenderer>();
-                rend1.gameObject.SetActive(false);
+                battery1.gameObject.SetActive(false);
 
-                var rend2 = battery2.GetComponent<MeshRenderer>();
-                rend2.gameObject.SetActive(false);
+                battery2.gameObject.SetActive(false);
 
-                var rend3 = batteryPack.GetComponent<MeshRenderer>();
-                rend3.gameObject.SetActive(false);
+                batteryPack.gameObject.SetActive(false);
             }
 
             if (deleteVent.Value)
             {
-                var rend = vent.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                vent.gameObject.SetActive(false);
             }
 
             if (deleteMonitorCords.Value)
             {
-                var rend = monitorCords.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                monitorCords.gameObject.SetActive(false);
             }
 
             if (deleteDoorSpeaker.Value)
@@ -271,68 +252,236 @@ internal class TubeRemovalPatch
                     new Vector3(11.4571f, 1.9706f,
                         -16.9578f); //hides the speaker in the front of the ship in the wall behind the monitors
                 mainSpeaker.transform.position = localSpeakerPos;
-                //Object.Destroy(speakerAudio); //disables the audio from the speaker
-                speakerAudio.SetActive(false);
             }
 
             if (deletePosters.Value)
             {
-                var rend = posters.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                posters.gameObject.SetActive(false);
             }
 
             if (deleteClothingRack.Value)
             {
-                var interactButton = suitParent.GetComponent<InteractTrigger>();
-                interactButton.gameObject.SetActive(false);
+                suitParent.gameObject.SetActive(false);
 
-                var rendRack = clothingRack.GetComponent<MeshRenderer>();
-                rendRack.gameObject.SetActive(false);
+                clothingRack.gameObject.SetActive(false);
 
-                var rendHook = suitHook.GetComponent<MeshRenderer>();
-                rendHook.gameObject.SetActive(false);
+                suitHook.gameObject.SetActive(false);
 
-                var rendSuit = suit.GetComponent<SkinnedMeshRenderer>();
-                rendSuit.gameObject.SetActive(false);
+                suit.gameObject.SetActive(false);
             }
 
             if (deleteDoorTubes.Value)
             {
-                var rend = doorTubes.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                doorTubes.gameObject.SetActive(false);
             }
 
             if (deleteKeyboardCord.Value)
             {
-                var rend = keyboardCord.GetComponent<MeshRenderer>();
-                rend.gameObject.SetActive(false);
+                keyboardCord.gameObject.SetActive(false);
             }
 
             if (lowLightMode.Value)
             {
-                var rendLight1 = areaLight1.GetComponent<MeshRenderer>();
-                rendLight1.gameObject.SetActive(false);
+                areaLight1.gameObject.SetActive(false);
 
-                var rendLight2 = areaLight2.GetComponent<MeshRenderer>();
-                rendLight2.gameObject.SetActive(false);
+                areaLight2.gameObject.SetActive(false);
 
-                var rendLight3 = areaLight3.GetComponent<MeshRenderer>();
-                rendLight3.gameObject.SetActive(false);
+                areaLight3.gameObject.SetActive(false);
 
-                var rendLamp1 = hangingLamp1.GetComponent<MeshRenderer>();
-                rendLamp1.gameObject.SetActive(false);
+                hangingLamp1.gameObject.SetActive(false);
 
-                var rendLamp2 = hangingLamp3.GetComponent<MeshRenderer>();
-                rendLamp2.gameObject.SetActive(false);
+                hangingLamp3.gameObject.SetActive(false);
             }
 
             if (deleteDoorMonitor.Value)
             {
-                var rendDoorMoni = doorMonitor.GetComponent<MeshRenderer>();
-                rendDoorMoni.gameObject.SetActive(false);
+                doorMonitor.gameObject.SetActive(false);
+
             }
         }
+        else
+        {
+            if (deleteTube.Value)
+            {
+                tube.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deleteBunkbeds.Value)
+            {
+                beds.GetComponent<MeshRenderer>().enabled = false;
+
+                foreach (var collider in beds.GetComponentsInChildren<BoxCollider>()){
+                    collider.enabled = false;
+                }
+
+            }
+
+            if (deleteFileCabinets.Value)
+            {
+                cabinet.GetComponent<MeshRenderer>().enabled = false;
+                cabinet.GetComponent<BoxCollider>().enabled = false;
+            }
+
+            if (deleteOxygenTank.Value)
+            {
+                tank.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deleteShelf.Value)
+            {
+                //TODO: Children of the door objects are current set inactive because box colliders will not disable
+
+                var rend = shelf.GetComponent<MeshRenderer>();
+                rend.enabled = false;
+                shelf.GetComponent<MeshCollider>().enabled = false;
+
+                var door1 = GameObject.Find("Environment/HangarShip/StorageCloset/Cube.000");
+                var door1Child = GameObject.Find("Environment/HangarShip/StorageCloset/Cube.000/Cube");
+                door1.GetComponent<MeshRenderer>().enabled = false;
+                door1.GetComponentInChildren<InteractTrigger>().enabled = false;
+                door1Child.GetComponent<BoxCollider>().enabled = false;
+                foreach (var collider in door1.GetComponentsInChildren<BoxCollider>())
+                {
+                    collider.enabled = false;
+                }
+                door1Child.SetActive(false);
+
+                var door2 = GameObject.Find("Environment/HangarShip/StorageCloset/Cube.002");
+                var door2Child = GameObject.Find("Environment/HangarShip/StorageCloset/Cube.002/Cube");
+                door2.GetComponent<MeshRenderer>().enabled = false;
+                door2.GetComponentInChildren<InteractTrigger>().enabled = false;
+                door2Child.GetComponent<BoxCollider>().enabled = false;
+                foreach (var collider in door2.GetComponentsInChildren<BoxCollider>())
+                {
+                    collider.enabled = false;
+                }
+                door2Child.SetActive(false);
+
+                var placementpositions = GameObject.Find("Environment/HangarShip/StorageCloset/ObjectPlacements");
+                foreach (var collider in placementpositions.GetComponentsInChildren<BoxCollider>())
+                {
+                    collider.enabled = false;
+                }
+
+                foreach (var trigger in placementpositions.GetComponentsInChildren<InteractTrigger>())
+                {
+                    trigger.enabled = false;
+                }
+            }
+        }
+
+            if (deleteClipboard.Value)
+            {
+                clipboard.SetActive(false);
+
+            }
+
+            if (deleteDoorGenerator.Value)
+            {
+                doorGenerator.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deleteBoots.Value)
+            {
+                boots.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deleteMask.Value)
+            {
+                mask.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deleteAirFilter.Value)
+            {
+                airFilter.GetComponent<MeshRenderer>().enabled = false;
+                airFilter.GetComponent<MeshCollider>().enabled = false;
+            }
+
+            if (deleteStickyNote.Value)
+            {
+                stickyNote.GetComponent<MeshRenderer>().enabled = false;
+                stickyNote.GetComponent<BoxCollider>().enabled = false;
+            }
+
+            if (deleteBatteries.Value)
+            {
+                battery.GetComponent<MeshRenderer>().enabled = false;
+
+                battery1.GetComponent<MeshRenderer>().enabled = false;
+
+                battery2.GetComponent<MeshRenderer>().enabled = false;
+
+                batteryPack.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deleteVent.Value)
+            {
+                vent.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deleteMonitorCords.Value)
+            {
+                monitorCords.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deleteDoorSpeaker.Value)
+            {
+                doorSpeaker.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deleteMainSpeaker.Value)
+            {
+                mainSpeaker.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deletePosters.Value)
+            {
+                posters.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deleteClothingRack.Value)
+            {
+                //suitParent.SetActive(false);
+                suitParent.GetComponent<InteractTrigger>().enabled = false;
+                suitParent.GetComponent<BoxCollider>().enabled = false;
+
+                clothingRack.GetComponent<MeshRenderer>().enabled = false;
+
+                suitHook.GetComponent<MeshRenderer>().enabled = false;
+
+                suit.GetComponent<SkinnedMeshRenderer>().enabled = false;
+            }
+
+            if (deleteDoorTubes.Value)
+            {
+                doorTubes.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deleteKeyboardCord.Value)
+            {
+                keyboardCord.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (lowLightMode.Value)
+            {
+                areaLight1.GetComponent<MeshRenderer>().enabled = false;
+
+                areaLight2.GetComponent<MeshRenderer>().enabled = false;
+
+                areaLight3.GetComponent<MeshRenderer>().enabled = false;
+
+                hangingLamp1.GetComponent<MeshRenderer>().enabled = false;
+
+                hangingLamp3.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            if (deleteDoorMonitor.Value)
+            {
+            doorMonitor.GetComponent<MeshRenderer>().enabled = false;
+            }
+        
     }
+
 
 
 
@@ -430,7 +579,7 @@ internal class TubeRemovalPatch
         if (deleteTeleporterCord.Value && GameObject.Find("Teleporter(Clone)/ButtonContainer/LongCord"))
         {
             var longCord = GameObject.Find("Teleporter(Clone)/ButtonContainer/LongCord");
-            longCord.SetActive(false);
+            longCord.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 
