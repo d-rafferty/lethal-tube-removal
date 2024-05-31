@@ -8,6 +8,8 @@ public class Config
 {
     private const string doormonitorrepos = "Door Monitor Reposition";
 
+    private const string doorbuttonrepos = "Door Button Panel Reposition";
+
     private const string storagerepos = "Storage Cabinet Reposition";
 
     private const string terminalmove = "Terminal Reposition";
@@ -31,6 +33,16 @@ public class Config
     private const string misc = "Misc Modes";
 
     private const string mode = "Removal Mode: CAUTION";
+
+    //Custom Door Button Panel Coords
+    internal static ConfigEntry<bool> moveButtons;
+    internal static ConfigEntry<float> xCordButtons;
+    internal static ConfigEntry<float> yCordButtons;
+    internal static ConfigEntry<float> zCordButtons;
+
+    internal static ConfigEntry<float> xRotButtons;
+    internal static ConfigEntry<float> yRotButtons;
+    internal static ConfigEntry<float> zRotButtons;
 
     //Custom Door Monitor Coords
     internal static ConfigEntry<bool> moveMonitor;
@@ -981,5 +993,136 @@ public class Config
         );
         var StorageRotZ = new FloatInputFieldConfigItem(zRotStorage, false);
         LethalConfigManager.AddConfigItem(StorageRotZ);
+
+
+        //MOVES DOOR MONITOR
+        moveMonitor = cfg.Bind(
+            doormonitorrepos,
+                    "Moves Door Monitor",
+                    false,
+                    "Allows the custom coordinates to be set"
+                );
+        var monitorMoveToggle = new BoolCheckBoxConfigItem(moveMonitor, false);
+        LethalConfigManager.AddConfigItem(monitorMoveToggle);
+
+        xCordMonitor = cfg.Bind(
+            doormonitorrepos,
+            "X-Coordinate",
+            -4.9451f,
+            "Sets X-coordinate of Door Monitor"
+        );
+        var MonitorX = new FloatInputFieldConfigItem(xCordMonitor, false);
+        LethalConfigManager.AddConfigItem(MonitorX);
+
+        yCordMonitor = cfg.Bind(
+            doormonitorrepos,
+            "Y-Coordinate",
+            3.0192f,
+            "Sets Y-coordinate of Door Monitor"
+        );
+        var MonitorY = new FloatInputFieldConfigItem(yCordMonitor, false);
+        LethalConfigManager.AddConfigItem(MonitorY);
+
+        zCordMonitor = cfg.Bind(
+            doormonitorrepos,
+            "Z-Coordinate",
+            -8.7035f,
+            "Sets Z-coordinate of Door Monitor"
+        );
+        var MonitorZ = new FloatInputFieldConfigItem(zCordMonitor, false);
+        LethalConfigManager.AddConfigItem(MonitorZ);
+
+        xRotMonitor = cfg.Bind(
+            doormonitorrepos,
+            "X-Rotation",
+            270f,
+            "Sets X-Rotation of Door Monitor"
+        );
+        var MonitorRotX = new FloatInputFieldConfigItem(xRotMonitor, false);
+        LethalConfigManager.AddConfigItem(MonitorRotX);
+
+        yRotMonitor = cfg.Bind(
+            doormonitorrepos,
+            "Y-Rotation",
+            73.4758f,
+            "Sets Y-Rotation of Door Monitor"
+        );
+        var MonitorRotY = new FloatInputFieldConfigItem(yRotMonitor, false);
+        LethalConfigManager.AddConfigItem(MonitorRotY);
+
+        zRotMonitor = cfg.Bind(
+            doormonitorrepos,
+            "Z-Rotation",
+            0f,
+            "Sets Z-Rotation of Door Monitor"
+        );
+        var MonitorRotZ = new FloatInputFieldConfigItem(zRotMonitor, false);
+        LethalConfigManager.AddConfigItem(MonitorRotZ);
+
+
+
+        //MOVES DOOR BUTTON PANEL
+        moveButtons = cfg.Bind(
+            doorbuttonrepos,
+            "Moves Door Buttons Panel",
+            false,
+            "Allows the custom coordinates to be set"
+         );
+        var ButtonsMoveToggle = new BoolCheckBoxConfigItem(moveButtons, false);
+        LethalConfigManager.AddConfigItem(ButtonsMoveToggle);
+
+        xCordButtons = cfg.Bind(
+            doorbuttonrepos,
+            "X-Coordinate",
+            -5.5485f,
+            "Sets X-coordinate of Door Buttons Panel"
+        );
+        var ButtonsX = new FloatInputFieldConfigItem(xCordButtons, false);
+        LethalConfigManager.AddConfigItem(ButtonsX);
+
+        yCordButtons = cfg.Bind(
+            doorbuttonrepos,
+            "Y-Coordinate",
+            2.1882f,
+            "Sets Y-coordinate of Door Buttons Panel"
+        );
+        var ButtonsY = new FloatInputFieldConfigItem(yCordButtons, false);
+        LethalConfigManager.AddConfigItem(ButtonsY);
+
+        zCordButtons = cfg.Bind(
+            doorbuttonrepos,
+            "Z-Coordinate",
+            -8.823f,
+            "Sets Z-coordinate of Door Buttons Panel"
+        );
+        var ButtonsZ = new FloatInputFieldConfigItem(zCordButtons, false);
+        LethalConfigManager.AddConfigItem(ButtonsZ);
+
+        xRotButtons = cfg.Bind(
+            doorbuttonrepos,
+            "X-Rotation",
+            89.9802f,
+            "Sets X-Rotation of Door Buttons Panel"
+        );
+        var ButtonsRotX = new FloatInputFieldConfigItem(xRotButtons, false);
+        LethalConfigManager.AddConfigItem(ButtonsRotX);
+
+        yRotButtons = cfg.Bind(
+            doorbuttonrepos,
+            "Y-Rotation",
+            180f,
+            "Sets Y-Rotation of Door Buttons Panel"
+        );
+        var ButtonsRotY = new FloatInputFieldConfigItem(yRotButtons, false);
+        LethalConfigManager.AddConfigItem(ButtonsRotY);
+
+        zRotButtons = cfg.Bind(
+            doorbuttonrepos,
+            "Z-Rotation",
+            0f,
+            "Sets Z-Rotation of Door Buttons Panel"
+        );
+        var ButtonsRotZ = new FloatInputFieldConfigItem(zRotButtons, false);
+        LethalConfigManager.AddConfigItem(ButtonsZ);
     }
 }

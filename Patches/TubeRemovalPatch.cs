@@ -503,4 +503,58 @@ internal class TubeRemovalPatch
 
         }
     }
+
+    //Adds autoparent component to objects that do not have it
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(StartOfRound), "Start")]
+    static void AutoParentAdd()
+    {
+        //Door Monitor
+        if (GameObject.Find("Environment/HangarShip/ShipModels2b/MonitorWall/SingleScreen"))
+        {
+            var doorMonitor = GameObject.Find("Environment/HangarShip/ShipModels2b/MonitorWall/SingleScreen");
+            doorMonitor.AddComponent<AutoParentToShip>();
+        }
+
+        //Door Control Panel
+        if (GameObject.Find("Environment/HangarShip/AnimatedShipDoor/HangarDoorButtonPanel"))
+        {
+            var doorButtons = GameObject.Find("Environment/HangarShip/AnimatedShipDoor/HangarDoorButtonPanel");
+            doorButtons.AddComponent<AutoParentToShip>();
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(StartOfRound), "Update")]
+    static void DoorMonitorMove()
+    {
+        if (moveMonitor.Value && GameObject.Find("Environment/HangarShip/ShipModels2b/MonitorWall/SingleScreen"))
+        {
+            var doorMonitor = GameObject.Find("Environment/HangarShip/ShipModels2b/MonitorWall/SingleScreen");
+            var Monitor = doorMonitor.GetComponent<AutoParentToShip>();
+
+            var doorMonitorLocalPos = new Vector3(xCordMonitor.Value, yCordMonitor.Value, zCordMonitor.Value);
+            var doorMonitorLocalRotation = new Vector3(xRotMonitor.Value, yRotMonitor.Value, zRotMonitor.Value);
+
+            Monitor.positionOffset = doorMonitorLocalPos;
+            Monitor.rotationOffset = doorMonitorLocalRotation;
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(StartOfRound), "Update")]
+    static void DoorButtonsMove()
+    {
+        if (moveButtons.Value && GameObject.Find("Environment/HangarShip/ShipModels2b/MonitorWall/SingleScreen"))
+        {
+            var doorButtons = GameObject.Find("Environment/HangarShip/AnimatedShipDoor/HangarDoorButtonPanel");
+            var DoorButtons = doorButtons.GetComponent<AutoParentToShip>();
+
+            var doorButtonsLocalPos = new Vector3(xCordButtons.Value, yCordButtons.Value, zCordButtons.Value);
+            var doorMButtonsLocalRotation = new Vector3(xRotButtons.Value, yRotButtons.Value, zRotButtons.Value);
+
+            DoorButtons.positionOffset = doorButtonsLocalPos;
+            DoorButtons.rotationOffset = doorMButtonsLocalRotation;
+        }
+    }
 }
