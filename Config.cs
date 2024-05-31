@@ -1,6 +1,9 @@
 ﻿using BepInEx.Configuration;
 using LethalConfig;
 using LethalConfig.ConfigItems;
+using LethalConfig.ConfigItems.Options;
+using UnityEngine.Yoga;
+using UnityEngine;
 
 namespace LethalTubeRemoval;
 
@@ -172,20 +175,24 @@ public class Config
     internal static ConfigEntry<bool> lowLightMode;
 
     //Mode
-    internal static ConfigEntry<bool> removalMode;
+    internal static ConfigEntry<RemovalMode> removalMode;
+
+    public enum RemovalMode
+    {
+        Renderer,
+        Inactive,
+        Deletion
+    }
 
 
     public Config(ConfigFile cfg)
     {
         //Removal Mode
-        removalMode = cfg.Bind(
-            mode,
-            "Change Removal Type",
-            false,
-            "Checking this box will change the way items are removed. By default they are simply not rendered. By checking this box " +
-            "you will enable object deletion which will completely remove the object from the game. This will likely cause conflicts " +
-            "with any other mods you have installed. THIS IS NOT RECOMMENDED! ONLY USE THIS IF YOU KNOW FOR SURE WHAT YOU ARE DOING!"
-        );
+
+        removalMode = cfg.Bind(mode, "Change Removal Type", RemovalMode.Renderer, "Sets the mode of which to remove objects. It is highly recommended to keep" +
+            " Renderer as your removal option if you do not know what these do or are using other mods. DELETION - completely deletes" +
+            " the object from within the game hierarchy. INACTIVE - sets the item as inactive which does not delete the object completely." +
+            " RENDERER - Does not render the object and turns off its collision. This keeps the object active and available, you just do not see it and cannot touch it" );
 
         //Custom Terminal Coords
 
