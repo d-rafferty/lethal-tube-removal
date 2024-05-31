@@ -159,6 +159,8 @@ public class Config
     internal static ConfigEntry<bool> deleteIndoorCam;
     internal static ConfigEntry<bool> deleteOutdoorCam;
 
+    internal static ConfigEntry<bool> muteAudio;
+
     //Outside Ship
     internal static ConfigEntry<bool> deleteFloodLight;
     internal static ConfigEntry<bool> deleteOutsideTubing;
@@ -271,6 +273,14 @@ public class Config
 
 
         //Inside Ship
+        muteAudio = cfg.Bind(
+            inside,
+            "Mute Speaker Audio",
+            false,
+            "Mutes the speakers, will not play intro noises, firing quotes, etc."
+        );
+        var audioToggle = new BoolCheckBoxConfigItem(muteAudio, false);
+        LethalConfigManager.AddConfigItem(audioToggle);
 
         deleteTube = cfg.Bind( //sets initial LethalConfig values
             inside, //type of change
