@@ -515,13 +515,6 @@ internal class TubeRemovalPatch
             var doorMonitor = GameObject.Find("Environment/HangarShip/ShipModels2b/MonitorWall/SingleScreen");
             doorMonitor.AddComponent<AutoParentToShip>();
         }
-
-        //Door Control Panel
-        if (GameObject.Find("Environment/HangarShip/AnimatedShipDoor/HangarDoorButtonPanel"))
-        {
-            var doorButtons = GameObject.Find("Environment/HangarShip/AnimatedShipDoor/HangarDoorButtonPanel");
-            doorButtons.AddComponent<AutoParentToShip>();
-        }
     }
 
     [HarmonyPostfix]
@@ -548,13 +541,12 @@ internal class TubeRemovalPatch
         if (moveButtons.Value && GameObject.Find("Environment/HangarShip/ShipModels2b/MonitorWall/SingleScreen"))
         {
             var doorButtons = GameObject.Find("Environment/HangarShip/AnimatedShipDoor/HangarDoorButtonPanel");
-            var DoorButtons = doorButtons.GetComponent<AutoParentToShip>();
 
             var doorButtonsLocalPos = new Vector3(xCordButtons.Value, yCordButtons.Value, zCordButtons.Value);
-            var doorMButtonsLocalRotation = new Vector3(xRotButtons.Value, yRotButtons.Value, zRotButtons.Value);
+            var doorButtonsLocalRotation = new Vector3(xRotButtons.Value, yRotButtons.Value, zRotButtons.Value);
 
-            DoorButtons.positionOffset = doorButtonsLocalPos;
-            DoorButtons.rotationOffset = doorMButtonsLocalRotation;
+            doorButtons.transform.localPosition = doorButtonsLocalPos;
+            doorButtons.transform.eulerAngles = doorButtonsLocalRotation;
         }
     }
 }
