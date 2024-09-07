@@ -698,4 +698,20 @@ internal class TubeRemovalPatch
             doorButtons.transform.eulerAngles = doorButtonsLocalRotation;
         }
     }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(StartOfRound), "Update")]
+    static void BedMove()
+    {
+        if (moveBed.Value && GameObject.Find("Environment/HangarShip/Bunkbeds"))
+        {
+            var bed = GameObject.Find("Environment/HangarShip/Bunkbeds");
+            var BedObj = bed.GetComponent<AutoParentToShip>();
+            var bedLocalPos = new Vector3(xCordBed.Value, yCordBed.Value, zCordBed.Value);
+            var bedLocalRotation = new Vector3(xRotBed.Value, yRotBed.Value, zRotBed.Value);
+
+            BedObj.positionOffset = bedLocalPos;
+            BedObj.rotationOffset = bedLocalRotation;
+        }
+    }
 }
