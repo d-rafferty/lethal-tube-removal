@@ -9,6 +9,8 @@ namespace LethalTubeRemoval;
 
 public class Config
 {
+    private const string bedrepos = "Bunk Bed Reposition";
+
     private const string doormonitorrepos = "Door Monitor Reposition";
 
     private const string doorbuttonrepos = "Door Button Panel Reposition";
@@ -36,6 +38,16 @@ public class Config
     private const string misc = "Misc Modes";
 
     private const string mode = "Removal Mode: CAUTION";
+
+    //Custom Door Button Panel Coords
+    internal static ConfigEntry<bool> moveBed;
+    internal static ConfigEntry<float> xCordBed;
+    internal static ConfigEntry<float> yCordBed;
+    internal static ConfigEntry<float> zCordBed;
+
+    internal static ConfigEntry<float> xRotBed;
+    internal static ConfigEntry<float> yRotBed;
+    internal static ConfigEntry<float> zRotBed;
 
     //Custom Door Button Panel Coords
     internal static ConfigEntry<bool> moveButtons;
@@ -191,7 +203,7 @@ public class Config
     {
         //Removal Mode
 
-        removalMode = cfg.Bind(mode, "Change Removal Type", RemovalMode.Renderer, "Sets the mode of which to remove objects. It is highly recommended to keep" +
+        removalMode = cfg.Bind(mode, "Change Removal Type", RemovalMode.Inactive, "Sets the mode of which to remove objects. It is highly recommended to keep" +
             " Renderer as your removal option if you do not know what these do or are using other mods. DELETION - completely deletes" +
             " the object from within the game hierarchy. INACTIVE - sets the item as inactive which does not delete the object completely." +
             " RENDERER - Does not render the object and turns off its collision. This keeps the object active and available, you just do not see it and cannot touch it" );
@@ -1141,5 +1153,70 @@ public class Config
         );
         var ButtonsRotZ = new FloatInputFieldConfigItem(zRotButtons, false);
         LethalConfigManager.AddConfigItem(ButtonsZ);
+    
+
+    //MOVES DOOR BUTTON PANEL
+    moveBed = cfg.Bind(
+            bedrepos,
+            "Moves Bunk Beds",
+            false,
+            "Allows the custom coordinates to be set"
+         );
+        var BedMoveToggle = new BoolCheckBoxConfigItem(moveBed, false);
+    LethalConfigManager.AddConfigItem(BedMoveToggle);
+
+        xCordBed = cfg.Bind(
+            bedrepos,
+            "X-Coordinate",
+            9.0476f,
+            "Sets X-coordinate of Bunk Beds"
+        );
+        var BedX = new FloatInputFieldConfigItem(xCordBed, false);
+    LethalConfigManager.AddConfigItem(BedX);
+
+        yCordBed = cfg.Bind(
+            bedrepos,
+            "Y-Coordinate",
+            1.4605f,
+            "Sets Y-coordinate of Bunk Beds"
+        );
+        var BedY = new FloatInputFieldConfigItem(yCordBed, false);
+    LethalConfigManager.AddConfigItem(BedY);
+
+        zCordBed = cfg.Bind(
+            bedrepos,
+            "Z-Coordinate",
+            -4.7691f,
+            "Sets Z-coordinate of Bunk Beds"
+        );
+        var BedZ = new FloatInputFieldConfigItem(zCordBed, false);
+    LethalConfigManager.AddConfigItem(BedZ);
+
+        xRotBed = cfg.Bind(
+            bedrepos,
+            "X-Rotation",
+            270.0198f,
+            "Sets X-Rotation of Bunk Beds"
+        );
+        var BedRotX = new FloatInputFieldConfigItem(xRotBed, false);
+    LethalConfigManager.AddConfigItem(BedRotX);
+
+        yRotBed = cfg.Bind(
+            bedrepos,
+            "Y-Rotation",
+            0f,
+            "Sets Y-Rotation of Bunk Beds"
+        );
+        var BedRotY = new FloatInputFieldConfigItem(yRotBed, false);
+    LethalConfigManager.AddConfigItem(BedRotY);
+
+        zRotBed = cfg.Bind(
+            bedrepos,
+            "Z-Rotation",
+            0f,
+            "Sets Z-Rotation of Bunk Beds"
+        );
+        var BedRotZ = new FloatInputFieldConfigItem(zRotBed, false);
+    LethalConfigManager.AddConfigItem(BedRotZ);
     }
 }
