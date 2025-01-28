@@ -196,7 +196,7 @@ public class Config
     internal static ConfigEntry<bool> deleteLeftMachinery;
     
     //MAGNET STUFF
-    internal static ConfigEntry<bool> shipMagnet;
+    internal static ConfigEntry<bool> deleteMagnet;
 
     //Misc
     internal static ConfigEntry<bool> parkourMode;
