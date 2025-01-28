@@ -40,7 +40,8 @@ internal class OutsideShipPatch
         var weirdBox = GameObject.Find("Environment/HangarShip/Cube.004");
         
         //MAGNET STUFF
-        var exhaustRight = GameObject.Find("Environment/HangarShip/GiantCylinderMagnet");
+        var shipMagnet = GameObject.Find("Environment/HangarShip/GiantCylinderMagnet");
+        var shipMagnetLever = GameObject.Find("Environment/HangarShip/MagnetLever");
 
 
         //Catwalk stuff
@@ -104,6 +105,12 @@ internal class OutsideShipPatch
             }
 
             if (Config.deleteWeirdBox.Value) Object.Destroy(weirdBox);
+            
+            if (Config.deleteMagnet.Value)
+            {
+                Object.Destroy(shipMagnet);
+                Object.Destroy(shipMagnetLever);
+            }
 
             if (Config.parkourMode.Value)
             {
@@ -134,6 +141,12 @@ internal class OutsideShipPatch
         }
         else if (removalMode.Value == RemovalMode.Inactive)
         {
+            if (Config.deleteMagnet.Value)
+            {
+                shipMagnet.gameObject.SetActive(false);
+                shipMagnetLever.gameObject.SetActive(false);
+            }
+            
             if (Config.deleteFloodLight.Value) //checks config file for boolean value and if true deletes the item
                 floodLight.gameObject.SetActive(false);
 
