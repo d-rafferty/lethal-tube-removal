@@ -1,9 +1,6 @@
 ﻿using BepInEx.Configuration;
 using LethalConfig;
 using LethalConfig.ConfigItems;
-using LethalConfig.ConfigItems.Options;
-using UnityEngine.Yoga;
-using UnityEngine;
 
 namespace LethalTubeRemoval;
 
@@ -18,6 +15,8 @@ public class Config
     private const string storagerepos = "Storage Cabinet Reposition";
 
     private const string terminalmove = "Terminal Reposition";
+    
+    private const string shiplever = "Ship Lever Reposition";
 
     private const string chargingcoil = "Charging Coil Reposition";
 
@@ -88,6 +87,16 @@ public class Config
     internal static ConfigEntry<float> xRotTerm;
     internal static ConfigEntry<float> yRotTerm;
     internal static ConfigEntry<float> zRotTerm;
+    
+    //Custom Ship Lever Coords
+    internal static ConfigEntry<bool> moveLever;
+    internal static ConfigEntry<float> xCordLever;
+    internal static ConfigEntry<float> yCordLever;
+    internal static ConfigEntry<float> zCordLever;
+
+    internal static ConfigEntry<float> xRotLever;
+    internal static ConfigEntry<float> yRotLever;
+    internal static ConfigEntry<float> zRotLever;
 
     //Custom Coil Coords
     internal static ConfigEntry<bool> moveCoil;
@@ -167,6 +176,8 @@ public class Config
     internal static ConfigEntry<bool> terminalReposition;
     internal static ConfigEntry<bool> deleteShelf;
     internal static ConfigEntry<bool> deleteDoorMonitor;
+    internal static ConfigEntry<bool> deleteDesks;
+    internal static ConfigEntry<bool> deleteControlPanel;
 
     internal static ConfigEntry<bool> deleteIndoorCam;
     internal static ConfigEntry<bool> deleteOutdoorCam;
@@ -183,6 +194,9 @@ public class Config
     internal static ConfigEntry<bool> deleteSupportBeams;
     internal static ConfigEntry<bool> deleteWeirdBox;
     internal static ConfigEntry<bool> deleteLeftMachinery;
+    
+    //MAGNET STUFF
+    internal static ConfigEntry<bool> shipMagnet;
 
     //Misc
     internal static ConfigEntry<bool> parkourMode;
@@ -203,13 +217,13 @@ public class Config
     {
         //Removal Mode
 
-        removalMode = cfg.Bind(mode, "Change Removal Type", RemovalMode.Inactive, "Sets the mode of which to remove objects. It is highly recommended to keep" +
+        removalMode = cfg.Bind(mode, "Change Removal Type", RemovalMode.Inactive,
+            "Sets the mode of which to remove objects. It is highly recommended to keep" +
             " Renderer as your removal option if you do not know what these do or are using other mods. DELETION - completely deletes" +
             " the object from within the game hierarchy. INACTIVE - sets the item as inactive which does not delete the object completely." +
-            " RENDERER - Does not render the object and turns off its collision. This keeps the object active and available, you just do not see it and cannot touch it" );
+            " RENDERER - Does not render the object and turns off its collision. This keeps the object active and available, you just do not see it and cannot touch it");
 
         //Custom Terminal Coords
-
         terminalReposition = cfg.Bind(
             terminalmove,
             "Automatic Terminal Reposition",
@@ -495,8 +509,28 @@ public class Config
             new BoolCheckBoxConfigItem(deleteIndoorCam,
                 false);
         LethalConfigManager.AddConfigItem(indoorCamToggle);
-
-
+        
+        deleteDesks= cfg.Bind(
+            inside,
+            "Desks",
+            false,
+            "Deletes the desks below the monitors."
+        );
+        var desksToggle =
+            new BoolCheckBoxConfigItem(deleteDesks,
+                false);
+        LethalConfigManager.AddConfigItem(desksToggle);
+        
+        deleteControlPanel= cfg.Bind(
+            inside,
+            "Control Panel",
+            false,
+            "Deletes the control panel where the landing-lever is, below the monitors."
+        );
+        var controlPanelToggle =
+            new BoolCheckBoxConfigItem(deleteControlPanel,
+                false);
+        LethalConfigManager.AddConfigItem(controlPanelToggle);
 
 
         // OUTSIDE SHIP
@@ -632,9 +666,74 @@ public class Config
         var teleButtonsToggle = new BoolCheckBoxConfigItem(moveTeleButtonsToDesk, false);
         LethalConfigManager.AddConfigItem(teleButtonsToggle);
 
+        
+        //Custom Ship Lever Coords
+        moveLever = cfg.Bind(
+            shiplever,
+            "Move Ship Lever",
+            false,
+            "Allows the custom coordinates to be set. Default coords pair with Automatic Terminal Reposition" +
+            " option to place it on the left side of the terminal."
+        );
+        var leverMoveToggle = new BoolCheckBoxConfigItem(moveLever, false);
+        LethalConfigManager.AddConfigItem(leverMoveToggle);
+          
+        xCordLever = cfg.Bind(
+            chargingcoil,
+            "X-Coordinate",
+            9.4585f,
+            "Sets X-coordinate of Ship Lever"
+        );
+        var leverX = new FloatInputFieldConfigItem(xCordLever, false);
+        LethalConfigManager.AddConfigItem(leverX);
+
+        yCordLever = cfg.Bind(
+            chargingcoil,
+            "Y-Coordinate",
+            1.579f,
+            "Sets Y-coordinate of Ship Lever"
+        );
+        var leverY = new FloatInputFieldConfigItem(yCordLever, false);
+        LethalConfigManager.AddConfigItem(leverY);
+
+        zCordLever = cfg.Bind(
+            chargingcoil,
+            "Z-Coordinate",
+            -11.1749f,
+            "Sets Z-coordinate of Ship Lever"
+        );
+        var leverZ = new FloatInputFieldConfigItem(zCordLever, false);
+        LethalConfigManager.AddConfigItem(leverZ);
+
+        xRotLever = cfg.Bind(
+            chargingcoil,
+            "X-Rotation",
+            0f,
+            "Sets X-Rotation of Ship Lever"
+        );
+        var leverRotX = new FloatInputFieldConfigItem(xRotLever, false);
+        LethalConfigManager.AddConfigItem(leverRotX);
+
+        yRotLever = cfg.Bind(
+            chargingcoil,
+            "Y-Rotation",
+            0f,
+            "Sets Y-Rotation of Ship Lever"
+        );
+        var leverRotY = new FloatInputFieldConfigItem(yRotLever, false);
+        LethalConfigManager.AddConfigItem(leverRotY);
+
+        zRotLever = cfg.Bind(
+            chargingcoil,
+            "Z-Rotation",
+            0f,
+            "Sets Z-Rotation of Ship Lever"
+        );
+        var leverRotZ = new FloatInputFieldConfigItem(zRotLever, false);
+        LethalConfigManager.AddConfigItem(leverRotZ);
+        
 
         //Custom Coil Coords
-
         moveCoil = cfg.Bind(
             chargingcoil,
             "Move Coil",
@@ -748,7 +847,7 @@ public class Config
         yRotClip = cfg.Bind(
             cliprepos,
             "Y-Rotation",
-           159.3217f,
+            159.3217f,
             "Sets Y-Rotation of Clipboard"
         );
         var clipRotY = new FloatInputFieldConfigItem(yRotClip, false);
@@ -762,18 +861,17 @@ public class Config
         );
         var clipRotZ = new FloatInputFieldConfigItem(zRotClip, false);
         LethalConfigManager.AddConfigItem(clipRotZ);
-    
 
 
-    //MOVE Vent
-    moveVent = cfg.Bind(
-        ventrepos,
+        //MOVE Vent
+        moveVent = cfg.Bind(
+            ventrepos,
             "Move Air Vent",
             false,
             "Allows the custom coordinates to be set"
         );
         var ventMoveToggle = new BoolCheckBoxConfigItem(moveVent, false);
-    LethalConfigManager.AddConfigItem(ventMoveToggle);
+        LethalConfigManager.AddConfigItem(ventMoveToggle);
 
         xCordVent = cfg.Bind(
             ventrepos,
@@ -782,7 +880,7 @@ public class Config
             "Sets X-coordinate of Air Vent"
         );
         var ventX = new FloatInputFieldConfigItem(xCordVent, false);
-    LethalConfigManager.AddConfigItem(ventX);
+        LethalConfigManager.AddConfigItem(ventX);
 
         yCordVent = cfg.Bind(
             ventrepos,
@@ -791,7 +889,7 @@ public class Config
             "Sets Y-coordinate of Air Vent"
         );
         var ventY = new FloatInputFieldConfigItem(yCordVent, false);
-    LethalConfigManager.AddConfigItem(ventY);
+        LethalConfigManager.AddConfigItem(ventY);
 
         zCordVent = cfg.Bind(
             ventrepos,
@@ -800,7 +898,7 @@ public class Config
             "Sets Z-coordinate of Air Vent"
         );
         var ventZ = new FloatInputFieldConfigItem(zCordVent, false);
-    LethalConfigManager.AddConfigItem(ventZ);
+        LethalConfigManager.AddConfigItem(ventZ);
 
         xRotVent = cfg.Bind(
             ventrepos,
@@ -809,16 +907,16 @@ public class Config
             "Sets X-Rotation of Air Vent"
         );
         var ventRotX = new FloatInputFieldConfigItem(xRotVent, false);
-    LethalConfigManager.AddConfigItem(ventRotX);
+        LethalConfigManager.AddConfigItem(ventRotX);
 
         yRotVent = cfg.Bind(
             ventrepos,
             "Y-Rotation",
-           270f,
+            270f,
             "Sets Y-Rotation of Air Vent"
         );
         var ventRotY = new FloatInputFieldConfigItem(yRotVent, false);
-    LethalConfigManager.AddConfigItem(ventRotY);
+        LethalConfigManager.AddConfigItem(ventRotY);
 
         zRotVent = cfg.Bind(
             ventrepos,
@@ -827,18 +925,18 @@ public class Config
             "Sets Z-Rotation of Air Vent"
         );
         var ventRotZ = new FloatInputFieldConfigItem(zRotVent, false);
-    LethalConfigManager.AddConfigItem(ventRotZ);
+        LethalConfigManager.AddConfigItem(ventRotZ);
 
 
-    //MOVES AIR FILTER
-    moveFilter = cfg.Bind(
+        //MOVES AIR FILTER
+        moveFilter = cfg.Bind(
             filterrepos,
             "Move Air Filter",
             false,
             "Allows the custom coordinates to be set"
         );
         var filterMoveToggle = new BoolCheckBoxConfigItem(moveFilter, false);
-    LethalConfigManager.AddConfigItem(filterMoveToggle);
+        LethalConfigManager.AddConfigItem(filterMoveToggle);
 
         xCordFilter = cfg.Bind(
             filterrepos,
@@ -847,7 +945,7 @@ public class Config
             "Sets X-coordinate of Air Filter"
         );
         var FilterX = new FloatInputFieldConfigItem(xCordFilter, false);
-    LethalConfigManager.AddConfigItem(FilterX);
+        LethalConfigManager.AddConfigItem(FilterX);
 
         yCordFilter = cfg.Bind(
             filterrepos,
@@ -856,7 +954,7 @@ public class Config
             "Sets Y-coordinate of Air Filter"
         );
         var FilterY = new FloatInputFieldConfigItem(yCordFilter, false);
-    LethalConfigManager.AddConfigItem(FilterY);
+        LethalConfigManager.AddConfigItem(FilterY);
 
         zCordFilter = cfg.Bind(
             filterrepos,
@@ -865,7 +963,7 @@ public class Config
             "Sets Z-coordinate of Air Filter"
         );
         var FilterZ = new FloatInputFieldConfigItem(zCordFilter, false);
-    LethalConfigManager.AddConfigItem(FilterZ);
+        LethalConfigManager.AddConfigItem(FilterZ);
 
         xRotFilter = cfg.Bind(
             filterrepos,
@@ -874,16 +972,16 @@ public class Config
             "Sets X-Rotation of Air Filter"
         );
         var FilterRotX = new FloatInputFieldConfigItem(xRotFilter, false);
-    LethalConfigManager.AddConfigItem(FilterRotX);
+        LethalConfigManager.AddConfigItem(FilterRotX);
 
         yRotFilter = cfg.Bind(
             filterrepos,
             "Y-Rotation",
-           180f,
+            180f,
             "Sets Y-Rotation of Air Filter"
         );
         var FilterRotY = new FloatInputFieldConfigItem(yRotFilter, false);
-    LethalConfigManager.AddConfigItem(FilterRotY);
+        LethalConfigManager.AddConfigItem(FilterRotY);
 
         zRotFilter = cfg.Bind(
             filterrepos,
@@ -892,16 +990,16 @@ public class Config
             "Sets Z-Rotation of Air Filter"
         );
         var FilterRotZ = new FloatInputFieldConfigItem(zRotFilter, false);
-    LethalConfigManager.AddConfigItem(FilterRotZ);
+        LethalConfigManager.AddConfigItem(FilterRotZ);
 
 
         //MOVES OXYGEN TANK
         moveTank = cfg.Bind(
             tankrepos,
-                "Moves Oxygen Tank",
-                false,
-                "Allows the custom coordinates to be set"
-            );
+            "Moves Oxygen Tank",
+            false,
+            "Allows the custom coordinates to be set"
+        );
         var tankMoveToggle = new BoolCheckBoxConfigItem(moveTank, false);
         LethalConfigManager.AddConfigItem(tankMoveToggle);
 
@@ -944,7 +1042,7 @@ public class Config
         yRotTank = cfg.Bind(
             tankrepos,
             "Y-Rotation",
-           351.514f,
+            351.514f,
             "Sets Y-Rotation of Oxygen Tank"
         );
         var TankRotY = new FloatInputFieldConfigItem(yRotTank, false);
@@ -962,10 +1060,10 @@ public class Config
         //MOVES STORAGE CABINET
         moveStorage = cfg.Bind(
             storagerepos,
-                    "Moves Storage Cabinet",
-                    false,
-                    "Allows the custom coordinates to be set"
-                );
+            "Moves Storage Cabinet",
+            false,
+            "Allows the custom coordinates to be set"
+        );
         var storageMoveToggle = new BoolCheckBoxConfigItem(moveStorage, false);
         LethalConfigManager.AddConfigItem(storageMoveToggle);
 
@@ -1027,10 +1125,10 @@ public class Config
         //MOVES DOOR MONITOR
         moveMonitor = cfg.Bind(
             doormonitorrepos,
-                    "Moves Door Monitor",
-                    false,
-                    "Allows the custom coordinates to be set"
-                );
+            "Moves Door Monitor",
+            false,
+            "Allows the custom coordinates to be set"
+        );
         var monitorMoveToggle = new BoolCheckBoxConfigItem(moveMonitor, false);
         LethalConfigManager.AddConfigItem(monitorMoveToggle);
 
@@ -1089,14 +1187,13 @@ public class Config
         LethalConfigManager.AddConfigItem(MonitorRotZ);
 
 
-
         //MOVES DOOR BUTTON PANEL
         moveButtons = cfg.Bind(
             doorbuttonrepos,
             "Moves Door Buttons Panel",
             false,
             "Allows the custom coordinates to be set"
-         );
+        );
         var ButtonsMoveToggle = new BoolCheckBoxConfigItem(moveButtons, false);
         LethalConfigManager.AddConfigItem(ButtonsMoveToggle);
 
@@ -1153,17 +1250,17 @@ public class Config
         );
         var ButtonsRotZ = new FloatInputFieldConfigItem(zRotButtons, false);
         LethalConfigManager.AddConfigItem(ButtonsZ);
-    
 
-    //MOVES DOOR BUTTON PANEL
-    moveBed = cfg.Bind(
+
+        //MOVES DOOR BUTTON PANEL
+        moveBed = cfg.Bind(
             bedrepos,
             "Moves Bunk Beds",
             false,
             "Allows the custom coordinates to be set"
-         );
+        );
         var BedMoveToggle = new BoolCheckBoxConfigItem(moveBed, false);
-    LethalConfigManager.AddConfigItem(BedMoveToggle);
+        LethalConfigManager.AddConfigItem(BedMoveToggle);
 
         xCordBed = cfg.Bind(
             bedrepos,
@@ -1172,7 +1269,7 @@ public class Config
             "Sets X-coordinate of Bunk Beds"
         );
         var BedX = new FloatInputFieldConfigItem(xCordBed, false);
-    LethalConfigManager.AddConfigItem(BedX);
+        LethalConfigManager.AddConfigItem(BedX);
 
         yCordBed = cfg.Bind(
             bedrepos,
@@ -1181,7 +1278,7 @@ public class Config
             "Sets Y-coordinate of Bunk Beds"
         );
         var BedY = new FloatInputFieldConfigItem(yCordBed, false);
-    LethalConfigManager.AddConfigItem(BedY);
+        LethalConfigManager.AddConfigItem(BedY);
 
         zCordBed = cfg.Bind(
             bedrepos,
@@ -1190,7 +1287,7 @@ public class Config
             "Sets Z-coordinate of Bunk Beds"
         );
         var BedZ = new FloatInputFieldConfigItem(zCordBed, false);
-    LethalConfigManager.AddConfigItem(BedZ);
+        LethalConfigManager.AddConfigItem(BedZ);
 
         xRotBed = cfg.Bind(
             bedrepos,
@@ -1199,7 +1296,7 @@ public class Config
             "Sets X-Rotation of Bunk Beds"
         );
         var BedRotX = new FloatInputFieldConfigItem(xRotBed, false);
-    LethalConfigManager.AddConfigItem(BedRotX);
+        LethalConfigManager.AddConfigItem(BedRotX);
 
         yRotBed = cfg.Bind(
             bedrepos,
@@ -1208,7 +1305,7 @@ public class Config
             "Sets Y-Rotation of Bunk Beds"
         );
         var BedRotY = new FloatInputFieldConfigItem(yRotBed, false);
-    LethalConfigManager.AddConfigItem(BedRotY);
+        LethalConfigManager.AddConfigItem(BedRotY);
 
         zRotBed = cfg.Bind(
             bedrepos,
@@ -1217,6 +1314,6 @@ public class Config
             "Sets Z-Rotation of Bunk Beds"
         );
         var BedRotZ = new FloatInputFieldConfigItem(zRotBed, false);
-    LethalConfigManager.AddConfigItem(BedRotZ);
+        LethalConfigManager.AddConfigItem(BedRotZ);
     }
 }
