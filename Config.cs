@@ -625,6 +625,16 @@ public class Config
         );
         var leftMachineryToggle = new BoolCheckBoxConfigItem(deleteLeftMachinery, false);
         LethalConfigManager.AddConfigItem(leftMachineryToggle);
+        
+        shipMagnet = cfg.Bind(
+            outside,
+            "Giant Magnet",
+            false,
+            "Removes giant magnet for storing the company truck. Anyone who witnesses another employee using" +
+            " the truck should submit a report for a psychological evaluation by The Company."
+        );
+        var magnetToggle = new BoolCheckBoxConfigItem(shipMagnet, false);
+        LethalConfigManager.AddConfigItem(magnetToggle);
 
 
         //MISC MODES
