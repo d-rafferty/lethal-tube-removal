@@ -633,7 +633,7 @@ public class Config
             "Removes giant magnet for storing the company truck. Anyone who witnesses another employee using" +
             " the truck should submit a report for a psychological evaluation by The Company."
         );
-        var magnetToggle = new BoolCheckBoxConfigItem(shipMagnet, false);
+        var magnetToggle = new BoolCheckBoxConfigItem(deleteMagnet, false);
         LethalConfigManager.AddConfigItem(magnetToggle);
 
 
