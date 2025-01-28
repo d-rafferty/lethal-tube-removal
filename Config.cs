@@ -679,7 +679,7 @@ public class Config
         LethalConfigManager.AddConfigItem(leverMoveToggle);
           
         xCordLever = cfg.Bind(
-            chargingcoil,
+            shiplever,
             "X-Coordinate",
             9.4585f,
             "Sets X-coordinate of Ship Lever"
@@ -688,7 +688,7 @@ public class Config
         LethalConfigManager.AddConfigItem(leverX);
 
         yCordLever = cfg.Bind(
-            chargingcoil,
+            shiplever,
             "Y-Coordinate",
             1.579f,
             "Sets Y-coordinate of Ship Lever"
@@ -697,7 +697,7 @@ public class Config
         LethalConfigManager.AddConfigItem(leverY);
 
         zCordLever = cfg.Bind(
-            chargingcoil,
+            shiplever,
             "Z-Coordinate",
             -11.1749f,
             "Sets Z-coordinate of Ship Lever"
@@ -706,7 +706,7 @@ public class Config
         LethalConfigManager.AddConfigItem(leverZ);
 
         xRotLever = cfg.Bind(
-            chargingcoil,
+            shiplever,
             "X-Rotation",
             0f,
             "Sets X-Rotation of Ship Lever"
@@ -715,7 +715,7 @@ public class Config
         LethalConfigManager.AddConfigItem(leverRotX);
 
         yRotLever = cfg.Bind(
-            chargingcoil,
+            shiplever,
             "Y-Rotation",
             0f,
             "Sets Y-Rotation of Ship Lever"
@@ -724,7 +724,7 @@ public class Config
         LethalConfigManager.AddConfigItem(leverRotY);
 
         zRotLever = cfg.Bind(
-            chargingcoil,
+            shiplever,
             "Z-Rotation",
             0f,
             "Sets Z-Rotation of Ship Lever"
