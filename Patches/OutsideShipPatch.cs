@@ -1,7 +1,8 @@
 ﻿using HarmonyLib;
 using UnityEngine;
 using Object = UnityEngine.Object;
-
+using static LethalTubeRemoval.Config;
+//TODOl railing hitbox still active, make config to disabe magnet functionality independently from the object itself
 namespace LethalTubeRemoval.Patches;
 
 internal class OutsideShipPatch
@@ -37,6 +38,9 @@ internal class OutsideShipPatch
         var supportBeams2 = GameObject.Find("Environment/HangarShip/ShipSupportBeams.001");
 
         var weirdBox = GameObject.Find("Environment/HangarShip/Cube.004");
+        
+        //MAGNET STUFF
+        var exhaustRight = GameObject.Find("Environment/HangarShip/GiantCylinderMagnet");
 
 
         //Catwalk stuff
@@ -44,85 +48,168 @@ internal class OutsideShipPatch
         var catWalkRailLining1 = GameObject.Find("Environment/HangarShip/CatwalkRailLining");
         var catWalkRailLining2 = GameObject.Find("Environment/HangarShip/CatwalkRailLiningB");
         var catWalkSupports = GameObject.Find("Environment/HangarShip/CatwalkUnderneathSupports");
+        var catWalkRailCollision = GameObject.Find("Environment/HangarShip/Railing");
 
         var bigLadder = GameObject.Find("Environment/HangarShip/OutsideShipRoom/Ladder");
         var shortLadder1 = GameObject.Find("Environment/HangarShip/LadderShort");
         var shortLadder2 = GameObject.Find("Environment/HangarShip/LadderShort (1)");
         var catWalkHitbox = GameObject.Find("Environment/HangarShip/ClimbOntoCatwalkHelper");
 
-
-        if (Config.deleteFloodLight.Value) //checks config file for boolean value and if true deletes the item
-            Object.Destroy(floodLight);
-
-        if (Config.deleteMachinery.Value)
+        if (removalMode.Value == RemovalMode.Deletion)
         {
-            Object.Destroy(leftMachinery);
-            Object.Destroy(rightMachinery);
-            Object.Destroy(weirdBoxRight);
-            Object.Destroy(extraPipingLeft);
-        }
-        else if (Config.deleteLeftMachinery.Value)
-        {
-            Object.Destroy(leftMachinery);
-            Object.Destroy(extraPipingLeft);
-        }
+            if (Config.deleteFloodLight.Value) //checks config file for boolean value and if true deletes the item
+                Object.Destroy(floodLight);
 
-        if (Config.deleteOutsideTubing.Value)
-        {
-            Object.Destroy(rightTubing1);
-            Object.Destroy(rightTubing2);
-            Object.Destroy(backTubing1);
-            Object.Destroy(backTubing2);
-            Object.Destroy(exhaustLeft);
-        }
+            if (Config.deleteMachinery.Value)
+            {
+                Object.Destroy(leftMachinery);
+                Object.Destroy(rightMachinery);
+                Object.Destroy(weirdBoxRight);
+                Object.Destroy(extraPipingLeft);
+            }
+            else if (Config.deleteLeftMachinery.Value)
+            {
+                Object.Destroy(leftMachinery);
+                Object.Destroy(extraPipingLeft);
+            }
+
+            if (Config.deleteOutsideTubing.Value)
+            {
+                Object.Destroy(rightTubing1);
+                Object.Destroy(rightTubing2);
+                Object.Destroy(backTubing1);
+                Object.Destroy(backTubing2);
+                Object.Destroy(exhaustLeft);
+            }
 
 
-        if (Config.deleteThrusters.Value) //deletes all thrusters
-        {
-            Object.Destroy(backRightThruster);
-            Object.Destroy(frontRightThruster);
-            Object.Destroy(backLeftThruster);
-            Object.Destroy(frontLeftThruster);
-        }
-        else if
-            (Config.deleteThrusterTube
-             .Value) //if all thrusters have been chosen to be deleted, this will not run as it is redundant
-        {
-            Object.Destroy(backRightThruster);
-        }
+            if (Config.deleteThrusters.Value) //deletes all thrusters
+            {
+                Object.Destroy(backRightThruster);
+                Object.Destroy(frontRightThruster);
+                Object.Destroy(backLeftThruster);
+                Object.Destroy(frontLeftThruster);
+            }
+            else if
+                (Config.deleteThrusterTube
+                 .Value) //if all thrusters have been chosen to be deleted, this will not run as it is redundant
+            {
+                Object.Destroy(backRightThruster);
+            }
 
-        if (Config.deleteSupportBeams.Value)
-        {
-            Object.Destroy(supportBeams1);
-            Object.Destroy(supportBeams2);
-        }
-
-        if (Config.deleteWeirdBox.Value) Object.Destroy(weirdBox);
-
-        if (Config.parkourMode.Value)
-        {
-            if (!Config.deleteSupportBeams.Value)
+            if (Config.deleteSupportBeams.Value)
             {
                 Object.Destroy(supportBeams1);
                 Object.Destroy(supportBeams2);
             }
 
-            Object.Destroy(catWalk);
-            Object.Destroy(catWalkRailLining1);
-            Object.Destroy(catWalkRailLining2);
-            Object.Destroy(catWalkSupports);
-            Object.Destroy(catWalkHitbox);
-            Object.Destroy(railPosts);
-            Object.Destroy(rails);
-            bigLadder.SetActive(
-                false); //ladders prevent door from closing as well, found setting the item as inactive instead of destroying it preserves door function
-            shortLadder1.SetActive(false);
-            shortLadder2.SetActive(false);
+            if (Config.deleteWeirdBox.Value) Object.Destroy(weirdBox);
+
+            if (Config.parkourMode.Value)
+            {
+                if (!Config.deleteSupportBeams.Value)
+                {
+                    Object.Destroy(supportBeams1);
+                    Object.Destroy(supportBeams2);
+                }
+
+                Object.Destroy(catWalk);
+                Object.Destroy(catWalkRailLining1);
+                Object.Destroy(catWalkRailLining2);
+                Object.Destroy(catWalkSupports);
+                Object.Destroy(catWalkHitbox);
+                Object.Destroy(railPosts);
+                Object.Destroy(rails);
+                Object.Destroy(catWalkRailCollision);
+                bigLadder.SetActive(
+                    false); //ladders prevent door from closing as well, found setting the item as inactive instead of destroying it preserves door function
+                shortLadder1.SetActive(false);
+                shortLadder2.SetActive(false);
+            }
+            else if (Config.deleteRailing.Value)
+            {
+                Object.Destroy(railPosts);
+                Object.Destroy(rails);
+            }
         }
-        else if (Config.deleteRailing.Value)
+        else if (removalMode.Value == RemovalMode.Inactive)
         {
-            Object.Destroy(railPosts);
-            Object.Destroy(rails);
+            if (Config.deleteFloodLight.Value) //checks config file for boolean value and if true deletes the item
+                floodLight.gameObject.SetActive(false);
+
+            if (Config.deleteMachinery.Value)
+            {
+                leftMachinery.gameObject.SetActive(false);
+                rightMachinery.gameObject.SetActive(false);
+                weirdBoxRight.gameObject.SetActive(false);
+                extraPipingLeft.gameObject.SetActive(false);
+            }
+            else if (Config.deleteLeftMachinery.Value)
+            {
+                leftMachinery.gameObject.SetActive(false);
+                extraPipingLeft.gameObject.SetActive(false);
+            }
+
+            if (Config.deleteOutsideTubing.Value)
+            {
+                rightTubing1.gameObject.SetActive(false);
+                rightTubing2.gameObject.SetActive(false);
+                backTubing1.gameObject.SetActive(false);
+                backTubing2.gameObject.SetActive(false);
+                exhaustLeft.gameObject.SetActive(false);
+            }
+
+
+            if (Config.deleteThrusters.Value) //deletes all thrusters
+            {
+                backRightThruster.gameObject.SetActive(false);
+                frontRightThruster.gameObject.SetActive(false);
+                backLeftThruster.gameObject.SetActive(false);
+                frontLeftThruster.gameObject.SetActive(false);
+            }
+            else if
+                (Config.deleteThrusterTube
+                 .Value) //if all thrusters have been chosen to be deleted, this will not run as it is redundant
+            {
+                backRightThruster.gameObject.SetActive(false);
+            }
+
+            if (Config.deleteSupportBeams.Value)
+            {
+                supportBeams1.gameObject.SetActive(false);
+                supportBeams2.gameObject.SetActive(false);
+            }
+
+            if (Config.deleteWeirdBox.Value) weirdBox.gameObject.SetActive(false);
+
+            if (Config.parkourMode.Value)
+            {
+                if (!Config.deleteSupportBeams.Value)
+                {
+                    supportBeams1.gameObject.SetActive(false);
+                    supportBeams2.gameObject.SetActive(false);
+                }
+
+                bigLadder.SetActive(
+                    false); //ladders prevent door from closing as well, found setting the item as inactive instead of destroying it preserves door function
+                shortLadder1.SetActive(false);
+                shortLadder2.SetActive(false);
+
+                catWalk.gameObject.SetActive(false);
+                catWalkRailLining1.gameObject.SetActive(false);
+                catWalkRailLining2.gameObject.SetActive(false);
+                catWalkSupports.gameObject.SetActive(false);
+                catWalkHitbox.gameObject.SetActive(false);
+                railPosts.gameObject.SetActive(false);
+                rails.gameObject.SetActive(false);
+                catWalkRailCollision.gameObject.SetActive(false);
+            }
+            else if (Config.deleteRailing.Value)
+            {
+                railPosts.gameObject.SetActive(false);
+                rails.gameObject.SetActive(false);
+                catWalkRailCollision.gameObject.SetActive(false);
+            }
         }
     }
 }
