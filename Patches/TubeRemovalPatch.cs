@@ -64,6 +64,7 @@ internal class TubeRemovalPatch
         var mainDesk = GameObject.Find("Environment/HangarShip/ControlDesk");
         var rightDesk = GameObject.Find("Environment/HangarShip/ControlDesk.001");
         var controlPanel = GameObject.Find("Environment/HangarShip/ControlPanelWTexture");
+        
 
         if(deleteIndoorCam.Value == true) shipCamera.SetActive(false); 
 
@@ -400,120 +401,147 @@ internal class TubeRemovalPatch
             }
         }
 
-            if (deleteClipboard.Value)
-            {
-                clipboard.SetActive(false);
+        if (deleteClipboard.Value)
+        {
+            clipboard.SetActive(false);
 
-            }
+        }
 
-            if (deleteDoorGenerator.Value)
-            {
-                doorGenerator.GetComponent<MeshRenderer>().enabled = false;
-            }
+        if (deleteDoorGenerator.Value)
+        {
+            doorGenerator.GetComponent<MeshRenderer>().enabled = false;
+        }
 
-            if (deleteBoots.Value)
-            {
-                boots.GetComponent<MeshRenderer>().enabled = false;
-            }
+        if (deleteBoots.Value)
+        {
+            boots.GetComponent<MeshRenderer>().enabled = false;
+        }
 
-            if (deleteMask.Value)
-            {
-                mask.GetComponent<MeshRenderer>().enabled = false;
-            }
+        if (deleteMask.Value)
+        {
+            mask.GetComponent<MeshRenderer>().enabled = false;
+        }
 
-            if (deleteAirFilter.Value)
-            {
-                airFilter.GetComponent<MeshRenderer>().enabled = false;
-                airFilter.GetComponent<MeshCollider>().enabled = false;
-            }
+        if (deleteAirFilter.Value)
+        {
+            airFilter.GetComponent<MeshRenderer>().enabled = false;
+            airFilter.GetComponent<MeshCollider>().enabled = false;
+        }
 
-            if (deleteStickyNote.Value)
-            {
-                stickyNote.GetComponent<MeshRenderer>().enabled = false;
-                stickyNote.GetComponent<BoxCollider>().enabled = false;
-            }
+        if (deleteStickyNote.Value)
+        {
+            stickyNote.GetComponent<MeshRenderer>().enabled = false;
+            stickyNote.GetComponent<BoxCollider>().enabled = false;
+        }
 
-            if (deleteBatteries.Value)
-            {
-                battery.GetComponent<MeshRenderer>().enabled = false;
+        if (deleteBatteries.Value)
+        {
+            battery.GetComponent<MeshRenderer>().enabled = false;
 
-                battery1.GetComponent<MeshRenderer>().enabled = false;
+            battery1.GetComponent<MeshRenderer>().enabled = false;
 
-                battery2.GetComponent<MeshRenderer>().enabled = false;
+            battery2.GetComponent<MeshRenderer>().enabled = false;
 
-                batteryPack.GetComponent<MeshRenderer>().enabled = false;
-            }
+            batteryPack.GetComponent<MeshRenderer>().enabled = false;
+        }
 
-            if (deleteVent.Value)
-            {
-                vent.GetComponent<MeshRenderer>().enabled = false;
-            }
+        if (deleteVent.Value)
+        {
+            vent.GetComponent<MeshRenderer>().enabled = false;
+        }
 
-            if (deleteMonitorCords.Value)
-            {
-                monitorCords.GetComponent<MeshRenderer>().enabled = false;
-            }
+        if (deleteMonitorCords.Value)
+        {
+            monitorCords.GetComponent<MeshRenderer>().enabled = false;
+        }
 
-            if (deleteDoorSpeaker.Value)
-            {
-                doorSpeaker.GetComponent<MeshRenderer>().enabled = false;
-            }
+        if (deleteDoorSpeaker.Value)
+        {
+            doorSpeaker.GetComponent<MeshRenderer>().enabled = false;
+        }
 
-            if (deleteMainSpeaker.Value)
-            {
-                mainSpeaker.GetComponent<MeshRenderer>().enabled = false;
-            }
+        if (deleteMainSpeaker.Value)
+        {
+            mainSpeaker.GetComponent<MeshRenderer>().enabled = false;
+        }
 
-            if (deletePosters.Value)
-            {
-                posters.GetComponent<MeshRenderer>().enabled = false;
-            }
+        if (deletePosters.Value)
+        {
+            posters.GetComponent<MeshRenderer>().enabled = false;
+        }
 
-            if (deleteClothingRack.Value)
-            {
-                //suitParent.SetActive(false);
-                suitParent.GetComponent<InteractTrigger>().enabled = false;
-                suitParent.GetComponent<BoxCollider>().enabled = false;
+        if (deleteClothingRack.Value)
+        {
+            //suitParent.SetActive(false);
+            suitParent.GetComponent<InteractTrigger>().enabled = false;
+            suitParent.GetComponent<BoxCollider>().enabled = false;
 
-                clothingRack.GetComponent<MeshRenderer>().enabled = false;
+            clothingRack.GetComponent<MeshRenderer>().enabled = false;
 
-                suitHook.GetComponent<MeshRenderer>().enabled = false;
+            suitHook.GetComponent<MeshRenderer>().enabled = false;
 
-                suit.GetComponent<SkinnedMeshRenderer>().enabled = false;
-            }
+            suit.GetComponent<SkinnedMeshRenderer>().enabled = false;
+        }
 
-            if (deleteDoorTubes.Value)
-            {
-                doorTubes.GetComponent<MeshRenderer>().enabled = false;
-            }
+        if (deleteDoorTubes.Value)
+        {
+            doorTubes.GetComponent<MeshRenderer>().enabled = false;
+        }
 
-            if (deleteKeyboardCord.Value)
-            {
-                keyboardCord.GetComponent<MeshRenderer>().enabled = false;
-            }
+        if (deleteKeyboardCord.Value)
+        {
+            keyboardCord.GetComponent<MeshRenderer>().enabled = false;
+        }
 
-            if (lowLightMode.Value)
-            {
-                areaLight1.GetComponent<MeshRenderer>().enabled = false;
+        if (lowLightMode.Value)
+        {
+            areaLight1.GetComponent<MeshRenderer>().enabled = false;
 
-                areaLight2.GetComponent<MeshRenderer>().enabled = false;
+            areaLight2.GetComponent<MeshRenderer>().enabled = false;
 
-                areaLight3.GetComponent<MeshRenderer>().enabled = false;
+            areaLight3.GetComponent<MeshRenderer>().enabled = false;
 
-                hangingLamp1.GetComponent<MeshRenderer>().enabled = false;
+            hangingLamp1.GetComponent<MeshRenderer>().enabled = false;
 
-                hangingLamp3.GetComponent<MeshRenderer>().enabled = false;
-            }
+            hangingLamp3.GetComponent<MeshRenderer>().enabled = false;
+        }
 
-            if (deleteDoorMonitor.Value)
-            {
+        if (deleteDoorMonitor.Value)
+        {
             doorMonitor.GetComponent<MeshRenderer>().enabled = false;
-            }
+        }
         
     }
+    
+    
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(StartOfRound), "Start")]
+    public static void LeverCustomCoords()
+    {
+        //for custom ship lever coordinates
+        if (moveLever.Value)
+        {
+            //Ship Lever
+            var leverModel = GameObject.Find("Environment/HangarShip/HangarDoorLever");
+            var leverInteractable = GameObject.Find("Environment/HangarShip/StartGameLever");
+            
+            //Lever model and interactable should be the same coordinates so they act as one entity
+            var leverPos = new Vector3(xCordLever.Value, yCordLever.Value, zCordLever.Value);
+            var leverLocalRotation = new Vector3(xRotLever.Value, yRotLever.Value, zRotLever.Value);
 
-
-
+            leverModel.transform.localPosition = leverPos;
+            leverModel.transform.position = leverPos;
+            
+            //leverModel.transform.eulerAngles = leverLocalRotation;
+            leverInteractable.transform.localPosition = leverPos;
+            leverInteractable.transform.position = leverPos;
+            leverInteractable.transform.eulerAngles = leverLocalRotation;
+            
+            //Keeps ship lever from flying off when ship begins to move
+            leverModel.AddComponent<AutoParentToShip>();
+            leverInteractable.AddComponent<AutoParentToShip>();
+        }
+    }
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(StartOfRound), "Update")]
@@ -694,6 +722,18 @@ internal class TubeRemovalPatch
             var doorMonitor = GameObject.Find("Environment/HangarShip/ShipModels2b/MonitorWall/SingleScreen");
             doorMonitor.AddComponent<AutoParentToShip>();
         }
+
+        /*if (moveLever.Value)
+        {
+            var leverModel = GameObject.Find("Environment/HangarShip/HangarDoorLever");
+            var leverInteractable = GameObject.Find("Environment/HangarShip/StartGameLever");
+            
+            leverModel.AddComponent<AutoParentToShip>();
+            leverInteractable.AddComponent<AutoParentToShip>();
+        }*/
+        
+        
+        
     }
 
     [HarmonyPostfix]
