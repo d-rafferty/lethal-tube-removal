@@ -626,7 +626,7 @@ public class Config
         var leftMachineryToggle = new BoolCheckBoxConfigItem(deleteLeftMachinery, false);
         LethalConfigManager.AddConfigItem(leftMachineryToggle);
         
-        shipMagnet = cfg.Bind(
+        deleteMagnet = cfg.Bind(
             outside,
             "Giant Magnet",
             false,
