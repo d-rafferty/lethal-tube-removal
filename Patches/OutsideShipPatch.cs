@@ -2,7 +2,6 @@
 using UnityEngine;
 using Object = UnityEngine.Object;
 using static LethalTubeRemoval.Config;
-//TODOl railing hitbox still active, make config to disabe magnet functionality independently from the object itself
 namespace LethalTubeRemoval.Patches;
 
 internal class OutsideShipPatch
@@ -23,6 +22,7 @@ internal class OutsideShipPatch
         var exhaustLeft = GameObject.Find("Environment/HangarShip/NurbsPath.001");
         var weirdBoxRight = GameObject.Find("Environment/HangarShip/MeterBoxDevice.001");
         var extraPipingLeft = GameObject.Find("Environment/HangarShip/Pipework2.002");
+        var underbellyMachineParts = GameObject.Find("Environment/HangarShip/UnderbellyMachineParts");
 
 
         var railPosts = GameObject.Find("Environment/HangarShip/ShipRailPosts");
@@ -102,6 +102,7 @@ internal class OutsideShipPatch
             {
                 Object.Destroy(supportBeams1);
                 Object.Destroy(supportBeams2);
+                Object.Destroy(underbellyMachineParts);
             }
 
             if (Config.deleteWeirdBox.Value) Object.Destroy(weirdBox);
@@ -141,6 +142,7 @@ internal class OutsideShipPatch
         }
         else if (removalMode.Value == RemovalMode.Inactive)
         {
+            //Any options still being deleted, would not allow to be set inactive.
             if (Config.deleteMagnet.Value)
             {
                 shipMagnet.gameObject.SetActive(false);
@@ -148,19 +150,20 @@ internal class OutsideShipPatch
             }
             
             if (Config.deleteFloodLight.Value) //checks config file for boolean value and if true deletes the item
-                floodLight.gameObject.SetActive(false);
+                Object.Destroy(floodLight);
 
             if (Config.deleteMachinery.Value)
             {
-                leftMachinery.gameObject.SetActive(false);
-                rightMachinery.gameObject.SetActive(false);
-                weirdBoxRight.gameObject.SetActive(false);
+                Object.Destroy(leftMachinery);
+                Object.Destroy(rightMachinery);
+                Object.Destroy(weirdBoxRight);
                 extraPipingLeft.gameObject.SetActive(false);
             }
             else if (Config.deleteLeftMachinery.Value)
             {
-                leftMachinery.gameObject.SetActive(false);
+                Object.Destroy(leftMachinery);
                 extraPipingLeft.gameObject.SetActive(false);
+                
             }
 
             if (Config.deleteOutsideTubing.Value)
@@ -175,22 +178,23 @@ internal class OutsideShipPatch
 
             if (Config.deleteThrusters.Value) //deletes all thrusters
             {
-                backRightThruster.gameObject.SetActive(false);
-                frontRightThruster.gameObject.SetActive(false);
-                backLeftThruster.gameObject.SetActive(false);
-                frontLeftThruster.gameObject.SetActive(false);
+                Object.Destroy(backRightThruster);
+                Object.Destroy(frontRightThruster);
+                Object.Destroy(backLeftThruster);
+                Object.Destroy(frontLeftThruster);
             }
             else if
                 (Config.deleteThrusterTube
                  .Value) //if all thrusters have been chosen to be deleted, this will not run as it is redundant
             {
-                backRightThruster.gameObject.SetActive(false);
+                Object.Destroy(backRightThruster);
             }
 
             if (Config.deleteSupportBeams.Value)
             {
-                supportBeams1.gameObject.SetActive(false);
-                supportBeams2.gameObject.SetActive(false);
+                Object.Destroy(supportBeams1);
+                Object.Destroy(supportBeams2);
+                underbellyMachineParts.gameObject.SetActive(false);
             }
 
             if (Config.deleteWeirdBox.Value) weirdBox.gameObject.SetActive(false);
@@ -199,8 +203,8 @@ internal class OutsideShipPatch
             {
                 if (!Config.deleteSupportBeams.Value)
                 {
-                    supportBeams1.gameObject.SetActive(false);
-                    supportBeams2.gameObject.SetActive(false);
+                    Object.Destroy(supportBeams1);
+                    Object.Destroy(supportBeams2);
                 }
 
                 bigLadder.SetActive(
@@ -221,7 +225,7 @@ internal class OutsideShipPatch
             {
                 railPosts.gameObject.SetActive(false);
                 rails.gameObject.SetActive(false);
-                catWalkRailCollision.gameObject.SetActive(false);
+                Object.Destroy(catWalkRailCollision);
             }
         }
     }
