@@ -59,6 +59,11 @@ internal class TubeRemovalPatch
         var suitParent = GameObject.Find("ChangableSuit(Clone)");
         var suit = GameObject.Find("ChangableSuit(Clone)/SuitRenderer");
         var suitHook = GameObject.Find("ChangableSuit(Clone)/SuitHook");
+        
+        //Desk
+        var mainDesk = GameObject.Find("Environment/HangarShip/ControlDesk");
+        var rightDesk = GameObject.Find("Environment/HangarShip/ControlDesk.001");
+        var controlPanel = GameObject.Find("Environment/HangarShip/ControlPanelWTexture");
 
         if(deleteIndoorCam.Value == true) shipCamera.SetActive(false); 
 
@@ -70,6 +75,14 @@ internal class TubeRemovalPatch
         if (removalMode.Value == RemovalMode.Deletion)
         {
             //checks config file for boolean value and if true deletes the item
+            
+            if (deleteDesks.Value == true)
+            {
+                Object.Destroy(mainDesk);
+                Object.Destroy(rightDesk);
+            }
+
+            if (deleteControlPanel.Value == true) Object.Destroy(controlPanel);
 
             if (deleteTube.Value) Object.Destroy(tube);
 
@@ -157,6 +170,14 @@ internal class TubeRemovalPatch
         else if(removalMode.Value == RemovalMode.Inactive)
         {
             //checks config file for boolean value and if true deletes the item
+            
+            if (deleteDesks.Value)
+            {
+                mainDesk.SetActive(false);
+                rightDesk.SetActive(false);
+            } 
+        
+            if(deleteControlPanel.Value) controlPanel.SetActive(false);  
 
             if (deleteTube.Value)
             {
@@ -301,6 +322,15 @@ internal class TubeRemovalPatch
         }
         else
         {
+            if (deleteDesks.Value)
+            {
+                mainDesk.GetComponent<MeshRenderer>().enabled = false;
+                rightDesk.GetComponent<MeshRenderer>().enabled = false;
+            } 
+        
+            if(deleteControlPanel.Value) controlPanel.GetComponent<MeshRenderer>().enabled = false;
+            
+            
             if (deleteTube.Value)
             {
                 tube.GetComponent<MeshRenderer>().enabled = false;
