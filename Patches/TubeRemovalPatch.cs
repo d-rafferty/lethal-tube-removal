@@ -52,8 +52,12 @@ internal class TubeRemovalPatch
         var areaLight1 = GameObject.Find("Environment/HangarShip/ShipElectricLights/Area Light (3)");
         var areaLight2 = GameObject.Find("Environment/HangarShip/ShipElectricLights/Area Light (4)");
         var areaLight3 = GameObject.Find("Environment/HangarShip/ShipElectricLights/Area Light (5)");
+        var areaLight7 = GameObject.Find("Environment/HangarShip/ShipElectricLights/Area Light (7)");
+        var areaLight8 = GameObject.Find("Environment/HangarShip/ShipElectricLights/Area Light (8)");
+        var areaLight9 = GameObject.Find("Environment/HangarShip/ShipElectricLights/Area Light (9)");
         var hangingLamp1 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (2)");
-        var hangingLamp3 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (4)");
+        var hangingLamp3 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (3)");
+        var hangingLamp4 = GameObject.Find("Environment/HangarShip/ShipElectricLights/HangingLamp (4)");
 
         //Suit Renderer Paths
         var suitParent = GameObject.Find("ChangableSuit(Clone)");
@@ -157,8 +161,12 @@ internal class TubeRemovalPatch
                 Object.Destroy(areaLight1);
                 Object.Destroy(areaLight2);
                 Object.Destroy(areaLight3);
+                Object.Destroy(areaLight7);
+                Object.Destroy(areaLight8);
+                Object.Destroy(areaLight9);
                 Object.Destroy(hangingLamp1);
                 Object.Destroy(hangingLamp3);
+                Object.Destroy(hangingLamp4);
             }
 
             if (deleteDoorMonitor.Value)
@@ -304,15 +312,16 @@ internal class TubeRemovalPatch
 
             if (lowLightMode.Value)
             {
-                areaLight1.gameObject.SetActive(false);
-
-                areaLight2.gameObject.SetActive(false);
-
-                areaLight3.gameObject.SetActive(false);
-
-                hangingLamp1.gameObject.SetActive(false);
-
-                hangingLamp3.gameObject.SetActive(false);
+                //Only works with destroy
+                Object.Destroy(areaLight1);
+                Object.Destroy(areaLight2);
+                Object.Destroy(areaLight3);
+                Object.Destroy(areaLight7);
+                Object.Destroy(areaLight8);
+                Object.Destroy(areaLight9);
+                Object.Destroy(hangingLamp1);
+                Object.Destroy(hangingLamp3);
+                Object.Destroy(hangingLamp4);
             }
 
             if (deleteDoorMonitor.Value)
@@ -495,15 +504,16 @@ internal class TubeRemovalPatch
 
         if (lowLightMode.Value)
         {
-            areaLight1.GetComponent<MeshRenderer>().enabled = false;
-
-            areaLight2.GetComponent<MeshRenderer>().enabled = false;
-
-            areaLight3.GetComponent<MeshRenderer>().enabled = false;
-
-            hangingLamp1.GetComponent<MeshRenderer>().enabled = false;
-
-            hangingLamp3.GetComponent<MeshRenderer>().enabled = false;
+            //Only works with destroy
+            Object.Destroy(areaLight1);
+            Object.Destroy(areaLight2);
+            Object.Destroy(areaLight3);
+            Object.Destroy(areaLight7);
+            Object.Destroy(areaLight8);
+            Object.Destroy(areaLight9);
+            Object.Destroy(hangingLamp1);
+            Object.Destroy(hangingLamp3);
+            Object.Destroy(hangingLamp4);
         }
 
         if (deleteDoorMonitor.Value)
